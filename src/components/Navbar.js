@@ -1,32 +1,10 @@
 import React, { useState, useEffect , useCallback} from "react";
 import styled from "styled-components";
 import { Link } from "react-scroll";
-import './styles/cards.css';
+import '../components/styles/style.css';
 import config from '../config';
 // import FilterScreen from '../FilterScreen'
 // import {ReactComponent as LogoIcon}from "../assets/Logo.svg"
-const sampleData = [
-  {
-    name: "Home",
-    url: "Home",
-  },
-  {
-    name: "How it Works",
-    url: "Howitworks",
-  },
-  {
-    name: "Categories",
-    url: "Categories",
-  },
-  {
-    name: "Achievements",
-    url: "Achievements",
-  }
-  // {
-  //   name: "FilterPage",
-  //   url: "/FilterPage",
-  // },
-];
 
 const Navbar = ({navdata}) => {
   console.log(navdata)
@@ -44,9 +22,18 @@ const Navbar = ({navdata}) => {
     }
   },[nav]);
 
+  const fetchURL = config.drupal_url+'/HomeNav';
+  
+  const [HomeNav, setItems] = useState();
+
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
-  }, [handleScroll]);
+
+    const getItems = () => fetch(fetchURL).then(res => res.json());
+    getItems().then(data => setItems(data));
+  }, [handleScroll,fetchURL,setItems]);
+
+ 
  
   return (
     <Nav onScroll={handleScroll}>
@@ -64,7 +51,9 @@ const Navbar = ({navdata}) => {
 
           <LinkWrapper >
           {/* <Link to="/FilterPage" component={FilterScreen}>FilterPage</Link> */}
-            {sampleData.map((data, index) => (
+          {/* {console.log(HomeNav[0])}
+          {console.log(sampleData[0])} */}
+            {HomeNav && HomeNav.map((data, index) => (
               <Link id="menu" key={index} activeClass="active" to={data.url}
               spy={true}
               smooth={true}

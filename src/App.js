@@ -3,9 +3,9 @@ import {
   BrowserRouter as Router,
   Route,
 } from "react-router-dom";
-import HomeScreen  from './HomeScreen';
+import HomeScreen  from './Layouts/Home';
 import "./App.css";
-import FilterScreen from './FilterScreen'
+import FilterScreen from './Layouts/EmployeeSearch'
 import EmployeeDetails from "./components/EmployeeDetails"
 
 const App = () => {

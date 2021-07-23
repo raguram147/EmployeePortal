@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-// import  '../CSS/EmployeeDetails.css';
-import '../components/styles/EmployeeDetails.css';
+import '../components/styles/style.css';
 import config from '../config'
 
 export default class EmployeeDetails extends Component {
@@ -116,7 +115,7 @@ export default class EmployeeDetails extends Component {
                   <td>{ x.id}</td>
                 </tr>
                 </table>
-                <button className="Bttns"><a href={"http://localhost/lister/node/"+x.nid+"/edit"}>edit</a></button>
+                <button className="Bttns"><a href={config.drupal_url+"/node/"+x.nid+"/edit"}>edit</a></button>
                 </div>
               </div>)) 
             }

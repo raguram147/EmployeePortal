@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import '../components/styles/FilterPage.css';
+import '../components/styles/style.css';
 import config from '../config';
 // import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/core/Slider';
@@ -8,15 +8,14 @@ import Chip from '@material-ui/core/Chip';
 // import Rating from "@material-ui/lab/Rating";
 import {  TextField } from "@material-ui/core";
 import { event } from 'jquery';
-import emailIcon from "../assets/email-logo.png";
-import { SocialIcon } from "react-social-icons";
+import { EmployeeCard } from './EmployeeCard';
 
 /*
   state variables and api data: 20-68 lines
   onchange functions 70-164
   req Data initializations: 170-235
   filters (Dynamic checkboxes,slider,input) html: 240-400
-  filtering employees based on filter logic: 401-550
+  filtering employees based on filter logic
   displaying tags,emp cards,next/back buttons: 550-670
 */
 
@@ -34,13 +33,17 @@ export default class EmployeeView extends Component {
       name: '',
       skillsFilterShow:10,   //number of skill filters to be shown
       projectsFilterShow:10,   //number of projects filters to be shown
+      managersFilterShow:10,
+      podsFilterShow:10,
+      skillsExpanded: false,
+      projectsExpanded: false,
+      managersExpanded: false,
+      podsExpanded:false,
       checkedItemsSkills: new Map(),
       checkedItemsManager: new Map(),
       checkedItemsPod: new Map(),
       checkedItemsProjects: new Map(),
       ExperienceMinMax: [0, 25],
-      skillsExpanded: false,
-      projectsExpanded: false,
       filteredEmployee: [],
       currentPage :1,
       maxItemsPerPage:9,
@@ -51,6 +54,8 @@ export default class EmployeeView extends Component {
     this.CheckBoxhandleChange = this.CheckBoxhandleChange.bind(this);
     this.showMoreSkills = this.showMoreSkills.bind(this);
     this.showMoreProjects = this.showMoreProjects.bind(this);
+    this.showMoreManagers = this.showMoreManagers.bind(this);
+    this.showMorePods = this.showMorePods.bind(this);
   }
   //fetching data from api
   componentDidMount() {
@@ -124,6 +129,24 @@ export default class EmployeeView extends Component {
     )
   }
 
+   //show more filter filter option this.state.managersExpanded
+   showMoreManagers(){
+    this.state.managersFilterShow === 10 ? (
+      this.setState({ managersFilterShow: this.state.MangersApi.length, managersExpanded: true })
+    ) : (
+      this.setState({ managersFilterShow: 10, managersExpanded: false })
+    )
+  }
+
+  //show more filter filter option this.state.managersExpanded
+  showMorePods() {
+    this.state.podsFilterShow === 10 ? (
+      this.setState({ podsFilterShow: this.state.PodsApi.length, podsExpanded: true })
+    ) : (
+      this.setState({ podsFilterShow: 10, podsExpanded: false })
+    )
+  }
+
   //next or back to view other emp cards if exists
   changePage(direction) {
     console.log(direction);
@@ -138,57 +161,12 @@ export default class EmployeeView extends Component {
     }
   }
 
-  //if u click cancel on the selected tags the checkboxes should be unchecked auto
-  handleDelete = (chipToDelete) => () => {
-    console.log(chipToDelete);
-
-    let nam = chipToDelete.filterField;
-    var isChecked = false;
-    var item = chipToDelete.value;;
-    console.log(nam);
-    console.log(isChecked);
-    if(nam === 'skill'){
-      this.setState(prevState => ({ checkedItemsSkills: prevState.checkedItemsSkills.set(item, isChecked) }));
-      document.getElementById(item).checked = false;
-      console.log(event.target);
-    }
-    else if(nam === 'manager'){
-      this.setState(prevState => ({ checkedItemsManager: prevState.checkedItemsManager.set(item, isChecked) }));
-      document.getElementById(item).checked = false;
-    }
-    else if(nam === 'pod'){
-      this.setState(prevState => ({ checkedItemsPod: prevState.checkedItemsPod.set(item, isChecked) }));
-      document.getElementById(item).checked = false;
-    }
-    else if(nam === 'project'){
-      this.setState(prevState => ({ checkedItemsProjects: prevState.checkedItemsProjects.set(item, isChecked) }));
-      document.getElementById(item).checked = false;
-    }
-  };
-
-
-  render() {
-    //initialisig the state variables for manipulations 
-    let Employees = this.state.Employees;
-    // let experienceMin, experienceMax;
-    let expMinReq = this.state.ExperienceMinMax[0];
-    let expMaxReq = this.state.ExperienceMinMax[1];
-    let nameReq = this.state.name;
+  AllCheckedItems(){
     let skillsChecked = this.state.checkedItemsSkills;
     let ManagersChecked = this.state.checkedItemsManager;
     let podsChecked = this.state.checkedItemsPod;
     let projectsChecked = this.state.checkedItemsProjects;
-    let skillsFilterShowCust =this.state.skillsFilterShow;
-    let checkedItemsTagList = this.state.checkedItemsTag;
-    checkedItemsTagList=[];
-    this.state.filteredEmployee = [];
-    console.log((this.state.checkedItemsSkills));
-    console.log((ManagersChecked));
-    console.log((projectsChecked));
-    console.log((podsChecked));
-    console.log((this.state.skillsApi));
-    console.log(checkedItemsTagList);
-
+    let checkedItemsTagList=[];
     //storing all the checked items in array to display as tags
     if(skillsChecked.size >0 || ManagersChecked.size >0  ||  podsChecked.size >0  || projectsChecked.size>0){
       const iteratorS1 = skillsChecked.keys();
@@ -235,6 +213,222 @@ export default class EmployeeView extends Component {
       console.log(checkedItemsTagList.length);
       console.log(checkedItemsTagList);
   }
+  return checkedItemsTagList;
+
+  }
+
+  //if u click cancel on the selected tags the checkboxes should be unchecked auto
+  handleDelete = (chipToDelete) => () => {
+    console.log(chipToDelete);
+
+    let nam = chipToDelete.filterField;
+    var isChecked = false;
+    var item = chipToDelete.value;;
+    console.log(nam);
+    console.log(isChecked);
+    if(nam === 'skill'){
+      this.setState(prevState => ({ checkedItemsSkills: prevState.checkedItemsSkills.set(item, isChecked) }));
+      document.getElementById(item).checked = false;
+      console.log(event.target);
+    }
+    else if(nam === 'manager'){
+      this.setState(prevState => ({ checkedItemsManager: prevState.checkedItemsManager.set(item, isChecked) }));
+      document.getElementById(item).checked = false;
+    }
+    else if(nam === 'pod'){
+      this.setState(prevState => ({ checkedItemsPod: prevState.checkedItemsPod.set(item, isChecked) }));
+      document.getElementById(item).checked = false;
+    }
+    else if(nam === 'project'){
+      this.setState(prevState => ({ checkedItemsProjects: prevState.checkedItemsProjects.set(item, isChecked) }));
+      document.getElementById(item).checked = false;
+    }
+  };
+
+  //checking the empdetails matches
+  //experience match employee's
+  CheckExperience(employeeExperience,expMinReq, expMaxReq){
+     //experience checking: whether the emp has meet the req experience of customer
+    if ((((parseInt(employeeExperience)) >= expMinReq) && (parseInt(employeeExperience) <= expMaxReq))) {
+      return true;
+    }
+    return false;
+  }
+
+    //name checking: whether the emp has matched the name
+  checkNameId(empName,empId,NameIdReq){
+    if (NameIdReq) {
+      if (((empName.toLowerCase()).includes(NameIdReq.toLowerCase())) || empId.includes(NameIdReq)) {
+       return true;
+        //   console.log("nameMatch"+x.name+" "+nameReq);
+      } else {
+        return false;
+      }
+    } else {
+      return true;     //if customer not typed anything
+    }
+
+  }
+
+  //checking skills match
+  checkSkillsMatch(skillsChecked,empPrimarySkills,empSecondarySkills){
+    if (skillsChecked.size > 0) {  //atleast one skill is checked
+      const iterator1 = skillsChecked.keys();
+      const iterator2 = skillsChecked.values();
+      for (let i = 0; i < skillsChecked.size; i++) {  //checking all the checked skills the emp has or not
+        let selectedSkill = iterator2.next().value;
+        let skillName = iterator1.next().value;
+        if (selectedSkill) {
+          if ( !(((empPrimarySkills.toLowerCase()).includes(skillName)) || ((empSecondarySkills.toLowerCase()).includes(skillName))) ) {
+            return false;  //if one is not in the profile then return false
+          }
+        }
+      }
+      return true;
+    } else {
+      return true;
+    }
+  }
+
+  //managers Match checking
+  checkManagerMatch(ManagersChecked,EmpManager){
+    let managerMatch = false;
+    if (ManagersChecked.size > 0) {
+      const iterator1 = ManagersChecked.keys();
+      const iterator2 = ManagersChecked.values();
+      let oneManagerAtleastChecked = false;
+      for (let i = 0; i < ManagersChecked.size; i++) {
+          let selectedManger = iterator2.next().value;
+           let selectedMangerName = iterator1.next().value;
+        if (selectedManger && !managerMatch) {  //check whether the checkbox is still selected and manager is matched in previous loop
+          oneManagerAtleastChecked = true;
+          if (((EmpManager.toLowerCase()).includes(selectedMangerName))) {
+            managerMatch = true;
+            console.log("true inside loop");
+          } else {
+            managerMatch = false;
+          }
+
+        } else if ((!oneManagerAtleastChecked) && (i === ManagersChecked.size - 1)) {  //if all the previous checked managers are unchecked
+          managerMatch = true;
+        }
+      }
+      if(managerMatch)
+        return true;
+      else
+        return false;
+    } else {
+      return true;
+    }
+  }
+
+  //check pods Match
+  checkPodsMatch(podsChecked,empPod){
+    let podsMatch = false;
+     if (podsChecked.size > 0) {
+      const iterator1 = podsChecked.keys();
+      const iterator2 = podsChecked.values();
+      let onePodAtleastChecked = false;
+      for (let i = 0; i < podsChecked.size; i++) {
+          let selectedPod = iterator2.next().value;
+        let selectedPodName = iterator1.next().value;
+
+        if (selectedPod && !podsMatch) { //check whether the checkbox is still selected and pod is matched in previous loop
+          onePodAtleastChecked = true;
+          if (((empPod.toLowerCase()).includes(selectedPodName))) {
+
+            podsMatch = true;
+            console.log("true inside loop");
+          } else {
+            podsMatch = false;
+          }
+
+        } else if ((!onePodAtleastChecked) && (i === podsChecked.size - 1)) { //if all the previous checked pods are unchecked
+          podsMatch = true;
+        }
+      }
+       if (podsMatch){
+        return true;
+       }  
+       else{
+        return false;
+       }  
+    } else {
+      return true;
+    }
+  }
+
+ //projects match
+  checkProjectMatch(projectsChecked,empProject){
+    let projectsMatch = false;
+    if (projectsChecked.size > 0) {
+      const iterator1 = projectsChecked.keys();
+      const iterator2 = projectsChecked.values();
+      let oneProjectAtleastChecked = false;
+      for (let i = 0; i < projectsChecked.size; i++) {
+          let selectedProject = iterator2.next().value;
+          let selectedProjectName = iterator1.next().value;
+        if (selectedProject && !projectsMatch) { //check whether the checkbox is still selected and project is matched in previous loop
+          oneProjectAtleastChecked = true;
+          if (((empProject.toLowerCase()).includes(selectedProjectName))) {
+            projectsMatch = true;
+            // console.log("true inside loop");
+          } else {
+            projectsMatch = false;
+          }
+
+        } else if ((!oneProjectAtleastChecked) && (i === projectsChecked.size - 1)) { //if all the previous checked projects are unchecked
+          projectsMatch = true;   
+        } 
+      }
+      if (projectsMatch){
+        return true;
+       }  
+       else{
+        return false;
+       }
+    } else {
+      return true;
+    }
+  }
+
+  filteringTheEmp(){
+    let Employees = this.state.Employees;
+    let expMinReq = this.state.ExperienceMinMax[0];
+    let expMaxReq = this.state.ExperienceMinMax[1];
+    let nameReq = this.state.name;
+    let skillsChecked = this.state.checkedItemsSkills;
+    let ManagersChecked = this.state.checkedItemsManager;
+    let podsChecked = this.state.checkedItemsPod;
+    let projectsChecked = this.state.checkedItemsProjects;
+    let filteredEmployee= [];
+    Employees.map(x => (
+      <>{((() => {
+        if (this.CheckExperience(x.Experience, expMinReq, expMaxReq) 
+          && this.checkNameId(x.name, x.Emp_id, nameReq)
+          && this.checkPodsMatch(podsChecked, x.Pod)
+          && this.checkProjectMatch(projectsChecked, x.current_working_project) 
+          && this.checkSkillsMatch(skillsChecked, x.primary_skills, x.secndary_skills) 
+          && this.checkManagerMatch(ManagersChecked, x.Manager) 
+          ) {
+          filteredEmployee.push(x);
+        }
+      })())}
+      </>
+    ))
+    return filteredEmployee;
+  }
+
+
+  render() {
+    //initialisig the state variables for manipulations 
+    let skillsFilterShowCust =this.state.skillsFilterShow;
+    let podsFilterShowCust =this.state.podsFilterShow;
+    let managersFilterShowCust =this.state.managersFilterShow;
+    let projectsFilterShowCust =this.state.projectsFilterShow;
+    let filteredEmployee = this.filteringTheEmp();
+    let checkedItemsTagList = this.AllCheckedItems();  //getting all the checked items and storing to make tags
+    console.log(checkedItemsTagList);
 
     return (
       <>
@@ -242,7 +436,6 @@ export default class EmployeeView extends Component {
         {/* different types of filters  */}
         <div className="reqForm">
           <form >
-            {/* <p className="filterName">Enter name or Id:</p> */}
             {/* name or id input filed*/}
               <TextField
                 id="outlined-basic"
@@ -315,7 +508,7 @@ export default class EmployeeView extends Component {
             <form >
               <table className="CheckboxesTable">
                 {
-                  this.state.MangersApi.map(item => (
+                  this.state.MangersApi.slice(0, managersFilterShowCust).map(item => (
                     <tr>
                       <td>
                         <label>
@@ -332,6 +525,16 @@ export default class EmployeeView extends Component {
                     </tr>
                   ))
                 }
+                  {(this.state.MangersApi.length > 10)? 
+                  <p className="showMore"
+                    onClick={this.showMoreManagers}>
+                    {this.state.managersExpanded ? (
+                      <span>show less</span>
+                    ) : (
+                      <span>show more</span>
+                    )}
+                  </p> 
+                :console.log("less managers")}
               </table>
             </form>
 
@@ -340,7 +543,7 @@ export default class EmployeeView extends Component {
             <form >
               <table className="CheckboxesTable">
                 {
-                  this.state.PodsApi.map(item => (
+                  this.state.PodsApi.slice(0, podsFilterShowCust).map(item => (
                     <tr>
                       <td>
                         <label>
@@ -355,8 +558,18 @@ export default class EmployeeView extends Component {
                       </td>
                     </tr>
                   ))
-                }
-    
+                  }
+                  {(this.state.PodsApi.length > 10) ?
+                    <p className="showMore"
+                      onClick={this.showMorePods}>
+                      {this.state.podsExpanded ? (
+                        <span>show less</span>
+                      ) : (
+                        <span>show more</span>
+                      )}
+                    </p>
+                    : console.log("less pods")
+                  }
               </table>
             </form>
 
@@ -365,7 +578,7 @@ export default class EmployeeView extends Component {
             <form >
               <table className="CheckboxesTable">
                 {
-                  this.state.projectsApi.map(item => (
+                  this.state.projectsApi.slice(0, projectsFilterShowCust).map(item => (
                     <tr>
                       <td>
                         <label>
@@ -398,168 +611,10 @@ export default class EmployeeView extends Component {
           </form>
         </div>
 
-    {/* checking the req conditions for emp */}
-          {Employees.map(x => (
-            <>
-              {(
-                (() => {
-                  var experienceMatch = false;
-                  var primarySkillsMatch = false;
-                  var projectsMatch = false;
-                  var nameMatch = false;
-                  var podsMatch = false;
-                  var managerMatch = false;
-                  //experience checking: whether the emp has meet the req experience of customer
-                  if ((((parseInt(x.Experience)) >= expMinReq) && (parseInt(x.Experience) <= expMaxReq))) {
-                    experienceMatch = true;
-                  }
-
-                  //name checking: whether the emp has matched the name
-                  if (nameReq) {
-                    if (((x.name.toLowerCase()).includes(nameReq.toLowerCase())) || x.Emp_id.includes(nameReq)) {
-                      nameMatch = true;
-                      //   console.log("nameMatch"+x.name+" "+nameReq);
-                    } else {
-                      return <></>
-                    }
-                  } else {
-                    nameMatch = true;     //if customer not typed anything
-                  }
-
-                  // skills checking: whether the emp has req  skills
-
-                  if (skillsChecked.size > 0) {
-                    const iterator1 = skillsChecked.keys();
-                    const iterator2 = skillsChecked.values();
-                    for (let i = 0; i < skillsChecked.size; i++) {
-                      let selectedSkill = iterator2.next().value;
-                      let ps = iterator1.next().value;
-                      if (selectedSkill) {
-                        if (((x.primary_skills.toLowerCase()).includes(ps)) || ((x.secndary_skills.toLowerCase()).includes(ps))) {
-
-                          primarySkillsMatch = true;
-                          // console.log("true");
-                        } else {
-                          // console.log("false");
-                          return (<></>);
-                        }
-
-                      } else {
-                        primarySkillsMatch = true;
-                       
-                      }
-                    }
-                  } else {
-                    primarySkillsMatch = true;
-                  }
-
-                  //managers Match
-                  if (ManagersChecked.size > 0) {
-                    const iterator1 = ManagersChecked.keys();
-                    const iterator2 = ManagersChecked.values();
-                    let oneManagerAtleastChecked = false;
-                    for (let i = 0; i < ManagersChecked.size; i++) {
-                        let selectedManger = iterator2.next().value;
-                         let ps = iterator1.next().value;
-                      if (selectedManger && !managerMatch) {  //check whether the checkbox is still selected and manager is matched in previous loop
-                        oneManagerAtleastChecked = true;
-                        if (((x.Manager.toLowerCase()).includes(ps))) {
-                          managerMatch = true;
-                          console.log("true inside loop");
-                        } else {
-                          managerMatch = false;
-                        }
-
-                      } else if ((!oneManagerAtleastChecked) && (i === ManagersChecked.size - 1)) {
-                        managerMatch = true;
-                      }
-                    }
-                  } else {
-                    managerMatch = true;
-                  }
-                  // console.log(managerMatch);
-
-
-                  //pods Match
-                  if (podsChecked.size > 0) {
-                    const iterator1 = podsChecked.keys();
-                    const iterator2 = podsChecked.values();
-                    let onePodAtleastChecked = false;
-                    for (let i = 0; i < podsChecked.size; i++) {
-                        let selectedPod = iterator2.next().value;
-                      let ps = iterator1.next().value;
-
-                      if (selectedPod && !podsMatch) {
-                        onePodAtleastChecked = true;
-                        // let ps = iterator1.next().value;
-                        console.log(ps);
-                        console.log(x.Pod.toLowerCase());
-
-                        if (((x.Pod.toLowerCase()).includes(ps))) {
-
-                          podsMatch = true;
-                          console.log("true inside loop");
-                        } else {
-                          podsMatch = false;
-                        }
-
-                      } else if ((!onePodAtleastChecked) && (i === podsChecked.size - 1)) {
-                        podsMatch = true;
-                      }
-                    }
-                  } else {
-                    podsMatch = true;
-                  }
-                  // console.log(podsMatch);
-
-
-                  //projects match
-                  if (projectsChecked.size > 0) {
-                    const iterator1 = projectsChecked.keys();
-                    const iterator2 = projectsChecked.values();
-                    let oneProjectAtleastChecked = false;
-                    for (let i = 0; i < projectsChecked.size; i++) {
-                        let selectedProject = iterator2.next().value;
-                        let ps = iterator1.next().value;
-                      if (selectedProject && !projectsMatch) {
-                        oneProjectAtleastChecked = true;
-                        console.log(ps);
-                        console.log(x.current_working_project.toLowerCase());
-
-                        if (((x.current_working_project.toLowerCase()).includes(ps))) {
-
-                          projectsMatch = true;
-                          console.log("true inside loop");
-                        } else {
-                          projectsMatch = false;
-                        }
-
-                      } else if ((!oneProjectAtleastChecked) && (i === projectsChecked.size - 1)) {
-                        projectsMatch = true;   
-                      } 
-                    }
-                  } else {
-                    projectsMatch = true;
-                  }
-                  // console.log(projectsMatch);
-
-
-
-
-                  if (experienceMatch && nameMatch && primarySkillsMatch && managerMatch && podsMatch && projectsMatch) {
-                    this.state.filteredEmployee.push(x);
-                  }
-                })()
-              )}
-            </>
-          ))
-          }
-    
-
         {/* //displaying */}
         <div className="Employees">
 {/* selected filters as tags */}
-          {console.log(this.state.checkedItemsTag)}
+          {/* {console.log(this.state.checkedItemsTag)} */}
           <div className="selectedTags">   
           {checkedItemsTagList.map(x => ( 
             <>
@@ -584,7 +639,7 @@ export default class EmployeeView extends Component {
           }
           </div>
 
-          {this.state.filteredEmployee.length>0 ? console.log(this.state.filteredEmployee.length):
+          {filteredEmployee.length>0 ? console.log(filteredEmployee.length):
           <>
           {(
           (()=>{
@@ -598,58 +653,13 @@ export default class EmployeeView extends Component {
           }
 
           {/* Filtered Employees displaying */}
-          {this.state.filteredEmployee.slice((this.state.currentPage * this.state.maxItemsPerPage) - this.state.maxItemsPerPage, this.state.currentPage * this.state.maxItemsPerPage).map(employee => (
+          {filteredEmployee.slice((this.state.currentPage * this.state.maxItemsPerPage) - this.state.maxItemsPerPage, this.state.currentPage * this.state.maxItemsPerPage).map(employee => (
             <>
               {(
                 (() => {
                     return (
-                      (
-                         
-                        <div className="Employee-details">
-                          <header>
-                            <div className="avatar">
-                              <img
-                                src={`${config.drupal_url}/${employee.Profile_photo}`}
-                                height="200"
-                                alt="profilephoto"
-                                className="profilephoto"
-                              ></img>
-                            </div>
-                          </header>
-                          {/* {employee.name} */}
-                          <div className="Employee-description">
-                            <p className="Name" style={{ marginBottom: "1rem" }}>
-                              {employee.name}
-                            </p>
-                            {/* <p>{ employee.Emp_id }</p> */}
-                            <p>{employee.role}</p>
-                            <div className="Manager-email">
-                            <p
-                              style={{
-                                textAlign: "left",
-                                fontSize: "0.7rem",
-                                marginBottom: "5px",
-                              }}
-                            >
-                              Manager: {employee.Manager}
-                            </p>
-                             <a href={"mailto:" + employee.email}><img style={{borderRadius:"50%", textAlign: "right",height: "22px", marginRight:"14px" }} alt= "email-icon" src={emailIcon}></img></a>
-                           
-                            </div>
-                            <div className="exp-linkedin">
-                            <p style={{ textAlign: "left", fontSize: "0.7rem" }}>
-                              Experience: {employee.Experience} years
-                            </p>
-                            <SocialIcon url={employee.linkedin_profile} bgColor="#282936" style={{borderRadius:"50%", textAlign: "right", fontSize: "0.7rem",height: "22px"  }} ></SocialIcon>
-                            </div>
-                            <button class="button">
-                              <span>
-                                <a href={"/EmployeeDetails/" + employee.Emp_id}>View Profile</a>{" "}
-                              </span>
-                            </button>
-                          </div>
-                      </div>
-                      
+                      ( 
+                      <EmployeeCard employee = {employee}></EmployeeCard>
                       )
                     )
                 })()
@@ -665,7 +675,7 @@ export default class EmployeeView extends Component {
       {this.state.currentPage > 1 ?
        <button className="nextBackBttn" onClick={() => this.changePage('back')}>&laquo; Back</button>
       : null}
-      {this.state.filteredEmployee.length  > this.state.currentPage * this.state.maxItemsPerPage ?
+      {filteredEmployee.length  > this.state.currentPage * this.state.maxItemsPerPage ?
        <button className="nextBackBttn" onClick={() => this.changePage('next')}>Next &raquo;</button>
       : null}
      </div>

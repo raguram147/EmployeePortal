@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Wheel from "./Wheel";
 import Skills from "./Skills";
-import classes from "./styles/Projects.module.css";
 import he from "he";
 import { Carousel } from 'react-bootstrap';
 import config from '../config';
@@ -55,13 +54,18 @@ const Heading = styled.h1`
 
 const Row = styled.div`
   text-align: left;
-  justify-between: space-evenly;
+  justify-between: space-between;
   display: flex;
   align-items: center;
-  max-width: 1100px;
+  width:85%;
+  max-width: 100%;
   padding: 30px;
-  margin-left: 40px;
+  margin:0 40px 0 0;
   @media screen and (max-width: 670) {
+    width: 100%;
+  }
+  @media screen and (min-width: 1100) {
+    max-width: 100%;
     width: 100%;
   }
 `;
@@ -69,22 +73,18 @@ const fetchURL = config.drupal_url+'/Taxonomy/Projects';
 const fetchSkill= config.drupal_url+'/Taxonomy/Skills';
 
 const Projects = ({ project }) => {
+  let count = 1;
   const [projectData, setProjectData] = useState([]);
   const [skillData, setSkillData] = useState([]);
   useEffect(() => {
     const fetchFuntion = async () => {
       let data,data1
-      // if(document.getElementById('projects'))
-      // {  data = await fetch(fetchURL);}
-      // else{ data= await fetch(fetchSkill);}
       data = await fetch(fetchURL);
       data1= await fetch(fetchSkill);
-      // if (data.ok) {
         let res = await data.json();
         setProjectData(res);
          res = await data1.json();
         setSkillData(res);
-      // }
     };
     fetchFuntion();
   }, []);
@@ -120,63 +120,23 @@ const Projects = ({ project }) => {
         </Row>
       </Container>
       <div id="Acheivements">
-        <h2 className={classes.Achievements_title}> Achievements </h2>
-        <Carousel fade className={classes.Achievements}>
+        <h2 className="Achievements_title"> Achievements </h2>
+
+
+        <Carousel fade className="Achievements">
+        {project && project[1].Achievements.split(".....").map((x, index) => (
           <Carousel.Item>
             ​​​​​​​​
-            <div className={classes.Achievement_text}>
-              Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean
-              commodo ligula eget dolor. Aenean massa. Cum sociis natoque
-              penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-              Donec quam felis, ultricies nec, pellentesque eu, pretium quis,
-              sem. Nulla consequat massa quis enim. Donec pede justo, fringilla
-              vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut,
-              imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede
-              mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum
-              semper nisi. Aenean vulputate eleifend tellus
+            <div className="Achievement_text">
+                {x}
             </div>
             <Carousel.Caption>
-              <h3>Achievement 1</h3>
+              <h3>Achievement {count++}</h3>
               <p>Team description</p>
             </Carousel.Caption>
           </Carousel.Item>
-          <Carousel.Item>
-            <div className={classes.Achievement_text}>
-              Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean
-              commodo ligula eget dolor. Aenean massa. Cum sociis natoque
-              penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-              Donec quam felis, ultricies nec, pellentesque eu, pretium quis,
-              sem. Nulla consequat massa quis enim. Donec pede justo, fringilla
-              vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut,
-              imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede
-              mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum
-              semper nisi. Aenean vulputate eleifend tellus
-            </div>
-
-            <Carousel.Caption>
-              <h3>Achievement 2</h3>
-              <p>Team description</p>
-            </Carousel.Caption>
-          </Carousel.Item>
-          <Carousel.Item>
-            <div className={classes.Achievement_text}>
-              Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean
-              commodo ligula eget dolor. Aenean massa. Cum sociis natoque
-              penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-              Donec quam felis, ultricies nec, pellentesque eu, pretium quis,
-              sem. Nulla consequat massa quis enim. Donec pede justo, fringilla
-              vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut,
-              imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede
-              mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum
-              semper nisi. Aenean vulputate eleifend tellus
-            </div>
-
-            <Carousel.Caption>
-              <h3>Achievement 3</h3>
-              <p>Team description</p>
-            </Carousel.Caption>
-          </Carousel.Item>
-        </Carousel>
+              ))}
+         </Carousel>
       </div>
     </>
   );

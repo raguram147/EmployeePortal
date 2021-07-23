@@ -1,11 +1,17 @@
 import React, { useState  , useEffect} from "react";
-import classes from "./styles/Projects.module.css";
-import './styles/cards.css';
 import Target_icon from '../assets/target_icon.png';
 import invisble from '../assets/invisible.png';
 import config from '../config';
 
 // const fetchURL = "http://localhost/lister/Taxonomy/Skills";
+const CustomSkillLogo = (skillName) =>{
+  let count =  skillName.split(" ").length;
+  if(count ===1){
+   return skillName.charAt(0)+skillName.charAt(-1);
+  }else{
+   return (skillName.split(" ")[0].charAt(0)+skillName.split(" ")[1].charAt(0)).toUpperCase();
+  }
+ }
 
 const TargetIconMovement = () =>{
 
@@ -63,28 +69,40 @@ const Skills = ({skill}) => {
 
   return (
     <>
-    <div className={classes.wheels} id="skills"></div>
+    <div className="wheels" id="skills"></div>
     <img src={invisble} alt="active card" id="target_iconS4" ></img>
-    <a href="/FilterPage" className={classes.btn_s}>Skills</a>
-    { dummy[0] &&<> <div className={classes.cards} id="skill1">
-        {dummy[0].name &&<img src={ `${config.drupal_url}/${dummy[0].skill_image}` } className={classes.skillImage}  id="Skill1Img" alt={dummy[0].name} ></img>}
-        
+    <a href="/FilterPage" className="btn_s">Skills</a>
+    { dummy[0] &&<> <div className="cards" id="skill1">
+        {dummy[0].skill_image ? <img src={ `${config.drupal_url}/${dummy[0].skill_image}` } className="skillImage" id="Skill1Img" alt={dummy[0].name} ></img> :
+      <p className="ProjectCustomLogo">{CustomSkillLogo(dummy[0].name)}</p>
+      }    
       </div>
-      <div className={classes.cards} id="skill2" >
-      <img src={Target_icon}  id="target_iconS1" className={classes.target_icon} alt='Target icon'></img>
-        {dummy[1].name &&<img src={ `${config.drupal_url}/${dummy[1].skill_image}` } className={classes.skillImage} id="Skill2Img" alt={dummy[1].name}></img>}
+      <div className="cards" id="skill2" >
+      <img src={Target_icon}  id="target_iconS1" className="target_icon" alt='Target icon'></img>
+        {dummy[1].skill_image ? <img src={ `${config.drupal_url}/${dummy[1].skill_image}` } className="skillImage" id="Skill2Img" alt={dummy[1].name} ></img> :
+      <p className="ProjectCustomLogo">{CustomSkillLogo(dummy[1].name)}</p>
+      }
       </div>
       
-      <div className={classes.cards} id="skill3">
-      <img src={invisble} alt="active card" id="target_iconS2" className={classes.target_icon}></img>
-        {dummy[2].name &&<img src={ `${config.drupal_url}/${dummy[2].skill_image}` } className={classes.skillImage}  id="Skill3Img" alt={dummy[2].name}></img>}
+      <div className="cards" id="skill3">
+      <img src={invisble} alt="active card" id="target_iconS2" className="target_icon"></img>
+      {dummy[2].skill_image ? <img src={ `${config.drupal_url}/${dummy[2].skill_image}` } className="skillImage" id="Skill3Img" alt={dummy[2].name} ></img> :
+      <p className="ProjectCustomLogo">{CustomSkillLogo(dummy[2].name)}</p>
+      }
       </div>
-      <div className={classes.cards} id="skill4">
-      <img src={invisble} alt="active card" id="target_iconS3" className={classes.target_icon}></img>
-        {dummy[3].name &&<img src={ `${config.drupal_url}/${dummy[3].skill_image}` } className={classes.skillImage} id="Skill4Img" alt={dummy[3].name}></img>}
-      </div></>}
+      <div className="cards" id="skill4">
+      <img src={invisble} alt="active card" id="target_iconS3" className="target_icon"></img>
+      {dummy[3].skill_image ? <img src={ `${config.drupal_url}/${dummy[3].skill_image}` } className="skillImage" id="Skill4Img"  alt={dummy[3].name} ></img> :
+      <p className="ProjectCustomLogo">{CustomSkillLogo(dummy[3].name)}</p>
+      }
+      </div>
+      </>}
      
-      {/* <p id="c_title4">{dummy[3].name}</p> */}
+     
+      {/* <p id="c_title4">{dummy[3].name}</p>
+      dummy[3].project_logo ? <img src={ `${config.drupal_url}/${dummy[3].project_logo}` } className="ProjectImage"   alt={dummy[3].name} ></img> :
+     <p className="ProjectCustomLogo">{CustomProjectLogo(dummy[3].name)}</p>
+      */}
     </>
   );
 };

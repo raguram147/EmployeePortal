@@ -1,6 +1,5 @@
 import React, { useState  , useEffect} from "react";
-import classes from "./styles/Projects.module.css";
-import './styles/cards.css';
+import '../components/styles/style.css';
 import Target_icon from '../assets/target_icon.png';
 import invisble from '../assets/invisible.png';
 import config from '../config';
@@ -13,7 +12,7 @@ const CustomProjectLogo = (ProjectName) =>{
   return (ProjectName.split(" ")[0].charAt(0)+ProjectName.split(" ")[1].charAt(0)).toUpperCase();
  }
 // console.log(ProjectName);
-// return 'ff';
+// return 'ff'
 }
 
 
@@ -54,33 +53,33 @@ const Wheel = ({card}) => {
 
   return (
     <>
-    <div className={classes.wheels} id="project"></div>
-    <a href="/FilterPage" className={classes.btn}>Projects</a>
-     { dummy[0] &&<> <div className={classes.cards} id="card1">
-     <img src={invisble} alt="active card" className={classes.target_iconP} id="target_iconP1"></img>
-     {dummy[0].project_logo ? <img src={ `${config.drupal_url}/${dummy[0].project_logo}` } className={classes.ProjectImage}  alt={dummy[0].name} ></img> :
-    <p className={classes.ProjectCustomLogo}>{CustomProjectLogo(dummy[0].name)}</p>
+    <div className="wheels" id="project"></div>
+    <a href="/FilterPage" className="btn">Projects</a>
+     { dummy[0] &&<> <div className="cards" id="card1">
+     <img src={invisble} alt="active card" className="target_iconP" id="target_iconP1"></img>
+     {dummy[0].project_logo ? <img src={ `${config.drupal_url}/${dummy[0].project_logo}` } className="ProjectImage"  alt={dummy[0].name} ></img> :
+    <p className="ProjectCustomLogo">{CustomProjectLogo(dummy[0].name)}</p>
      }
  
         {/* <p id="c_title1">{dummy[0].name}</p>  */}
         {console.log(dummy[0])}
       </div>
-      <div className={classes.cards} id="card2" >
-      <img src={Target_icon} alt="active card" className={classes.target_iconP}  id="target_iconP2"></img>
-      {dummy[1].project_logo ? <img src={ `${config.drupal_url}/${dummy[1].project_logo}` } className={classes.ProjectImage}  alt={dummy[1].name} ></img> :
-     <p className={classes.ProjectCustomLogo}>{CustomProjectLogo(dummy[1].name)}</p>
+      <div className="cards" id="card2" >
+      <img src={Target_icon} alt="active card" className="target_iconP"  id="target_iconP2"></img>
+      {dummy[1].project_logo ? <img src={ `${config.drupal_url}/${dummy[1].project_logo}` } className="ProjectImage"   alt={dummy[1].name} ></img> :
+     <p className="ProjectCustomLogo">{CustomProjectLogo(dummy[1].name)}</p>
      }
       </div>
-      <div className={classes.cards} id="card3">
-      <img src={invisble} alt="active card" className={classes.target_iconP} id="target_iconP3"></img>
-      {dummy[2].project_logo ? <img src={ `${config.drupal_url}/${dummy[2].project_logo}` } className={classes.ProjectImage}  alt={dummy[2].name} ></img> :
-     <p className={classes.ProjectCustomLogo}>{CustomProjectLogo(dummy[2].name)}</p>
+      <div className="cards" id="card3">
+      <img src={invisble} alt="active card" className="target_iconP" id="target_iconP3"></img>
+      {dummy[2].project_logo ? <img src={ `${config.drupal_url}/${dummy[2].project_logo}` } className="ProjectImage"   alt={dummy[2].name} ></img> :
+     <p className="ProjectCustomLogo">{CustomProjectLogo(dummy[2].name)}</p>
      }
       </div>
-      <div className={classes.cards} id="card4">
-      <img src={invisble} alt="active card" className={classes.target_iconP}  id="target_iconP4"></img>
-      {dummy[3].project_logo ? <img src={ `${config.drupal_url}/${dummy[3].project_logo}` } className={classes.ProjectImage}  alt={dummy[3].name} ></img> :
-     <p className={classes.ProjectCustomLogo}>{CustomProjectLogo(dummy[3].name)}</p>
+      <div className="cards" id="card4">
+      <img src={invisble} alt="active card" className="target_iconP" id="target_iconP4"></img>
+      {dummy[3].project_logo ? <img src={ `${config.drupal_url}/${dummy[3].project_logo}` } className="ProjectImage"   alt={dummy[3].name} ></img> :
+     <p className="ProjectCustomLogo">{CustomProjectLogo(dummy[3].name)}</p>
      }
       </div></>}
       

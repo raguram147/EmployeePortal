@@ -1,41 +1,66 @@
-import React from "react";
-import { Heading, Container, Row, Column } from "./styles/FooterStyles";
+import React, { useEffect, useState } from "react";
 import { SocialIcon } from "react-social-icons";
-// const socialmedialogo = {
-//   fontFamily: "Montserrat",
-//   backgroundColor: "#444444",
-//   height: "35px",
-//   width: "35px",
-//   padding: "8px",
+import styled from "styled-components";
+import config from '../config';
 
-// };
 
-// const sampleData = [
-//   {
-//     name: "Facebook",
-//     icons: "https://img.icons8.com/material-rounded/48/ffffff/facebook.png",
-//   },
-//   {
-//     name: "LinkedIn",
-//     icons: "https://img.icons8.com/material-rounded/48/ffffff/linkedin--v1.png",
-//     },
-//   {
-//     name: "Instagram",
-//     icons:
-//       "https://img.icons8.com/material-rounded/48/ffffff/instagram-new.png",
-//   },
-// ];
 
-const Footer = ({Footerdata}) => {
+ const Heading=styled.div`
+font-weight:700;
+`;
+
+
+
+ const Container=styled.div`
+padding:30px;
+background: #444444;
+margin-bottom:0px;
+color:#fff;
+`;
+
+
+ const Column=styled.div`
+  margin-left:30px;
+  float: left;
+  width: 30%;
+  padding: 10px;
+  height: auto; /* Should be removed. Only for demonstration */
+  @media screen and (max-width: 670px) {
+    
+      width: 100%;
+    }
+`;
+
+/* Clear floats after the columns */
+ const Row=styled.div`
+  content: "";
+  display: table;
+  clear: both;
+`;
+
+
+
+const Footer = () => {
+
+  const fetchURL = config.drupal_url+'/Footer';
+  const [items, setItems] = useState();
+
+  useEffect(() => {
+    const getItems = () => fetch(fetchURL).then(res => res.json());
+     getItems().then(data => setItems(data));
+  }, [fetchURL,setItems]);
+
+
   return (
     <Container>
+        {items &&
+              items.map((footer, index) => (
+                <>
       <Row>
         <Column>
           <Heading>About us</Heading>
           <p>
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. It was popularised in the 1960s with the release of
-            Letraset Lorem Ipsum.
+            {footer.Aboutus}
           </p>
         </Column>
 
@@ -43,10 +68,9 @@ const Footer = ({Footerdata}) => {
           <Heading>Contact us</Heading>
           {/* <h2 style={{ fontSize: "1rem" }}>Address:</h2> */}
           <p>
-            8th Floor, Global Infocity Park, #40, Dr, MGR Main Rd, Perungudi,
-            Chennai, Tamil Nadu 600096
+          {footer.address}
           </p>
-          <p>Phone: 044 4599 2000</p>
+          <p>Phone: {footer.phone_number}</p>
         </Column>
         <Column>
           <Heading>Social media</Heading>
@@ -57,7 +81,7 @@ const Footer = ({Footerdata}) => {
                   title={data.name}
                   alt={data.name}
                key={index} ></img>))} */}
-               {Footerdata && (Footerdata[1].lister_social_media_links.split(", ")).map((x,index)=>(<SocialIcon url={x} bgColor="#fff" style={{marginLeft:"5px" ,height:"24px",width:"24px"}} key={index}></SocialIcon>))}
+               {(footer.lister_social_media_links.split(", ")).map((x,index)=>(<SocialIcon url={x} bgColor="#fff" style={{marginLeft:"5px" ,height:"24px",width:"24px"}} key={index}></SocialIcon>))}
           {/* <SocialIcon url="https://www.linkedin.com/company/listertech/mycompany/"  ></SocialIcon> */}
             
           </div>
@@ -75,7 +99,12 @@ const Footer = ({Footerdata}) => {
         />
         2021 All rights reserved.
       </span>
+      </>
+              ))}
     </Container>
   );
 };
 export default Footer;
+
+
+

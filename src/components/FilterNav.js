@@ -1,8 +1,7 @@
 import React,{useEffect,useState}  from "react";
 import styled from "styled-components";
 import Profile_icons from "../assets/User_icons.png";
-import "./styles/cards.css";
-import classes from "./styles/Projects.module.css";
+import '../components/styles/style.css';
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import Modal from "react-bootstrap/Modal";
@@ -25,12 +24,13 @@ const FilterNav = ({Logo}) => {
     };
 
     const fetchURL = config.drupal_url+'/FilterPageHeadFooter';
-    const getItems = () => fetch(fetchURL).then(res => res.json());
+  
     const [items, setItems] = useState();
   
      useEffect(() => {
+        const getItems = () => fetch(fetchURL).then(res => res.json());
        getItems().then(data => setItems(data));
-    }, []);
+    }, [fetchURL,setItems]);
 
     console.log(Logo)
     return (
@@ -46,7 +46,7 @@ const FilterNav = ({Logo}) => {
                {items && items.map((data, index) => (
                 <Link style={NavBarItems} to={data.field_navigation_link}>{data.title}</Link>  ))}
                 <img
-                    className={classes.Profile_icons}
+                    className="Profile_icons"
                     src={Profile_icons}
                     alt="Profile"
                     onClick={handleClick}
