@@ -115,7 +115,7 @@ export default class EmployeeDetails extends Component {
                   <td>{ x.id}</td>
                 </tr>
                 </table>
-                <button className="Bttns"><a href={config.drupal_url+"/node/"+x.nid+"/edit"}>edit</a></button>
+                <button className="Bttns"><a href={config.drupal_url+"node/"+x.nid+"/edit"}>edit</a></button>
                 </div>
               </div>)) 
             }
