@@ -7,7 +7,7 @@ import config from '../config';
 // import {ReactComponent as LogoIcon}from "../assets/Logo.svg"
 
 const Navbar = ({navdata}) => {
-  console.log(navdata)
+  // console.log(navdata)
   const [isOpen, setIsOpen] = useState(false);
   const [nav, setNav] = useState(false);
   const handleScroll = useCallback(() => {
@@ -38,10 +38,10 @@ const Navbar = ({navdata}) => {
   return (
     <Nav onScroll={handleScroll}>
        <Container>
-       <img src={ `${config.drupal_url}/${navdata[0].website_logo}` } alt="Skill Portal"></img>
+       <img src={ `${config.drupal_url}/${navdata.website_logo}` } alt="Skill Portal"></img>
 
         {/* <LogoIcon></LogoIcon> */}
-        {console.log(navdata[0].website_logo)}
+        {/* {console.log(navdata)} */}
         <Humburger onClick={() => setIsOpen(!isOpen)}>
           <span></span>
           <span></span>

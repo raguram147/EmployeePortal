@@ -179,7 +179,7 @@ const Home = ({ data }) => {
                 ))}
               <button class="button" id="getTouch">
                 <span>
-                  <a href="/Filterpage" style={{ fontWeight: 'bold' }}>Get Touch!!</a>{" "}
+                  <a href="/EmployeeSearch" style={{ fontWeight: 'bold' }}>Get Touch!!</a>{" "}
                 </span>
               </button>
             </Container>

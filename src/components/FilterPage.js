@@ -14,9 +14,9 @@ import { Scrollbars } from 'react-custom-scrollbars';
 /*
   state variables and api data: 20-68 lines
   onchange functions
+  filtering employees based on filter logic
   req Data initializations
   filters (Dynamic checkboxes,slider,input) html
-  filtering employees based on filter logic
   displaying tags,emp cards,next/back button
 */
 
@@ -486,7 +486,7 @@ export default class EmployeeView extends Component {
     let HobbiesFilterShowCust = this.state.HobbiesFilterShow;
     let filteredEmployee = this.filteringTheEmp();
     let checkedItemsTagList = this.AllCheckedItems();  //getting all the checked items and storing to make tags
-    console.log(checkedItemsTagList);
+    // console.log(checkedItemsTagList);
 
     return (
       <>
@@ -551,7 +551,7 @@ export default class EmployeeView extends Component {
                             value={item.name.toLowerCase()}
                             onChange={this.CheckBoxhandleChange}
                             id={item.name.toLowerCase()}
-                          /> {item.name}
+                          /> {item.name} ({item.count })
                         </label>
                       </td>
                     </tr>
@@ -584,7 +584,7 @@ export default class EmployeeView extends Component {
                             onChange={this.CheckBoxhandleChange}
                             id={item.name.toLowerCase()}
                             className="checkboxes"
-                          /> {item.name}
+                          /> {item.name } ({item.count })
                         </label>
                       </td>
                     </tr>
@@ -618,7 +618,7 @@ export default class EmployeeView extends Component {
                             value={item.name.toLowerCase()}
                             onChange={this.CheckBoxhandleChange}
                             id={item.name.toLowerCase()}
-                          /> {item.name}
+                          /> {item.name} ({item.count })
                         </label>
                       </td>
                     </tr>
@@ -653,7 +653,7 @@ export default class EmployeeView extends Component {
                             value={item.name.toLowerCase()}
                             onChange={this.CheckBoxhandleChange}
                             id={item.name.toLowerCase()}
-                          /> {item.name}
+                          /> {item.name} ({item.count })
                         </label>
                       </td>
                     </tr>
@@ -688,7 +688,7 @@ export default class EmployeeView extends Component {
                             value={item.name.toLowerCase()}
                             onChange={this.CheckBoxhandleChange}
                             id={item.name.toLowerCase()}
-                          /> {item.name}
+                          /> {item.name} ({item.count })
                         </label>
                       </td>
                     </tr>

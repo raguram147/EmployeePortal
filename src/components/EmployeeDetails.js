@@ -106,14 +106,14 @@ export default class EmployeeDetails extends Component {
                   <td className="title">Tools familiar: </td>
                   <td>{ x.tools_familiar }</td>
                 </tr>
-                <tr>
+                {/* <tr>
                   <td className="title">edit: </td>
                   <td>{ x.edit_node}</td>
                 </tr>
                 <tr>
                   <td className="title">node id: </td>
                   <td>{ x.id}</td>
-                </tr>
+                </tr> */}
                 </table>
                 <button className="Bttns"><a href={config.drupal_url+"node/"+x.nid+"/edit"}>edit</a></button>
                 </div>

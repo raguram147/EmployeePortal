@@ -32,16 +32,16 @@ const FilterNav = ({Logo}) => {
        getItems().then(data => setItems(data));
     }, [fetchURL,setItems]);
 
-    console.log(Logo)
+    // console.log(Logo)
     return (
         <Nav>
             <Container>
                 <img
-                    src={`${config.drupal_url}/${Logo[0].website_logo}`}
+                    src={`${config.drupal_url}/${Logo.website_logo}`}
                     alt="Skill Portal"
                     style={{height:'60px'}}
                 ></img>
-            {console.log(items)}
+            {/* {console.log(items)} */}
             <div>
                {items && items.map((data, index) => (
                 <Link style={NavBarItems} to={data.field_navigation_link}>{data.title}</Link>  ))}

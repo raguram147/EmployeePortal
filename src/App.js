@@ -3,17 +3,17 @@ import {
   BrowserRouter as Router,
   Route,
 } from "react-router-dom";
-import HomeScreen  from './Layouts/Home';
+import Home  from './Layouts/Home';
 import "./App.css";
-import FilterScreen from './Layouts/EmployeeSearch'
+import EmployeeSearch from './Layouts/EmployeeSearch'
 import EmployeeDetails from "./components/EmployeeDetails"
 
 const App = () => {
   return (
     <Router>
-      <Route component ={HomeScreen} path ='/' exact/>
+      <Route component ={Home} path ='/' exact/>
       {/* <Route component ={Navbar} path ='/Acheivements' exact/> */}
-      <Route component ={FilterScreen} path ='/FilterPage' exact/>
+      <Route component ={EmployeeSearch} path ='/EmployeeSearch' exact/>
       <Route path="/EmployeeDetails/:Emp_id" component={EmployeeDetails}></Route>
   
     </Router>

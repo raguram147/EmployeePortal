@@ -54,7 +54,7 @@ const Wheel = ({card}) => {
   return (
     <>
     <div className="wheels" id="project"></div>
-    <a href="/FilterPage" className="btn">Projects</a>
+    <a href="/EmployeeSearch" className="btn">Projects</a>
      { dummy[0] &&<> <div className="cards" id="card1">
      <img src={invisble} alt="active card" className="target_iconP" id="target_iconP1"></img>
      {dummy[0].project_logo ? <img src={ `${config.drupal_url}/${dummy[0].project_logo}` } className="ProjectImage"  alt={dummy[0].name} ></img> :

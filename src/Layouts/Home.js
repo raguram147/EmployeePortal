@@ -1,6 +1,6 @@
 import React,{useEffect,useState}  from "react";
 import Navbar from "../components/Navbar";
-import Home from "../components/HeroBanner";
+import HeroBanner from "../components/HeroBanner";
 import Footer from "../components/Footer";
 import ScrollToTop from "../components/ScrollToTop";
 import config from '../config';
@@ -20,8 +20,8 @@ const HomeScreen = () => {
   return (
     <>
       <ScrollToTop />
-      { items &&<Navbar navdata={items}/>}
-      { items &&<Home data={items}/>}
+      { items &&<Navbar navdata={items[0]}/>}
+      { items &&<HeroBanner data={items}/>}
       { items && <Project project={items}></Project>}
       {  <Footer/>}
     </>

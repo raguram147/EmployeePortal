@@ -71,7 +71,7 @@ const Skills = ({skill}) => {
     <>
     <div className="wheels" id="skills"></div>
     <img src={invisble} alt="active card" id="target_iconS4" ></img>
-    <a href="/FilterPage" className="btn_s">Skills</a>
+    <a href="/EmployeeSearch" className="btn_s">Skills</a>
     { dummy[0] &&<> <div className="cards" id="skill1">
         {dummy[0].skill_image ? <img src={ `${config.drupal_url}/${dummy[0].skill_image}` } className="skillImage" id="Skill1Img" alt={dummy[0].name} ></img> :
       <p className="ProjectCustomLogo">{CustomSkillLogo(dummy[0].name)}</p>

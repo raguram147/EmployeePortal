@@ -18,7 +18,7 @@ const FilterScreen = () => {
   return (
     <>
       {/* <ScrollToTop /> */}
-      { items && <FilterNav Logo={items}/>}
+      { items && <FilterNav Logo={items[0]}/>}
       { <FilterPage />}
       { <Footer/>}
     </>
