@@ -10,7 +10,8 @@ import {  TextField } from "@material-ui/core";
 import { event } from 'jquery';
 import { EmployeeCard } from './EmployeeCard';
 import { Scrollbars } from 'react-custom-scrollbars';
-
+import ClearIcon from '@material-ui/icons/Clear';
+import { BsFillFunnelFill } from "react-icons/bs";
 /*
   state variables and api data: 20-68 lines
   onchange functions
@@ -478,11 +479,17 @@ export default class EmployeeView extends Component {
 
   FiltersHover(){
     var x =  document.getElementById("filtersContainer");
+    var y = document.getElementById("filterPage");
+    var z = document.getElementById("filter-icon");
     console.log(x.className);
     if (x.className === "reqForm") {
       x.className = "filtersContainer";
+      y.className = "filter-containerMobile";   
+      z.style.display = 'none'; 
     } else {
       x.className = "reqForm";
+      y.className = "filter-container";
+      z.style.display = 'block';
     }
   }
 
@@ -502,10 +509,9 @@ export default class EmployeeView extends Component {
       <>
       <div className="filter-container" id="filterPage">
         {/* different types of filters  */}
-        <div class="filter-icon" onClick={() => this.FiltersHover()} >
-            <i className="fa fa-filter " ></i>
+        <div class="filter-icon"  onClick={() => this.FiltersHover()} >
+        <BsFillFunnelFill id="filter-icon"></BsFillFunnelFill>
         </div>
-        {/* <i className="fa fa-filter filter-icon" onClick={this.FiltersHover()} ></i> */}
         <Scrollbars  
         style={{ height: "100%" }}
           onScroll={this.handleScroll}
@@ -514,9 +520,9 @@ export default class EmployeeView extends Component {
           autoHideDuration={200}
         >
         <div className="reqForm" id="filtersContainer">
-        {/* <div class="filter-icon" onClick={() => this.FiltersHover()} style={{ right: "0%", position:"absolute" }}>
-            <i className="fa fa-filter " ></i>
-        </div> <span className="filterName">Employees </span> */}
+        <div class="filter-icon" id="clear-icon" onClick={() => this.FiltersHover()} >
+            <ClearIcon ></ClearIcon>
+        </div>
           <form >
           <div className="filtered-emp-count">
                 <span className="filterName">Employees: </span>

@@ -169,20 +169,7 @@ const Navbar = ({ navdata }) => {
                     </div>
                   </Fade>
                 </Modal>
-                {/* <Modal show={show} onHide={handleClose}>
-                  <Modal.Header closeButton>
-                    <Modal.Title>Logging Out</Modal.Title>
-                  </Modal.Header>
-                  <Modal.Body>
-                    Are you sure want to Logout the account!<br></br>
-                    <Button style={{ margin: '10px' }} variant="secondary" onClick={handleClose} onChange={handleLogOut}>
-                      No,Wait
-                    </Button>
-                    <Button style={{ margin: '10px', backgroundColor: '#ef6e25', border: "#ef6e25", borderRadius: "10%" }} variant="primary" onClick={handleLogOut}>
-                      Yes,Logout
-                    </Button>
-                  </Modal.Body>
-                </Modal> */}
+   
               </>
               : <Button1><a href={`${config.drupal_url}/user/login`} style={{ color: '#858586' }}>LOGIN</a></Button1>}
           </LinkWrapper>
@@ -286,7 +273,7 @@ const Button1 = styled.button`
   font-size: 1rem;
   background: #ef6e25;
   border: none;
-  padding: 5px 5px;
+  padding: 8px 10px;
   color: #fff;
   border-radius: 1rem;
   box-shadow: 0px 2px 3px -2px #ef6e25;
@@ -301,8 +288,9 @@ const Button1 = styled.button`
   }
   a {
     text-decoration: none;
+    color: white;
     &:hover {
-      color: #ef6e25;
+      color: white;
       background: none;
     }
   }

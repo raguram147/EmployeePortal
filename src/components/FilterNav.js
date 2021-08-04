@@ -1,14 +1,15 @@
-import React,{useEffect,useState}  from "react";
+
+
+import React, { useState, useEffect, useCallback } from "react";
 import styled from "styled-components";
-import Profile_icons from "../assets/User_icons.png";
+// import { Link } from "react-scroll";
 import '../components/styles/style.css';
+import config from '../config';
+import Profile_icons from "../assets/User_icons.png";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 // import Modal from "react-bootstrap/Modal";
 // import { Button } from "react-bootstrap";
-import { Link } from 'react-router-dom';
-import config from '../config';
-
 import { makeStyles,Button } from '@material-ui/core';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
@@ -30,22 +31,41 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const FilterNav = ({Logo}) => {
+const FilterNav = ({ Logo }) => {
+  const classes = useStyles();
+  const [open, setOpen] = React.useState(false);
 
-    const classes = useStyles();
-    const [open, setOpen] = React.useState(false);
-  
-    const handleOpen = () => {
-      setOpen(true);
-    };
-  
-    const closeModal = () => {
-      setOpen(false);
-      setAnchorEl(null);
-    };
+  const handleOpen = () => {
+    setOpen(true);
+  };
 
-    // const [show, setShow] = useState(false);
-    // const handleShow = () => setShow(true);
+  const closeModal = () => {
+    setOpen(false);
+    setAnchorEl(null);
+  };
+  // console.log(navdata)
+  const [isOpen, setIsOpen] = useState(false);
+  const [nav, setNav] = useState(false);
+  const handleScroll = useCallback(() => {
+    if (window.pageYOffset > 140) {
+      if (!nav) {
+        setNav(true);
+      }
+    } else {
+      if (nav) {
+        setNav(false);
+      }
+    }
+  }, [nav]);
+
+
+
+  const fetchURL = config.drupal_url+'/FilterPageHeadFooter';
+
+  const [HomeNav, setItems] = useState();
+
+  // const [show, setShow] = useState(false);
+  // const handleShow = () => setShow(true);
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClick = (event) => {
@@ -65,35 +85,57 @@ const FilterNav = ({Logo}) => {
     // setShow(false);
   };
 
-
-    const fetchURL = config.drupal_url+'/FilterPageHeadFooter';
   
-    const [items, setItems] = useState();
-  
-     useEffect(() => {
-        const getItems = () => fetch(fetchURL).then(res => res.json());
-       getItems().then(data => setItems(data));
-    }, [fetchURL,setItems]);
+  useEffect(() => {
+    // window.addEventListener("scroll", handleScroll);
+     const getItems = () => fetch(fetchURL).then(res => res.json());
+    getItems().then(data => setItems(data));
+ }, [fetchURL,setItems]);
 
-    let params = new URLSearchParams((window.location).search);
-    if (params.get("login") === "true") {
-      window.sessionStorage.setItem("login", "true");
-    }
-    // console.log(Logo)
-    return (
-        <Nav>
-            <Container>
-                <img
+  let params = new URLSearchParams((window.location).search);
+  if (params.get("login") === "true") {
+    window.sessionStorage.setItem("login", "true");
+  }
+  return (
+    <Nav onScroll={handleScroll}>
+      <Container>
+      <img
                     src={`${config.drupal_url}/${Logo.website_logo}`}
                     alt="Skill Portal"
                     style={{height:'60px'}}
                 ></img>
-            {/* {console.log(items)} */}
-            <div>
-               {items && items.map((data, index) => (
-                <Link style={NavBarItems} to={data.field_navigation_link}>{data.title}</Link>  ))}
-                <a style={NavBarItems} href={config.drupal_url+"/admin/content"}>Dashboard</a>
-                {window.sessionStorage.getItem("login") === "true" ?
+
+        {/* <LogoIcon></LogoIcon> */}
+        {console.log("login:" + window.sessionStorage.getItem("login"))}
+        <Humburger onClick={() => setIsOpen(!isOpen)}>
+          <span></span>
+          <span></span>
+          <span></span>
+        </Humburger>
+        <Menu1 isOpen={isOpen}>
+
+          <LinkWrapper >
+            {/* <Link to="/FilterPage" component={FilterScreen}>FilterPage</Link> */}
+            {/* {console.log(HomeNav[0])}
+          {console.log(sampleData[0])} */}
+          {/* {console.log(HomeNav[0])} */}
+            {HomeNav && HomeNav.map((data, index) => (
+                //  <Link  id="menu" key={index} to={data.field_navigation_link}> <MenuLink>{data.title} </MenuLink></Link> 
+                 <a href={data.field_navigation_link} activeClass="active"><MenuLink>{data.title} </MenuLink></a>
+            //   <Link id="menu" key={index} activeClass="active" to={data.field_navigation_link}
+            //     spy={true}
+            //     smooth={true}
+            //     offset={-70}
+            //     duration={800}>
+                // <MenuLink  >
+                //   {data.title}
+                // </MenuLink>
+            //   </Link>
+            ))}
+             <a  activeClass="active" href={config.drupal_url+"/admin/content"}> <MenuLink  >
+                 Dashboard
+                </MenuLink></a>
+            {window.sessionStorage.getItem("login") === "true" ?
               <>
                 <img
                   className="Profile_icons"
@@ -138,72 +180,111 @@ const FilterNav = ({Logo}) => {
                     </div>
                   </Fade>
                 </Modal>
-                {/* <Modal show={show} onHide={handleClose}>
-                  <Modal.Header closeButton>
-                    <Modal.Title>Logging Out</Modal.Title>
-                  </Modal.Header>
-                  <Modal.Body>
-                    Are you sure want to Logout the account!<br></br>
-                    <Button style={{ margin: '10px' }} variant="secondary" onClick={handleClose} onChange={handleLogOut}>
-                      No,Wait
-                    </Button>
-                    <Button style={{ margin: '10px', backgroundColor: '#ef6e25', border: "#ef6e25", borderRadius: "10%" }} variant="primary" onClick={handleLogOut}>
-                      Yes,Logout
-                    </Button>
-                  </Modal.Body>
-                </Modal> */}
+   
               </>
               : <Button1><a href={`${config.drupal_url}/user/login`} style={{ color: '#858586' }}>LOGIN</a></Button1>}
-                </div>
-            </Container>
-        </Nav>
-    );
+          </LinkWrapper>
+        </Menu1>
+      </Container>
+    </Nav>
+  );
 };
 
 export default FilterNav;
-
 const Container = styled.div`
- display: flex;
- justify-content: space-between;
- width: 100%;
- align-items: center;
- flex-wrap: wrap;
- max-width: 100%;
- margin: auto;
- background-color:white;
- text-decoration: none;
- padding: 0;
- img{
- cursor: Pointer;
- background-color:white;
- }
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+  flex-wrap: wrap;
+  max-width: 100%;
+  margin: auto;
+  padding: 0;
+  img{
+    cursor: Pointer;
+  }
+  a {
+    text-decoration: none;
+    color: #000000;
+    font-size: 18px;
+    font-family: Montserrat;
+    padding: 0.7rem 1.5rem;
+    transition: all 0.2s ease-in;
+    font-wegiht: 500;
+    &:hover {
+      color: #ef6e25;
+      background: #e7e9fc;
+    }
+ 
+  }
 `;
 
 
 const Nav = styled.div`
- height: 50px;
- display: flex;
- justify-content: space-between;
- align-items: center;
- flex-wrap: wrap;
- position: sticky;
- top: 0;
- left: 0;
- right: 0;
- z-index: 3;
+  height: 5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 3;
+  background-color: ${({ nav }) => (nav ? "black" : "white")};
 `;
 
-var NavBarItems = {
-    margin: "0 30px 0px 0px",
-    color: "#858586",
-    textDecoration: "none"
+const Menu1 = styled.div`
+  diplay: flex;
+  justy-content: space-between;
+  align-item: center;
+  position: relative;
+  @media (max-width: 768px) {
+    background-color: rgba(255, 255, 255, 0.9);
+    @supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
+      -webkit-backdrop-filter: blur(35px);
+      backdrop-filter: blur(15px);
+      background-color: rgba(255, 255, 255, 0.4);
+    }
+    border-radius: 1rem;
+    margin-top: 1rem;
+    box-shadow: -4px 8px 15px 1px rgba(0, 0, 0, 0.07);
+    overflow: hidden;
+    flex-direction: column;
+    max-height: ${({ isOpen }) => (isOpen ? "300px" : "0")};
+    transition: max-height 0.3s ease-in;
+    width: 100%;
   }
+`;
+const LinkWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  padding: 0.5rem 0;
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
+`;
+const MenuLink = styled.div`
+ text-decoration: none;
+ color: #858586;
+ font-size: 1rem;
+ padding: 0rem;
+ transition: all 0.2s ease-in;
+ border-radius: 0.5rem;
+ font-weight: 500;
+ cursor:pointer;
+ &:hover {
+ color:#ef6e25;
+ background: #e7e9fc;
+ }`;
 const Button1 = styled.button`
   font-family: Montserrat;
   font-size: 1rem;
   background: #ef6e25;
   border: none;
-  padding: 5px 5px;
+  padding: 8px;
   color: #fff;
   border-radius: 1rem;
   box-shadow: 0px 2px 3px -2px #ef6e25;
@@ -218,9 +299,25 @@ const Button1 = styled.button`
   }
   a {
     text-decoration: none;
+    color: white;
     &:hover {
-      color: #ef6e25;
+      color: white;
       background: none;
     }
+  }
+`;
+const Humburger = styled.div`
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  span {
+    height: 2px;
+    width: 25px;
+    background: #ef6e25;
+    margin-bottom: 4px;
+    border-radius: 5px;
+  }
+  @media (max-width: 780px) {
+    display: flex;
   }
 `;

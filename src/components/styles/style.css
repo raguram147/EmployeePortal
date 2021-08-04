@@ -1,5 +1,5 @@
 .Employees {
-    margin-top: 10px;
+    /* margin-top: 10px; */
     background-color: #e5e5e5;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -130,6 +130,16 @@
     grid-template-columns: 20% 80%;
     background-color: #e5e5e5;
 
+   }
+
+   .filter-containerMobile{
+    font-family: serif !important;
+    /* margin-top: 10px; */
+    padding-top: 1%;
+    display: grid;
+    justify-content: space-around;
+    grid-template-columns: 20% 80%;
+    background-color: #e5e5e5;
    }
     
    .experienceManuallyBox {
@@ -289,18 +299,17 @@ label{
   display: none;
 }
 
-/* @media screen and (min-width: 950px){
-  .filter-container {
-    font-family: serif !important;
-    margin-top: 10px;
-    display: grid;
-    justify-content: space-around;
-    grid-template-columns: 20% 80%;
-    background-color: #e5e5e5;
+.filtersContainer{
+  /* width: 50%; */
+  padding-left: 8%;
+  padding-right: 7%;
+  background-color: white;
+  margin-top: 10px;
+  margin-left: 17px;
+  padding-bottom: 5%;
+ }
 
-   }
 
-} */
 
 @media screen and (min-width: 1650px){
   .Employees {
@@ -366,11 +375,14 @@ label{
   }
 
    .filter-container {
-    /* display: flex; 
-    flex-direction: column; */
     display: grid;
     grid-template-columns:  25% 75%;
 
+   }
+
+   .filter-containerMobile{
+    display: grid;
+    grid-template-columns:  25% 75%;
    }
 
    .Employees {
@@ -391,13 +403,17 @@ label{
 @media screen and (max-width: 700px) {
 
   .reqForm{
-    position: absolute;
-    background-color: white;
-    z-index: 100;
+    display: none;
+   
   }
 
   .filter-icon{
     display: inline;
+    color: #2d2d2d;
+  }
+
+  #clear-icon{
+    right: 2%;
   }
 
    .nextBack{
@@ -405,28 +421,82 @@ label{
    }
 
    .filter-container {
-    /* display: flex; 
-    flex-direction: column; */
     display: grid;
-    grid-template-columns:  3% 40% 55%;
+    grid-template-columns:  1% 0% 95%;
 
+   }
+
+   .filter-containerMobile{
+    display: grid;
+    grid-template-columns:  0% 30% 70%;
+   
    }
 
    .filtersContainer{
-     display: none;
+    /* width: 50%; */
+     position: absolute;
+     background-color: white;
+     z-index: 100;
+     display: inline;
+     padding-left: 3%;
+     padding-right: 3%;
+     margin-top: 10px;
+     margin-left: 17px;
+     padding-bottom: 5%;
    }
 
    .Employees {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: auto 400px 400px 400px 400px 400px 400px;
- 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
    }
 
-   /* .Employees {
-     display: none;
+   .Employee-details {
+    width: 350px;
+    height: 400px;
+
+   }
+
+   /* #filter-icon{
+     padding-top: 200%;
    } */
 
+}
+
+@media screen and (max-width: 700px) and (min-width: 550px) {
+
+    .Employees {
+     display: grid;
+     grid-template-columns: 1fr 1fr ;
+     grid-template-rows: auto 400px 400px 400px 400px 400px 400px;
+  
+    }
+    .Employee-details {
+      max-width: 270px;
+      max-height: 340px;
+      margin-right: 2%;
+     }
+ 
+    .selectedTags{
+     grid-column: 1 / 3;
+     padding-right: 5%;
+    }
+}
+
+@media screen and (max-width: 549px) and (min-width: 450px) {
+  .filter-containerMobile{
+    display: grid;
+    grid-template-columns:  0% 40% 60%;
+   
+   }
+}
+
+@media screen and (max-width: 449px) and (min-width: 300px) {
+  .filter-containerMobile{
+    display: grid;
+    grid-template-columns:  0% 50% 50%;
+   
+   }
 }
 
 /* Bubble animation in the home page */
