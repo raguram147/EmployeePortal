@@ -47,7 +47,10 @@ const TargetIconMovement = () =>{
 const Skills = ({skill}) => {
   const[state , setState] = useState(false);
   // const [skillData, setskillData] = useState([]);
-  console.log(state)
+  // console.log(state)
+  if(state){
+    
+  }
   const dummy = skill;
 
 
@@ -55,16 +58,16 @@ const Skills = ({skill}) => {
     useEffect(()=>{
       
       setInterval((()=>{
-        // TargetIconMovement();
+        TargetIconMovement();
         const temp = dummy[0];
         dummy.shift();
         dummy.push(temp);
-        console.log(dummy[0]);
+        // console.log(dummy[0]);
         setState((prevstate) => !prevstate)
-        console.log(TargetIconMovement());
+        // console.log(TargetIconMovement());
       }),5000);
     },[dummy])
-    console.log(dummy[0])
+    // console.log(dummy[0])
 
 
   return (
@@ -79,7 +82,7 @@ const Skills = ({skill}) => {
       </div>
       <div className="cards" id="skill2" >
       <img src={Target_icon}  id="target_iconS1" className="target_icon" alt='Target icon'></img>
-        {dummy[1].skill_image ? <img src={ `${config.drupal_url}/${dummy[1].skill_image}` } className="skillImage" id="Skill2Img" alt={dummy[1].name} ></img> :
+        {dummy[1].skill_image ? <img src={ `${config.drupal_url}/${dummy[6].skill_image}` } className="skillImage" id="Skill2Img" alt={dummy[1].name} ></img> :
       <p className="ProjectCustomLogo">{CustomSkillLogo(dummy[1].name)}</p>
       }
       </div>
@@ -92,8 +95,8 @@ const Skills = ({skill}) => {
       </div>
       <div className="cards" id="skill4">
       <img src={invisble} alt="active card" id="target_iconS3" className="target_icon"></img>
-      {dummy[3].skill_image ? <img src={ `${config.drupal_url}/${dummy[3].skill_image}` } className="skillImage" id="Skill4Img"  alt={dummy[3].name} ></img> :
-      <p className="ProjectCustomLogo">{CustomSkillLogo(dummy[3].name)}</p>
+      {dummy[4].skill_image ? <img src={ `${config.drupal_url}/${dummy[4].skill_image}` } className="skillImage" id="Skill4Img"  alt={dummy[4].name} ></img> :
+      <p className="ProjectCustomLogo">{CustomSkillLogo(dummy[4].name)}</p>
       }
       </div>
       </>}

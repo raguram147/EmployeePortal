@@ -11,9 +11,10 @@ const Container = styled.div`
     font-family: Montserrat;
     width:100%
     height: 250vh;
-    background-color: #ffebcc;
+    background-color: #282828;
+    color: white;
 }`;
-
+// #ffebcc;
 const Left = styled.div`
   h1 {
     color: #939191;
@@ -46,10 +47,11 @@ const Right = styled.div`
   }
 `;
 const Heading = styled.h1`
-  margin-left: 30px;
+
   padding: 2rem;
   font-weight: 700;
   font-size: 2rem;
+  text-align:center;
 `;
 
 const Row = styled.div`
@@ -73,7 +75,7 @@ const fetchURL = config.drupal_url+'/Taxonomy/Projects';
 const fetchSkill= config.drupal_url+'/Taxonomy/Skills';
 
 const Projects = ({ project }) => {
-  let count = 1;
+  // let count = 1;
   const [projectData, setProjectData] = useState([]);
   const [skillData, setSkillData] = useState([]);
   useEffect(() => {
@@ -98,7 +100,10 @@ const Projects = ({ project }) => {
             {project &&
               project.map((x, index) => (
                 <p key={index}>
-                  {he.decode(x.project_description.replace(/<[^>]+>/g, ""))}
+                  {he.decode(x.project_description.replace(/<[^>]+>/g, "")).split("....,").map((projectDesc, index) => (
+                    <p>{projectDesc}</p>
+                   
+                  ))}
                 </p>
               ))}
           </Left>
@@ -114,25 +119,29 @@ const Projects = ({ project }) => {
           <Right id="bottom_right">
             {project &&
               project.map((x, index) => (
-                <p key={index}>{x.skills_description}</p>
+                <div key={index}>{x.skills_description.split("....,").map((skillsDesc, index) => (
+                  <p>{skillsDesc}</p>
+                 
+                ))}
+                </div>
               ))}
           </Right>
         </Row>
       </Container>
       <div id="Acheivements">
-        <h2 className="Achievements_title"> Achievements </h2>
+      <Heading>Achievements</Heading>
 
 
-        <Carousel fade className="Achievements">
-        {project && project[1].Achievements.split(".....").map((x, index) => (
+        <Carousel variant="dark"  className="Achievements">
+        {project && project[1].Achievements.split("....,").map((x, index) => (
           <Carousel.Item>
-            ​​​​​​​​
+           
             <div className="Achievement_text">
-                {x}
+            ​​​​​​​​{(x.split("---"))[0]}
             </div>
-            <Carousel.Caption>
-              <h3>Achievement {count++}</h3>
-              <p>Team description</p>
+            <Carousel.Caption >
+              {/* <h3>Achievement {count++}</h3> */}
+              <p style={{ color: '#e16428' }}>{(x.split("---"))[1]}</p>
             </Carousel.Caption>
           </Carousel.Item>
               ))}

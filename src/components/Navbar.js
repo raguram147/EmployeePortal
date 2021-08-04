@@ -1,12 +1,46 @@
-import React, { useState, useEffect , useCallback} from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import styled from "styled-components";
 import { Link } from "react-scroll";
 import '../components/styles/style.css';
 import config from '../config';
+import Profile_icons from "../assets/User_icons.png";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
+// import Modal from "react-bootstrap/Modal";
+// import { Button } from "react-bootstrap";
+import { makeStyles,Button } from '@material-ui/core';
+import Modal from '@material-ui/core/Modal';
+import Backdrop from '@material-ui/core/Backdrop';
+import Fade from '@material-ui/core/Fade';
+
 // import FilterScreen from '../FilterScreen'
 // import {ReactComponent as LogoIcon}from "../assets/Logo.svg"
+const useStyles = makeStyles((theme) => ({
+  modal: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  paper: {
+    backgroundColor: theme.palette.background.paper,
+    border: '2px solid #000',
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+  },
+}));
 
-const Navbar = ({navdata}) => {
+const Navbar = ({ navdata }) => {
+  const classes = useStyles();
+  const [open, setOpen] = React.useState(false);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const closeModal = () => {
+    setOpen(false);
+    setAnchorEl(null);
+  };
   // console.log(navdata)
   const [isOpen, setIsOpen] = useState(false);
   const [nav, setNav] = useState(false);
@@ -20,53 +54,139 @@ const Navbar = ({navdata}) => {
         setNav(false);
       }
     }
-  },[nav]);
+  }, [nav]);
 
-  const fetchURL = config.drupal_url+'/HomeNav';
-  
+
+
+  const fetchURL = config.drupal_url + '/HomeNav';
+
   const [HomeNav, setItems] = useState();
+
+  // const [show, setShow] = useState(false);
+  // const handleShow = () => setShow(true);
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+    // setShow(false);
+    console.log("good");
+  };
+
+  const handleLogOut = () => {
+    window.sessionStorage.setItem("login", "false");
+    console.log("good day");
+    setAnchorEl(null);
+    // setShow(false);
+  };
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
 
     const getItems = () => fetch(fetchURL).then(res => res.json());
     getItems().then(data => setItems(data));
-  }, [handleScroll,fetchURL,setItems]);
+  }, [handleScroll, fetchURL, setItems]);
 
- 
- 
+
+  let params = new URLSearchParams((window.location).search);
+  if (params.get("login") === "true") {
+    window.sessionStorage.setItem("login", "true");
+  }
   return (
     <Nav onScroll={handleScroll}>
-       <Container>
-       <img src={ `${config.drupal_url}/${navdata.website_logo}` } alt="Skill Portal"></img>
+      <Container>
+        <img src={`${config.drupal_url}/${navdata.website_logo}`} alt="Skill Portal"></img>
 
         {/* <LogoIcon></LogoIcon> */}
-        {/* {console.log(navdata)} */}
+        {console.log("login:" + window.sessionStorage.getItem("login"))}
         <Humburger onClick={() => setIsOpen(!isOpen)}>
           <span></span>
           <span></span>
           <span></span>
         </Humburger>
-        <Menu isOpen={isOpen}>
+        <Menu1 isOpen={isOpen}>
 
           <LinkWrapper >
-          {/* <Link to="/FilterPage" component={FilterScreen}>FilterPage</Link> */}
-          {/* {console.log(HomeNav[0])}
+            {/* <Link to="/FilterPage" component={FilterScreen}>FilterPage</Link> */}
+            {/* {console.log(HomeNav[0])}
           {console.log(sampleData[0])} */}
             {HomeNav && HomeNav.map((data, index) => (
               <Link id="menu" key={index} activeClass="active" to={data.url}
-              spy={true}
-              smooth={true}
-              offset={-70}
-              duration={800}>
+                spy={true}
+                smooth={true}
+                offset={-70}
+                duration={800}>
                 <MenuLink  >
                   {data.name}
                 </MenuLink>
               </Link>
             ))}
-            <Button>LOGIN</Button>
+            {window.sessionStorage.getItem("login") === "true" ?
+              <>
+                <img
+                  className="Profile_icons"
+                  src={Profile_icons}
+                  alt="Profile"
+                  onClick={handleClick}
+                ></img>
+                <Menu
+                  id="simple-menu"
+                  anchorEl={anchorEl}
+                  keepMounted
+                  open={Boolean(anchorEl)}
+                  onClose={handleClose}
+                  style={{ top: "40px", right: "5%" }}
+                >
+                  <MenuItem onClick={handleClose}><a href={`${config.drupal_url}/node/add/employee`} className="Profile-Nav" style={{ textDecoration: "none" }}>Profile</a></MenuItem>
+                  {/* <MenuItem onClick={handleClose}>My account</MenuItem> */}
+                  <MenuItem onClick={handleOpen}>Logout</MenuItem>
+                </Menu>
+
+                <Modal
+                  aria-labelledby="transition-modal-title"
+                  aria-describedby="transition-modal-description"
+                  className={classes.modal}
+                  open={open}
+                  onClose={closeModal}
+                  closeAfterTransition
+                  BackdropComponent={Backdrop}
+                  BackdropProps={{
+                    timeout: 500,
+                  }}
+                >
+                  <Fade in={open}>
+                    <div className={classes.paper}>
+                    Are you sure want to Logout the account!<br></br>
+                    <Button style={{ margin: '10px' }} variant="secondary" onClick={closeModal} onChange={handleLogOut}>
+                      No,Wait
+                    </Button>
+                    <Button style={{ margin: '10px', backgroundColor: '#ef6e25', border: "#ef6e25", borderRadius: "10%" }} variant="primary" onClick={handleLogOut}>
+                      Yes,Logout
+                    </Button>
+                    </div>
+                  </Fade>
+                </Modal>
+                {/* <Modal show={show} onHide={handleClose}>
+                  <Modal.Header closeButton>
+                    <Modal.Title>Logging Out</Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body>
+                    Are you sure want to Logout the account!<br></br>
+                    <Button style={{ margin: '10px' }} variant="secondary" onClick={handleClose} onChange={handleLogOut}>
+                      No,Wait
+                    </Button>
+                    <Button style={{ margin: '10px', backgroundColor: '#ef6e25', border: "#ef6e25", borderRadius: "10%" }} variant="primary" onClick={handleLogOut}>
+                      Yes,Logout
+                    </Button>
+                  </Modal.Body>
+                </Modal> */}
+              </>
+              : <Button1><a href={`${config.drupal_url}/user/login`} style={{ color: '#858586' }}>LOGIN</a></Button1>}
           </LinkWrapper>
-        </Menu>
+        </Menu1>
       </Container>
     </Nav>
   );
@@ -97,8 +217,11 @@ const Container = styled.div`
       color: #ef6e25;
       background: #e7e9fc;
     }
+ 
   }
 `;
+
+
 const Nav = styled.div`
   height: 5%;
   display: flex;
@@ -113,7 +236,7 @@ const Nav = styled.div`
   background-color: ${({ nav }) => (nav ? "black" : "#e5e5e5")};
 `;
 
-const Menu = styled.div`
+const Menu1 = styled.div`
   diplay: flex;
   justy-content: space-between;
   align-item: center;
@@ -158,12 +281,12 @@ const MenuLink = styled.div`
  color:#ef6e25;
  background: #e7e9fc;
  }`;
-const Button = styled.button`
+const Button1 = styled.button`
   font-family: Montserrat;
   font-size: 1rem;
   background: #ef6e25;
   border: none;
-  padding: 15px 45px;
+  padding: 5px 5px;
   color: #fff;
   border-radius: 1rem;
   box-shadow: 0px 2px 3px -2px #ef6e25;
@@ -175,6 +298,13 @@ const Button = styled.button`
     transform: translateY(-2px);
   }
   @media (max-width: 768px) {
+  }
+  a {
+    text-decoration: none;
+    &:hover {
+      color: #ef6e25;
+      background: none;
+    }
   }
 `;
 const Humburger = styled.div`

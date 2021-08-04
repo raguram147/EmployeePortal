@@ -32,14 +32,14 @@ export const EmployeeCard = ({employee}) => {
               marginBottom: "5px",
             }}
           >
-            Manager: {employee.Manager}
+            <span style={{fontWeight:"600" }}>Manager: </span>{employee.Manager}
           </p>
            <a href={"mailto:" + employee.email}><img style={{borderRadius:"50%", textAlign: "right",height: "22px", marginRight:"14px" }} alt= "email-icon" src={emailIcon}></img></a>
          
           </div>
           <div className="exp-linkedin">
           <p style={{ textAlign: "left", fontSize: "0.7rem" }}>
-            Experience: {employee.Experience} years
+            <span style={{fontWeight:"600" }}> Experience: </span>{employee.Experience} years
           </p>
           <SocialIcon url={employee.linkedin_profile} bgColor="#282936" style={{borderRadius:"50%", textAlign: "right", fontSize: "0.7rem",height: "22px"  }} ></SocialIcon>
           </div>

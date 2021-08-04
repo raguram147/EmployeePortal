@@ -18,8 +18,10 @@ const CustomProjectLogo = (ProjectName) =>{
 
 const Wheel = ({card}) => {
   const[state , setState] = useState(false);
-  console.log(state)
-  console.log(card)
+  if(state){
+  }
+  // console.log(state)
+  // console.log(card)
   const dummy = card;
 
     useEffect(()=>{
@@ -62,7 +64,7 @@ const Wheel = ({card}) => {
      }
  
         {/* <p id="c_title1">{dummy[0].name}</p>  */}
-        {console.log(dummy[0])}
+        {/* {console.log(dummy.length)} */}
       </div>
       <div className="cards" id="card2" >
       <img src={Target_icon} alt="active card" className="target_iconP"  id="target_iconP2"></img>

@@ -5,7 +5,7 @@ import config from '../config';
 import Slider from '@material-ui/core/Slider';
 import NoResult from '../assets/noResult.gif'
 import Chip from '@material-ui/core/Chip';
-import empGroup from '../assets/group-orange.png'
+// import empGroup from '../assets/group-orange.png'
 import {  TextField } from "@material-ui/core";
 import { event } from 'jquery';
 import { EmployeeCard } from './EmployeeCard';
@@ -476,6 +476,16 @@ export default class EmployeeView extends Component {
     return filteredEmployee;
   }
 
+  FiltersHover(){
+    var x =  document.getElementById("filtersContainer");
+    console.log(x.className);
+    if (x.className === "reqForm") {
+      x.className = "filtersContainer";
+    } else {
+      x.className = "reqForm";
+    }
+  }
+
 
   render() {
     //initialisig the state variables for manipulations 
@@ -492,21 +502,33 @@ export default class EmployeeView extends Component {
       <>
       <div className="filter-container" id="filterPage">
         {/* different types of filters  */}
-        <div className="reqForm">
+        <div class="filter-icon" onClick={() => this.FiltersHover()} >
+            <i className="fa fa-filter " ></i>
+        </div>
+        {/* <i className="fa fa-filter filter-icon" onClick={this.FiltersHover()} ></i> */}
         <Scrollbars  
-        style={{ height: 1600 }}
+        style={{ height: "100%" }}
           onScroll={this.handleScroll}
           autoHide     // Hide delay in ms
           autoHideTimeout={1000}   // Duration for hide animation in ms.
           autoHideDuration={200}
         >
+        <div className="reqForm" id="filtersContainer">
+        {/* <div class="filter-icon" onClick={() => this.FiltersHover()} style={{ right: "0%", position:"absolute" }}>
+            <i className="fa fa-filter " ></i>
+        </div> <span className="filterName">Employees </span> */}
           <form >
+          <div className="filtered-emp-count">
+                <span className="filterName">Employees: </span>
+                {/* <img alt="no of emp" src={empGroup} style={{ height: "20px",  paddingLeft: "10%" }}></img> */}
+                <p className="empCount">{filteredEmployee.length}</p>
+              </div>
             {/* name or id input filed*/}
               <TextField
                 id="outlined-basic"
                 label="Enter name or Id"
                 variant="outlined"
-                style={{ marginTop: "15px", padding: "10.5px 8px", paddingLeft: 0 }}
+                style={{ padding: "10.5px 8px", paddingLeft: 0, paddingBottom:0, width:"100%" }}
                 type="text"
                 name="name"
                 onChange={this.myChangeHandler}
@@ -516,8 +538,10 @@ export default class EmployeeView extends Component {
             {/* Experience slider*/}
             <div className="Experience-overview">
               <p className="filterName">Experience: </p>
+              <p className="exp-display">
               <p> {this.state.ExperienceMinMax[0]} - </p>
               <p>  {this.state.ExperienceMinMax[1]} years</p>
+              </p>
             </div>
             <div  className="experienceSlider" >
               {/* <Typography id="range-slider" gutterBottom>
@@ -537,7 +561,7 @@ export default class EmployeeView extends Component {
             </div>
 
             {/*  skills checkboxes*/}
-            <p className="filterName">Skills :</p>
+            <p className="filterName"  style={{ paddingTop: 2}}>Skills :</p>
             <form >
               <table className="CheckboxesTable">
                 {
@@ -569,7 +593,7 @@ export default class EmployeeView extends Component {
             </form>
 
             {/* Manager checkbox selection */}
-            <p className="filterName">Managers :</p>
+            <p className="filterName" style={{ paddingTop: 2}}>Managers :</p>
             <form >
               <table className="CheckboxesTable">
                 {
@@ -709,14 +733,22 @@ export default class EmployeeView extends Component {
             </form>
 
           </form>
-          </Scrollbars>
+         
         </div>
-
+        </Scrollbars>
         {/* //displaying */}
+        <Scrollbars  
+        style={{ height: 600 }}
+          onScroll={this.handleScroll}
+          autoHide     // Hide delay in ms
+          autoHideTimeout={1000}   // Duration for hide animation in ms.
+          autoHideDuration={200}
+        >
           <div className="Employees">
+
             {/* selected filters as tags */}
             {/* {console.log(this.state.checkedItemsTag)} */}
-            <div className="tagsAndEmpCountContainer">
+            {/* <div className="tagsAndEmpCountContainer"> */}
               <div className="selectedTags">
                 {checkedItemsTagList.map(x => (
                   <>
@@ -740,11 +772,11 @@ export default class EmployeeView extends Component {
                 ))
                 }
               </div>
-              <div className="filtered-emp-count">
+              {/* <div className="filtered-emp-count">
                 <img alt="no of emp" src={empGroup} style={{ height: "25%" }}></img>
                 <p className="empCount">{filteredEmployee.length}</p>
-              </div>
-            </div>
+              </div> */}
+            {/* </div> */}
          
               {filteredEmployee.length > 0 ? console.log(filteredEmployee.length) :
                 <>
@@ -775,8 +807,9 @@ export default class EmployeeView extends Component {
                 </>
               ))
               }
-       
+           
           </div>
+          </Scrollbars>
         </div>
         {/* next page or back button for viewing the cards */}
         <div className="nextBack">

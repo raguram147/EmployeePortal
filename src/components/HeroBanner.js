@@ -15,6 +15,7 @@ import "aos/dist/aos.css"
 
 const Banner = styled.div`
     position:relative;
+    overflow-x: hidden;
     display:block;
     flex-direction:column;
     font-family: Montserrat;
@@ -47,7 +48,7 @@ const LeftHowItworks = styled.div`
   }
   p {
     font-size: 1.5rem;
-    margin-left: 3%;
+ 
     @media (max-width:400px){
       font-size:0.8rem;
     }
@@ -85,8 +86,8 @@ const RightHowItworks = styled.div`
   }
   p {
     font-size: 1.5rem;
-    margin-left: 2%;
-    padding-left: 8rem;
+  
+    padding-left: 7rem;
     @media (max-width:400px){
       font-size:0.8rem;
     }
@@ -100,8 +101,8 @@ const RightHowItworks = styled.div`
   
 `;
 const Heading = styled.h1`
-  
-    margin-left:2.5%;
+text-align:center;
+   
     padding:0.7rem;
     font-weight:700;
     font-size:2rem;
