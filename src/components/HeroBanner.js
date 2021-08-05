@@ -180,7 +180,7 @@ const Home = ({ data }) => {
                 ))}
               <button class="button" id="getTouch">
                 <span>
-                  <a href="/EmployeeSearch" style={{ fontWeight: 'bold' }}>Get Touch!!</a>{" "}
+                  <a href="/EmployeeSearch" style={{ fontWeight: 'bold' }}>Get Started!!</a>{" "}
                 </span>
               </button>
             </Container>
@@ -217,8 +217,8 @@ const Home = ({ data }) => {
         <Row>
           <div data-aos="fade-right" className="Left">
             <LeftHowItworks>
-              <h1>Struck Ups, Facing issues Need Help?</h1>
-              <p>The right place is here, Search here for right person.</p>
+              <h1>Find</h1>
+              <p>Looking to fill a new opening in your project? Search for probable match as per your need</p>
             </LeftHowItworks>
           </div>
           <div data-aos="fade-left" className="Right">
@@ -235,16 +235,16 @@ const Home = ({ data }) => {
           </div>
           <div data-aos="fade-left" className="Right">
             <RightHowItworks>
-              <h1> Look for the best one!</h1>
-              <p> Find the perfect and wonderful matches.</p>
+              <h1> Connect</h1>
+              <p> Want to know who shares similar tech-interests as you? Start viewing your colleagues profiles</p>
             </RightHowItworks>
           </div>
         </Row>
         <Row>
           <div data-aos="fade-right" className="Left">
             <LeftHowItworks>
-              <h1>Start sharing and get your needs!</h1>
-              <p>Start Working together and do it quickly with sharing mind.</p>
+              <h1>Collaborate</h1>
+              <p>Have a creative idea and want to share with fellow Listerians? Open up your mind and start working together</p>
             </LeftHowItworks>
           </div>
           <div data-aos="fade-left" className="Right">
