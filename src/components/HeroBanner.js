@@ -22,6 +22,7 @@ const Banner = styled.div`
     width:100%
     height: 250vh;
     background-color: #F5F5F5;
+    padding:5%;
     @media (max-width:400px){
       height:100%;
     }
@@ -102,8 +103,7 @@ const RightHowItworks = styled.div`
 `;
 const Heading = styled.h1`
 text-align:center;
-   
-    padding:0.7rem;
+
     font-weight:700;
     font-size:2rem;
     @media (max-width:400px){
@@ -117,12 +117,12 @@ text-align:center;
 
 const Row = styled.div`
   text-align:left;
-  padding-bottom:5%;
+
   justify-between: space-between;
   display: flex;
   align-items: center;
   width:100%;
-  padding-left: 10%;
+
   @media (max-width:400px){
     width:100%;
     margin:0;
@@ -180,7 +180,7 @@ const Home = ({ data }) => {
                 ))}
               <button class="button" id="getTouch">
                 <span>
-                  <a href="/EmployeeSearch" style={{ fontWeight: 'bold' }}>Get Started!!</a>{" "}
+                  <a href="/EmployeeSearch" style={{ fontWeight: 'bold' }}>Get Started</a>{" "}
                 </span>
               </button>
             </Container>
@@ -217,7 +217,7 @@ const Home = ({ data }) => {
         <Row>
           <div data-aos="fade-right" className="Left">
             <LeftHowItworks>
-              <h1>Find</h1>
+              <h1>Explore</h1>
               <p>Looking to fill a new opening in your project? Search for probable match as per your need</p>
             </LeftHowItworks>
           </div>

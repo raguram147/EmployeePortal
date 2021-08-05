@@ -534,6 +534,7 @@ export default class EmployeeView extends Component {
                 id="outlined-basic"
                 label="Enter name or Id"
                 variant="outlined"
+                // size="small"
                 style={{ padding: "10.5px 8px", paddingLeft: 0, paddingBottom:0, width:"100%" }}
                 type="text"
                 name="name"
@@ -820,10 +821,10 @@ export default class EmployeeView extends Component {
         {/* next page or back button for viewing the cards */}
         <div className="nextBack">
           {this.state.currentPage > 1 ?
-            <button className="nextBackBttn" onClick={() => this.changePage('back')}>&laquo; Back</button>
+            <button className="nextBackBttn" onClick={() => this.changePage('back')}>&laquo; </button>
             : null}
           {filteredEmployee.length > this.state.currentPage * this.state.maxItemsPerPage ?
-            <button className="nextBackBttn" onClick={() => this.changePage('next')}>Next &raquo;</button>
+            <button className="nextBackBttn" onClick={() => this.changePage('next')}> &raquo;</button>
             : null}
         </div>
       </>

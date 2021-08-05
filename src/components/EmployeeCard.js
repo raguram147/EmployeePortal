@@ -23,7 +23,7 @@ export const EmployeeCard = ({employee}) => {
             {employee.name}
           </p>
           {/* <p>{ employee.Emp_id }</p> */}
-          <p>{employee.role}</p>
+          <p style={{textTransform: "capitalize"}}>{employee.role}</p>
           <div className="Manager-email">
           <p
             style={{
@@ -39,7 +39,7 @@ export const EmployeeCard = ({employee}) => {
           </div>
           <div className="exp-linkedin">
           <p style={{ textAlign: "left", fontSize: "0.7rem" }}>
-            <span style={{fontWeight:"600" }}> Experience: </span>{employee.Experience} years
+            <span style={{fontWeight:"600" }}> Experience: </span>{employee.Experience === "0" ? "Fresher":employee.Experience+" years"} 
           </p>
           <SocialIcon url={employee.linkedin_profile} bgColor="#282936" style={{borderRadius:"50%", textAlign: "right", fontSize: "0.7rem",height: "22px"  }} ></SocialIcon>
           </div>

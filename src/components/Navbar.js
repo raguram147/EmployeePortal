@@ -171,7 +171,7 @@ const Navbar = ({ navdata }) => {
                 </Modal>
    
               </>
-              : <Button1><a href={`${config.drupal_url}/user/login`} style={{ color: '#858586' }}>LOGIN</a></Button1>}
+              : <Button1><a href={`${config.drupal_url}/user/login`} style={{ color: '#f5f5f5' }}>LOGIN</a></Button1>}
           </LinkWrapper>
         </Menu1>
       </Container>

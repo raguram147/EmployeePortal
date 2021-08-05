@@ -5,8 +5,9 @@ import Skills from "./Skills";
 import he from "he";
 import { Carousel } from 'react-bootstrap';
 import config from '../config';
+import '../components/styles/style.css';
 const Container = styled.div`
-    top:10%;
+   padding:5%;
     overflow:hidden;
     font-family: Montserrat;
     width:100%
@@ -48,7 +49,7 @@ const Right = styled.div`
 `;
 const Heading = styled.h1`
 
-  padding: 2rem;
+  margin-bottom:2%;
   font-weight: 700;
   font-size: 2rem;
   text-align:center;
@@ -61,8 +62,7 @@ const Row = styled.div`
   align-items: center;
   width:85%;
   max-width: 100%;
-  padding: 30px;
-  margin:0 40px 0 0;
+
   @media screen and (max-width: 670) {
     width: 100%;
   }
@@ -128,7 +128,7 @@ const Projects = ({ project }) => {
           </Right>
         </Row>
       </Container>
-      <div id="Acheivements">
+      <div id="Acheivements" className="Achievments-container">
       <Heading>Achievements</Heading>
 
 
@@ -139,9 +139,9 @@ const Projects = ({ project }) => {
             <div className="Achievement_text">
             ​​​​​​​​{(x.split("---"))[0]}
             </div>
-            <Carousel.Caption >
+            <Carousel.Caption style={{ zIndex:"0" }}>
               {/* <h3>Achievement {count++}</h3> */}
-              <p style={{ color: '#e16428' }}>{(x.split("---"))[1]}</p>
+              <p style={{ color: '#e16428', zIndex:"0" }}>{(x.split("---"))[1]}</p>
             </Carousel.Caption>
           </Carousel.Item>
               ))}

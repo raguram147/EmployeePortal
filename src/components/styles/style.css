@@ -198,7 +198,7 @@
 
 .showMore{
     text-decoration: none;
-    color: #007185;
+    color: #6c6e73;
 }
 
 .showMore:hover {
@@ -216,14 +216,14 @@
 }
 
 .nextBackBttn{ 
-    height: 15%;
+    /* height: 15%; */
     background-color: #f1f1f1;
-    color: black;
+    /* color: black; */
     display: inline-block;
-    padding: 5px 16px;
-    border: 1px solid #6c6e73;
-    border-color: #adb1b8 #a2a6ac #8d9096;
-    border-radius: 3px;
+    padding: 5px 10px;
+    /* border: 1px solid #6c6e73; */
+    /* border-color: #adb1b8 #a2a6ac #8d9096; */
+    border-radius: 50%;
 }
 
 .nextBackBttn:hover{ 
@@ -436,7 +436,7 @@ label{
     /* width: 50%; */
      position: absolute;
      background-color: white;
-     z-index: 100;
+     z-index: 1;
      display: inline;
      padding-left: 3%;
      padding-right: 3%;
@@ -675,6 +675,16 @@ label{
 	width: 20px;
 }
 
+/* .carousel-indicators{
+  z-index: 0 !important;
+} */
+.carousel-control-next, .carousel-control-prev {
+  color: black;
+}
+
+.carousel-indicators li {
+  background-color: black;
+}
 
 /* card css */
 #card1 {
@@ -776,6 +786,7 @@ label{
     left: 0rem;
     height: 160px;
     width: 160px;
+    z-index: 1;
   }
   #top_left {
     width: 65%;
@@ -965,7 +976,8 @@ a{
   height: 125px;
   border-radius: 50%;
   position: absolute;
-  background: #ef6e253d;
+  background-color: #faf5f5;
+  opacity: 0.9;
   text-align: center;
   font-size: 1.5rem;
   align-content: space-between;
@@ -1038,7 +1050,7 @@ a{
   align-content: center;
   /* font-style: italic; */
   font-size: 1.3em !important;
-  /* color: #4f59eb; */
+  color: black;
 }
 
 
@@ -1173,6 +1185,10 @@ a{
   background-color: #e5e5e5;
   /* margin-bottom: 2%; */
   margin:2% 15%;
+}
+
+.Achievments-container{
+  padding: 5% 0%;
 }
 
 .Profile_icons {
@@ -1311,18 +1327,20 @@ a{
   border: 1px solid #fff;
   background: linear-gradient(to top right, #ff8303 50%, #FFFFFF 50%);
 }
-.Emplyoee_name {
+.Employee_name {
   font-size: 1.3rem;
   font-weight: 600;
-  margin-left: 10px;
-  padding-left: 25px;
+  /* margin-left: 10px;
+  padding-left: 25px; */
+  align-items: center;
 }
 .Designation {
   color: #e16428;
   font-size: 1rem;
   font-weight: 600;
-  margin-left: 10px;
-  padding-left: 25px;
+  /* margin-left: 10px;
+  padding-left: 25px; */
+  align-items: center;
 }
 .title {
   font-size: 1.1rem;

@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme)=>({
     maxHeight: "200px",
     height: "30%",
     color: "#fff",
-    opacity:"0.5",
+    opacity:"0.8",
     fontSize:"0.8rem"
   }
 }));
@@ -86,7 +86,7 @@ const LeftDashborad = ({ data }) => {
               {/*Avatar ends here */}
             </div>
             <div className="Leftdashborad_details">
-              <h2 className="Emplyoee_name">
+              <h2 className="Employee_name">
                 {x.name + " (" + x.Emp_id + ")"}
               </h2>
               <h2 className="Designation">{x.role}</h2>

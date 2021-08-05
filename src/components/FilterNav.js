@@ -182,7 +182,7 @@ const FilterNav = ({ Logo }) => {
                 </Modal>
    
               </>
-              : <Button1><a href={`${config.drupal_url}/user/login`} style={{ color: '#858586' }}>LOGIN</a></Button1>}
+              : <Button1><a href={`${config.drupal_url}/user/login`} style={{ color: 'white' }}>LOGIN</a></Button1>}
           </LinkWrapper>
         </Menu1>
       </Container>
@@ -285,7 +285,7 @@ const Button1 = styled.button`
   background: #ef6e25;
   border: none;
   padding: 8px;
-  color: #fff;
+  color: white;
   border-radius: 1rem;
   box-shadow: 0px 2px 3px -2px #ef6e25;
   transition: all 0.2s ease-in;
