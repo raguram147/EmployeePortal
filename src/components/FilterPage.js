@@ -503,7 +503,7 @@ export default class EmployeeView extends Component {
     let HobbiesFilterShowCust = this.state.HobbiesFilterShow;
     let filteredEmployee = this.filteringTheEmp();
     let checkedItemsTagList = this.AllCheckedItems();  //getting all the checked items and storing to make tags
-    // console.log(checkedItemsTagList);
+    console.log(filteredEmployee);
 
     return (
       <>
