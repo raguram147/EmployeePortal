@@ -12,7 +12,7 @@ const FilterScreen = () => {
     useEffect(() => {
       const getItems = () => fetch(fetchURL).then(res => res.json());
        getItems().then(data => setItems(data));
-    }, [fetchURL,setItems]);
+    }, [fetchURL]);
   
 
   return (

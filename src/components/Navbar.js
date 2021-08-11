@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Link } from "react-scroll";
 import '../components/styles/style.css';
@@ -6,15 +6,11 @@ import config from '../config';
 import Profile_icons from "../assets/User_icons.png";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
-// import Modal from "react-bootstrap/Modal";
-// import { Button } from "react-bootstrap";
 import { makeStyles,Button } from '@material-ui/core';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 
-// import FilterScreen from '../FilterScreen'
-// import {ReactComponent as LogoIcon}from "../assets/Logo.svg"
 const useStyles = makeStyles((theme) => ({
   modal: {
     display: 'flex',
@@ -43,21 +39,6 @@ const Navbar = ({ navdata }) => {
   };
   // console.log(navdata)
   const [isOpen, setIsOpen] = useState(false);
-  const [nav, setNav] = useState(false);
-  const handleScroll = useCallback(() => {
-    if (window.pageYOffset > 140) {
-      if (!nav) {
-        setNav(true);
-      }
-    } else {
-      if (nav) {
-        setNav(false);
-      }
-    }
-  }, [nav]);
-
-
-
   const fetchURL = config.drupal_url + '/HomeNav';
 
   const [HomeNav, setItems] = useState();
@@ -72,8 +53,7 @@ const Navbar = ({ navdata }) => {
 
   const handleClose = () => {
     setAnchorEl(null);
-    // setShow(false);
-    console.log("good");
+   
   };
 
   const handleLogOut = () => {
@@ -84,11 +64,9 @@ const Navbar = ({ navdata }) => {
   };
 
   useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-
     const getItems = () => fetch(fetchURL).then(res => res.json());
     getItems().then(data => setItems(data));
-  }, [handleScroll, fetchURL, setItems]);
+  }, [ fetchURL, setItems]);
 
 
   let params = new URLSearchParams((window.location).search);
@@ -96,7 +74,7 @@ const Navbar = ({ navdata }) => {
     window.sessionStorage.setItem("login", "true");
   }
   return (
-    <Nav onScroll={handleScroll}>
+    <Nav>
       <Container>
         <img src={`${config.drupal_url}/${navdata.website_logo}`} alt="Skill Portal"></img>
 
@@ -188,7 +166,7 @@ const Container = styled.div`
   flex-wrap: wrap;
   max-width: 100%;
   margin: auto;
-  padding: 0;
+  padding: 0.5%;
   img{
     cursor: Pointer;
   }
@@ -202,7 +180,7 @@ const Container = styled.div`
     font-wegiht: 500;
     &:hover {
       color: #ef6e25;
-      background: #e7e9fc;
+      
     }
  
   }
@@ -228,7 +206,7 @@ const Menu1 = styled.div`
   justy-content: space-between;
   align-item: center;
   position: relative;
-  @media (max-width: 768px) {
+  @media (max-width: 850px) {
     background-color: rgba(255, 255, 255, 0.9);
     @supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
       -webkit-backdrop-filter: blur(35px);
@@ -266,7 +244,7 @@ const MenuLink = styled.div`
  cursor:pointer;
  &:hover {
  color:#ef6e25;
- background: #e7e9fc;
+
  }`;
 const Button1 = styled.button`
   font-family: Montserrat;
@@ -284,7 +262,7 @@ const Button1 = styled.button`
     box-shadow: 1px 5px 12px -6px #ef6e25;
     transform: translateY(-2px);
   }
-  @media (max-width: 768px) {
+  @media (max-width: 850px) {
   }
   a {
     text-decoration: none;
@@ -306,7 +284,7 @@ const Humburger = styled.div`
     margin-bottom: 4px;
     border-radius: 5px;
   }
-  @media (max-width: 670px) {
+  @media (max-width: 850px) {
     display: flex;
   }
 `;
