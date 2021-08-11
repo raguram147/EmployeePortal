@@ -70,7 +70,7 @@ const Home = ({ data }) => {
                     // opacity: 1,
                     height: "150%",
                     width: "150%",
-                    cursor:"default",
+                    cursor: "default",
                   }}
                 />
               </div>
@@ -78,18 +78,24 @@ const Home = ({ data }) => {
             <Grid item xs={12} md={6} lg={6}>
               <Container>
                 <div data-aos="fade-in">
-                  <div className="hero-txt" style={{ width: "100%", position: "relative" }}>
+                  <div
+                    className="hero-txt"
+                    style={{ width: "100%", position: "relative" }}
+                  >
                     <h1 id="banner_header">{data[1].banner_content_header}</h1>
                     <h1 id="banner_description">
                       {data[1].banner_content_description}
                     </h1>
                     <h1 id="banner_sub">
                       {data[1].banner_content_sub_description}
-                    </h1>
+                    </h1>{" "}
                     <button class="button">
                       <span>
-                        <a href="/Filterpage" style={{ fontWeight: "bold" }}>
-                          Get Touch!!
+                        <a
+                          href="/EmployeeSearch"
+                          style={{ fontWeight: "bold" }}
+                        >
+                          Get Touch
                         </a>{" "}
                       </span>
                     </button>
@@ -100,21 +106,21 @@ const Home = ({ data }) => {
 
             <Grid item xs={12} md={3} lg={3}>
               <div className="lottie-2">
-              <Lottie
-                
-                options={defaultOptions}
-                style={{
-                  justifyContent: "space-between",
-                  width: "100%",
-                  height: "90%",
-                  backgroundColor: "#e5e5e5",
-                  opacity: 0.8,
-                  position: "relative",
-                  right: 0,
-                  cursor: "default",
-                  overflow: "hidden",
-                }}
-              /></div>
+                <Lottie
+                  options={defaultOptions}
+                  style={{
+                    justifyContent: "space-between",
+                    width: "100%",
+                    height: "90%",
+                    backgroundColor: "#e5e5e5",
+                    opacity: 0.8,
+                    position: "relative",
+                    right: 0,
+                    cursor: "default",
+                    overflow: "hidden",
+                  }}
+                />
+              </div>
             </Grid>
           </InnerWrapper>
         </Welcome>
