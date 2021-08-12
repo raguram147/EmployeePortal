@@ -55,7 +55,10 @@ const Home = ({ data }) => {
       <div className="bubble x4"></div>
       <div className="bubble x5"></div>
       <div className="bubble x6"></div>
+
       <Grid container direction="column" >
+
+     
         <Welcome id="Home">
           <InnerWrapper>
             <Grid item xs={12} md={3} lg={3}>

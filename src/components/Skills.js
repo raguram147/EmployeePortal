@@ -1,74 +1,68 @@
-import React, { useState  , useEffect} from "react";
-import Target_icon from '../assets/target_icon.png';
-import invisble from '../assets/invisible.png';
-import config from '../config';
+import React, { useState, useEffect } from "react";
+import Target_icon from "../assets/target_icon.png";
+import invisble from "../assets/invisible.png";
+import config from "../config";
 
 // const fetchURL = "http://localhost/lister/Taxonomy/Skills";
-const CustomSkillLogo = (skillName) =>{
-  let count =  skillName.split(" ").length;
-  if(count ===1){
-   return skillName.charAt(0)+skillName.charAt(-1);
-  }else{
-   return (skillName.split(" ")[0].charAt(0)+skillName.split(" ")[1].charAt(0)).toUpperCase();
+const CustomSkillLogo = (skillName) => {
+  let count = skillName.split(" ").length;
+  if (count === 1) {
+    return skillName.charAt(0) + skillName.charAt(-1);
+  } else {
+    return (
+      skillName.split(" ")[0].charAt(0) + skillName.split(" ")[1].charAt(0)
+    ).toUpperCase();
   }
- }
+};
 
-const TargetIconMovement = () =>{
+const TargetIconMovement = () => {
+  var targetIconTag1 = document.getElementById("target_iconS1");
+  var targetIconTag2 = document.getElementById("target_iconS2");
+  var targetIconTag3 = document.getElementById("target_iconS3");
+  var targetIconTag4 = document.getElementById("target_iconS4");
+  if (targetIconTag1) {
+    if (targetIconTag1.getAttribute("src") === Target_icon) {
+      targetIconTag1.setAttribute("src", invisble);
+      targetIconTag2.setAttribute("src", Target_icon);
+      //  targetIconTag2.style.transitionDelay = '8s';
+      //  console.timeLog(targetIconTag1);
+      return "done";
+    } else if (targetIconTag2.getAttribute("src") === Target_icon) {
+      targetIconTag2.setAttribute("src", invisble);
+      targetIconTag3.setAttribute("src", Target_icon);
+      return "done";
+    } else if (targetIconTag3.getAttribute("src") === Target_icon) {
+      targetIconTag3.setAttribute("src", invisble);
+      targetIconTag4.setAttribute("src", Target_icon);
+      return "done";
+    } else if (targetIconTag4.getAttribute("src") === Target_icon) {
+      targetIconTag4.setAttribute("src", invisble);
+      targetIconTag1.setAttribute("src", Target_icon);
+      return "done";
+    }
+  }
+};
 
-  var targetIconTag1 = document.getElementById('target_iconS1')  
-  var targetIconTag2 = document.getElementById('target_iconS2')
-  var targetIconTag3 = document.getElementById('target_iconS3')
-  var targetIconTag4 = document.getElementById('target_iconS4');
-  if(targetIconTag1){
-  if(targetIconTag1.getAttribute('src')  === Target_icon){
-     targetIconTag1.setAttribute('src',invisble);
-     targetIconTag2.setAttribute('src',Target_icon);
-    //  targetIconTag2.style.transitionDelay = '8s';
-    //  console.timeLog(targetIconTag1);
-    return 'done';
-  }else if(targetIconTag2.getAttribute('src')  === Target_icon){
-    targetIconTag2.setAttribute('src',invisble);
-    targetIconTag3.setAttribute('src',Target_icon)
-    return 'done';
- }else if(targetIconTag3.getAttribute('src')  === Target_icon){
-  targetIconTag3.setAttribute('src',invisble);
-  targetIconTag4.setAttribute('src',Target_icon)
-  return 'done';
- }else if(targetIconTag4.getAttribute('src')  === Target_icon){
-  targetIconTag4.setAttribute('src',invisble);
-  targetIconTag1.setAttribute('src',Target_icon) 
-  return 'done';
- } 
-}
-
-
-}
-
-const Skills = ({skill}) => {
-  const[state , setState] = useState(false);
+const Skills = ({ skill }) => {
+  const [state, setState] = useState(false);
   // const [skillData, setskillData] = useState([]);
   // console.log(state)
-  if(state){
-    
+  if (state) {
   }
   const dummy = skill;
 
-
-
-    useEffect(()=>{
-      
-      setInterval((()=>{
-        TargetIconMovement();
-        const temp = dummy[0];
-        dummy.shift();
-        dummy.push(temp);
-        // console.log(dummy[0]);
-        setState((prevstate) => !prevstate)
-        // console.log(TargetIconMovement());
-      }),5000);
-    },[dummy])
-    // console.log(dummy[0])
-
+  useEffect(() => {
+    setInterval(() => {
+      TargetIconMovement();
+      const temp = dummy[0];
+      dummy.shift();
+      dummy.push(temp);
+      // console.log(dummy[0]);
+      setState((prevstate) => !prevstate);
+      // console.log(TargetIconMovement());
+    }, 5000);
+  }, [dummy]);
+  // console.log(dummy[0])
 
   return (
     <>
