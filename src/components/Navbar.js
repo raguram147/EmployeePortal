@@ -12,7 +12,7 @@ import { makeStyles,Button } from '@material-ui/core';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
-
+import {UserApi} from '../utility'
 // import FilterScreen from '../FilterScreen'
 // import {ReactComponent as LogoIcon}from "../assets/Logo.svg"
 const useStyles = makeStyles((theme) => ({
@@ -132,6 +132,7 @@ const Navbar = ({ navdata }) => {
                   alt="Profile"
                   onClick={handleClick}
                 ></img>
+                {console.log(UserApi())}
                 <Menu
                   id="simple-menu"
                   anchorEl={anchorEl}

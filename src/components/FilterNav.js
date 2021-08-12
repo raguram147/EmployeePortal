@@ -1,5 +1,3 @@
-
-
 import React, { useState, useEffect, useCallback } from "react";
 import styled from "styled-components";
 // import { Link } from "react-scroll";
@@ -14,9 +12,12 @@ import { makeStyles,Button } from '@material-ui/core';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
+import ActivityNotifications from './ActivityNotifications'
+import NotificationsNoneIcon from '@material-ui/icons/NotificationsNone';
+import { NotificationManager} from 'react-notifications';
 
-// import FilterScreen from '../FilterScreen'
-// import {ReactComponent as LogoIcon}from "../assets/Logo.svg"
+
+
 const useStyles = makeStyles((theme) => ({
   modal: {
     display: 'flex',
@@ -61,9 +62,10 @@ const FilterNav = ({ Logo }) => {
 
 
   const fetchURL = config.drupal_url+'/FilterPageHeadFooter';
+  const fetchEmployee= config.drupal_url+'/Employees';
 
   const [HomeNav, setItems] = useState();
-
+  const [employeesApi, setEmployees] = useState();
   // const [show, setShow] = useState(false);
   // const handleShow = () => setShow(true);
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -85,11 +87,56 @@ const FilterNav = ({ Logo }) => {
     // setShow(false);
   };
 
+  const Notifications = () => {
+
+    let employees = employeesApi;
+    // let event = [];
+    if (employees) {
+      var date = new Date().getDate();
+      if (date < 10) {
+        date = "0" + date;
+      }
+      var month = new Date().getMonth() + 1;
+      if (month < 10) {
+        month = "0" + month;
+      }
+      var todayDoB = month + '-' + date;
+      // console.log(todayDoB + ' ' + DOB );
+      // console.log(year + '-' + month + '-' + date);
+
+      for (let i = 0; i < employees.length; i++) {
+        let DOB = employees[i].DOB.slice(5, 10);
+        if (DOB.includes(todayDoB)) {
+          console.log(todayDoB + ' ' + DOB +' '+ i);
+          NotificationManager.success('wish him',employees[i].name+ '\'s Birthday', 8000, () => {
+            window.location.href = "/EmployeeDetails/" + employees[i].Emp_id;
+          });
+        }
+
+        if (employees[i].revision_id !== employees[i].latest_revision_id) {
+          NotificationManager.info('Check and publish',employees[i].name+' updated the profile',  8200, () => {
+            window.location.assign(config.drupal_url+"/node/"+employees[i].nid+"/latest");
+          });
+
+         console.log("profile changed")
+          
+        }
+      }
+
+    }
+    
+    // window.sessionStorage.setItem("Notifications", "true");
+    // console.log(window.sessionStorage.getItem("Notifications"));
+  }
+
   
   useEffect(() => {
     // window.addEventListener("scroll", handleScroll);
      const getItems = () => fetch(fetchURL).then(res => res.json());
     getItems().then(data => setItems(data));
+
+    const getEmployees = () => fetch(fetchEmployee).then(res => res.json());
+    getEmployees().then(data => setEmployees(data));
  }, [fetchURL,setItems]);
 
   let params = new URLSearchParams((window.location).search);
@@ -99,11 +146,11 @@ const FilterNav = ({ Logo }) => {
   return (
     <Nav onScroll={handleScroll}>
       <Container>
-      <img
-                    src={`${config.drupal_url}/${Logo.website_logo}`}
-                    alt="Skill Portal"
-                    style={{height:'60px'}}
-                ></img>
+        <img
+          src={`${config.drupal_url}/${Logo.website_logo}`}
+          alt="Skill Portal"
+          style={{ height: '60px' }}
+        ></img>
 
         {/* <LogoIcon></LogoIcon> */}
         {console.log("login:" + window.sessionStorage.getItem("login"))}
@@ -115,10 +162,7 @@ const FilterNav = ({ Logo }) => {
         <Menu1 isOpen={isOpen}>
 
           <LinkWrapper >
-            {/* <Link to="/FilterPage" component={FilterScreen}>FilterPage</Link> */}
-            {/* {console.log(HomeNav[0])}
-          {console.log(sampleData[0])} */}
-          {/* {console.log(HomeNav[0])} */}
+          {/* <ReactNotification></ReactNotification> */}
             {HomeNav && HomeNav.map((data, index) => (
                 //  <Link  id="menu" key={index} to={data.field_navigation_link}> <MenuLink>{data.title} </MenuLink></Link> 
                  <a href={data.field_navigation_link} activeClass="active"><MenuLink>{data.title} </MenuLink></a>
@@ -135,6 +179,11 @@ const FilterNav = ({ Logo }) => {
              <a  activeClass="active" href={config.drupal_url+"/admin/content"}> <MenuLink  >
                  Dashboard
                 </MenuLink></a>
+                <ActivityNotifications></ActivityNotifications>
+               
+                <div onClick={Notifications} className="notification-section"><NotificationsNoneIcon style={{color:"#858586"}}></NotificationsNoneIcon> 
+                {window.sessionStorage.getItem("NotificationsCount") > 0 ? <div className="notification-count">{window.sessionStorage.getItem("NotificationsCount")}</div>: <></>}
+                </div>   
             {window.sessionStorage.getItem("login") === "true" ?
               <>
                 <img
@@ -186,6 +235,7 @@ const FilterNav = ({ Logo }) => {
           </LinkWrapper>
         </Menu1>
       </Container>
+     
     </Nav>
   );
 };

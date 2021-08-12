@@ -5,6 +5,8 @@ import Footer from "../components/Footer";
 // import ScrollToTop from "./components/ScrollToTop";
 import  FilterPage  from "../components/FilterPage";
 import config from '../config';
+import {NotificationContainer} from 'react-notifications';
+import 'react-notifications/lib/notifications.css';
 const FilterScreen = () => {
     const fetchURL = config.drupal_url+'/Home';
     const [items, setItems] = useState();
@@ -19,7 +21,9 @@ const FilterScreen = () => {
     <>
       {/* <ScrollToTop /> */}
       { items && <FilterNav Logo={items[0]}/>}
+     
       { <FilterPage />}
+      <NotificationContainer style={{top: "10% !important"}}></NotificationContainer>
       { <Footer/>}
     </>
   );

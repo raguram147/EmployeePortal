@@ -12,6 +12,8 @@ import { EmployeeCard } from './EmployeeCard';
 import { Scrollbars } from 'react-custom-scrollbars';
 import ClearIcon from '@material-ui/icons/Clear';
 import { BsFillFunnelFill } from "react-icons/bs";
+
+
 /*
   state variables and api data: 20-68 lines
   onchange functions
@@ -20,6 +22,7 @@ import { BsFillFunnelFill } from "react-icons/bs";
   filters (Dynamic checkboxes,slider,input) html
   displaying tags,emp cards,next/back button
 */
+
 
 export default class EmployeeView extends Component {
   constructor(props) {
@@ -121,6 +124,8 @@ export default class EmployeeView extends Component {
     else if(nam === 'checkedItemsHobbies')
       this.setState(prevState => ({ checkedItemsHobbies: prevState.checkedItemsHobbies.set(item, isChecked) }));
   }
+
+
 
   //show more skill filter option 
   showMoreSkills(){
@@ -505,8 +510,10 @@ export default class EmployeeView extends Component {
     let checkedItemsTagList = this.AllCheckedItems();  //getting all the checked items and storing to make tags
     console.log(filteredEmployee);
 
+
     return (
       <>
+      
       <div className="filter-container" id="filterPage">
         {/* different types of filters  */}
         <div class="filter-icon"  onClick={() => this.FiltersHover()} >

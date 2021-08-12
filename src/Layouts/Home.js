@@ -5,6 +5,7 @@ import Footer from "../components/Footer";
 import ScrollToTop from "../components/ScrollToTop";
 import config from '../config';
 import Project from "../components/Projects.js"
+import {HowItWorks} from "../components/HowItWorks"
 // import { Route, Router } from "react-router-dom";
 // import FilterScreen from './FilterScreen'
 
@@ -22,6 +23,7 @@ const HomeScreen = () => {
       <ScrollToTop />
       { items &&<Navbar navdata={items[0]}/>}
       { items &&<HeroBanner data={items}/>}
+      <HowItWorks></HowItWorks>
       { items && <Project project={items}></Project>}
       {  <Footer/>}
     </>
