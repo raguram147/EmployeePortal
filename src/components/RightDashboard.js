@@ -1,24 +1,22 @@
 import React from "react";
-// import Lottie from "react-lottie";
-
-// import Rocket from "../lottie/Dashboard.json";
+import Lottie from "react-lottie";
 import { Chip, Grid, Paper, makeStyles } from "@material-ui/core";
 import StarsIcon from "@material-ui/icons/Stars";
-// const defaultOptions = {
-//   loop: true,
-//   autoplay: true,
-//   animationData: Rocket,
-//   rendererSettings: {
-//     preserveAspectRatio: "xMidYMid slice",
-//   },
-// };
+import Rocket from "../lottie/rocket_man.json";
+
+/* Rocket animation in the right-bottom*/
+const defaultOptions = {
+  loop: true,
+  autoplay: true,
+  animationData: Rocket,
+  rendererSettings: {
+    preserveAspectRatio: "xMidYMid slice",
+  },
+};
+/*Customized styles of the material-ui components, like Paper,chip*/
 const useStyles = makeStyles((theme) => ({
-  // root: {
-  //   flexGrow: 1,
-  // },
   root: {
     display: "block",
-    // backgroundColor: "#ffebcc",
     justifyContent: "center",
     flexWrap: "wrap",
     listStyle: "none",
@@ -35,9 +33,6 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2),
     width: "100%",
     height:"90%",
-    // height: "200px",
-
-    // minHeight: "200px",
     overflowY:"auto",
     color: "#fff",
     marginRight:"0 !important",
@@ -67,6 +62,17 @@ const useStyles = makeStyles((theme) => ({
     zIndex: 1,
   },
 }));
+/*
+        Component       : It is the inner component of the Employee detials page.
+        Author          : Created by Lister Raguram Sundaravadivel
+        Child-Components: NIL
+        Variables       : data[] (API JSON) 
+
+
+      
+        Last Modified   :
+        (Format "Name Date `MM-DD-YYY`")
+      */
 const RightDashboard = ({ data }) => {
   const classes = useStyles();
   let icons = (
@@ -127,7 +133,7 @@ const RightDashboard = ({ data }) => {
               </Paper>
             </Grid>
           </Grid>
-          {/* <Lottie
+          <Lottie
             className="lottie"
             id='lottie'
             options={defaultOptions}
@@ -136,13 +142,12 @@ const RightDashboard = ({ data }) => {
             style={{
               background: "transparent",
               zIndex: "0",
-              right: "-5%",
+              left: "-5%",
               bottom: "-5%",
               position: "fixed",
               cursor: "default",
-              // opacity: 0.4,
             }}
-          /> */}
+          />
         </div>
       ))}
     </>

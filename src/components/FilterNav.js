@@ -1,41 +1,37 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-// import { Link } from "react-scroll";
-import '../components/styles/style.css';
-import config from '../config';
+import "../components/styles/style.css";
+import config from "../config";
 import Profile_icons from "../assets/User_icons.png";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
-// import Modal from "react-bootstrap/Modal";
-// import { Button } from "react-bootstrap";
-import { makeStyles,Button } from '@material-ui/core';
-import Modal from '@material-ui/core/Modal';
-import Backdrop from '@material-ui/core/Backdrop';
-import Fade from '@material-ui/core/Fade';
-import ActivityNotifications from './ActivityNotifications'
-import NotificationsNoneIcon from '@material-ui/icons/NotificationsNone';
-import { NotificationManager} from 'react-notifications';
-
+import { makeStyles, Button } from "@material-ui/core";
+import Modal from "@material-ui/core/Modal";
+import Backdrop from "@material-ui/core/Backdrop";
+import Fade from "@material-ui/core/Fade";
+import ActivityNotifications from "./ActivityNotifications";
+import NotificationsNoneIcon from "@material-ui/icons/NotificationsNone";
+import { NotificationManager } from "react-notifications";
 
 
 const useStyles = makeStyles((theme) => ({
   modal: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
   },
   paper: {
     backgroundColor: theme.palette.background.paper,
-    border: '2px solid #000',
+    border: "2px solid #000",
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
   },
 }));
 
-const FilterNav = ({ Logo }) => {
+const FilterNav = ({ navdata, color }) => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
-
+  console.log(color);
   const handleOpen = () => {
     setOpen(true);
   };
@@ -46,28 +42,10 @@ const FilterNav = ({ Logo }) => {
   };
   // console.log(navdata)
   const [isOpen, setIsOpen] = useState(false);
-  const [nav, setNav] = useState(false);
-  const handleScroll = useCallback(() => {
-    if (window.pageYOffset > 140) {
-      if (!nav) {
-        setNav(true);
-      }
-    } else {
-      if (nav) {
-        setNav(false);
-      }
-    }
-  }, [nav]);
-
-
-
-  const fetchURL = config.drupal_url+'/FilterPageHeadFooter';
-  const fetchEmployee= config.drupal_url+'/Employees';
-
+  const fetchURL = navdata;
+  const fetchEmployee = config.drupal_url + "/Employees";
   const [HomeNav, setItems] = useState();
   const [employeesApi, setEmployees] = useState();
-  // const [show, setShow] = useState(false);
-  // const handleShow = () => setShow(true);
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClick = (event) => {
@@ -88,7 +66,6 @@ const FilterNav = ({ Logo }) => {
   };
 
   const Notifications = () => {
-
     let employees = employeesApi;
     // let event = [];
     if (employees) {
@@ -100,56 +77,100 @@ const FilterNav = ({ Logo }) => {
       if (month < 10) {
         month = "0" + month;
       }
-      var todayDoB = month + '-' + date;
+      var year = new Date().getFullYear();
+      var todayDate = month + "-" + date;
       // console.log(todayDoB + ' ' + DOB );
       // console.log(year + '-' + month + '-' + date);
 
       for (let i = 0; i < employees.length; i++) {
         let DOB = employees[i].DOB.slice(5, 10);
-        if (DOB.includes(todayDoB)) {
-          console.log(todayDoB + ' ' + DOB +' '+ i);
-          NotificationManager.success('wish him',employees[i].name+ '\'s Birthday', 8000, () => {
-            window.location.href = "/EmployeeDetails/" + employees[i].Emp_id;
-          });
+
+        //employee's birthday
+        if (DOB.includes(todayDate)) {
+          console.log(todayDate + " " + DOB + " " + i);
+          NotificationManager.success(
+            "wish him",
+            employees[i].name + "'s Birthday",
+            8000,
+            () => {
+              window.location.href = "/EmployeeDetails/" + employees[i].Emp_id;
+            }
+          );
         }
 
+        //profile updation notification
         if (employees[i].revision_id !== employees[i].latest_revision_id) {
-          NotificationManager.info('Check and publish',employees[i].name+' updated the profile',  8200, () => {
-            window.location.assign(config.drupal_url+"/node/"+employees[i].nid+"/latest");
-          });
+          NotificationManager.info(
+            "Check and publish",
+            employees[i].name + " updated the profile",
+            8000,
+            () => {
+              window.location.assign(
+                config.drupal_url + "/node/" + employees[i].nid + "/latest"
+              );
+            }
+          );
 
-         console.log("profile changed")
-          
+          console.log("profile changed");
+        }
+
+        //completon years in lister
+        // console.log(employees[i].date_of_joining + ' ' + todayDate +' '+ year);
+        if (employees[i].date_of_joining.includes(todayDate)) {
+          let JoiningYear = employees[i].date_of_joining.slice(0, 4);
+          console.log(todayDate + " " + JoiningYear + " " + year);
+          if (year - JoiningYear > 0) {
+            NotificationManager.warning(
+              "congratulate him",
+              employees[i].name +
+                " has completed " +
+                (year - JoiningYear) +
+                " years with lister",
+              8000,
+              () => {
+                window.location.href =
+                  "/EmployeeDetails/" + employees[i].Emp_id;
+              }
+            );
+          } else {
+            NotificationManager.warning(
+              "congratulate him",
+              employees[i].name + " has joined lister",
+              8000,
+              () => {
+                window.location.href =
+                  "/EmployeeDetails/" + employees[i].Emp_id;
+              }
+            );
+          }
         }
       }
-
     }
-    
+
     // window.sessionStorage.setItem("Notifications", "true");
     // console.log(window.sessionStorage.getItem("Notifications"));
-  }
+  };
 
-  
   useEffect(() => {
     // window.addEventListener("scroll", handleScroll);
-     const getItems = () => fetch(fetchURL).then(res => res.json());
-    getItems().then(data => setItems(data));
+    const getItems = () => fetch(fetchURL).then((res) => res.json());
+    getItems().then((data) => setItems(data));
 
-    const getEmployees = () => fetch(fetchEmployee).then(res => res.json());
-    getEmployees().then(data => setEmployees(data));
- }, [fetchURL,setItems]);
+    const getEmployees = () => fetch(fetchEmployee).then((res) => res.json());
+    getEmployees().then((data) => setEmployees(data));
+  }, [fetchURL, setItems, fetchEmployee]);
 
-  let params = new URLSearchParams((window.location).search);
+  let params = new URLSearchParams(window.location.search);
   if (params.get("login") === "true") {
     window.sessionStorage.setItem("login", "true");
   }
   return (
-    <Nav onScroll={handleScroll}>
+    <Nav>
       <Container>
         <img
-          src={`${config.drupal_url}/${Logo.website_logo}`}
+          src={`${config.drupal_url}/${window.sessionStorage.getItem("Logo")}`}
           alt="Skill Portal"
-          style={{ height: '60px' }}
+          style={{ height: "60px" }}
         ></img>
 
         {/* <LogoIcon></LogoIcon> */}
@@ -160,31 +181,43 @@ const FilterNav = ({ Logo }) => {
           <span></span>
         </Humburger>
         <Menu1 isOpen={isOpen}>
-
-          <LinkWrapper >
-          {/* <ReactNotification></ReactNotification> */}
-            {HomeNav && HomeNav.map((data, index) => (
-                //  <Link  id="menu" key={index} to={data.field_navigation_link}> <MenuLink>{data.title} </MenuLink></Link> 
-                 <a href={data.field_navigation_link} activeClass="active"><MenuLink>{data.title} </MenuLink></a>
-            //   <Link id="menu" key={index} activeClass="active" to={data.field_navigation_link}
-            //     spy={true}
-            //     smooth={true}
-            //     offset={-70}
-            //     duration={800}>
+          <LinkWrapper>
+            {/* <ReactNotification></ReactNotification> */}
+            {HomeNav &&
+              HomeNav.map((data, index) => (
+                //  <Link  id="menu" key={index} to={data.field_navigation_link}> <MenuLink>{data.title} </MenuLink></Link>
+                <a href={data.url} activeClass="active">
+                  <MenuLink>{data.name} </MenuLink>
+                </a>
+                //   <Link id="menu" key={index} activeClass="active" to={data.field_navigation_link}
+                //     spy={true}
+                //     smooth={true}
+                //     offset={-70}
+                //     duration={800}>
                 // <MenuLink  >
                 //   {data.title}
                 // </MenuLink>
-            //   </Link>
-            ))}
-             <a  activeClass="active" href={config.drupal_url+"/admin/content"}> <MenuLink  >
-                 Dashboard
-                </MenuLink></a>
-                <ActivityNotifications></ActivityNotifications>
-               
-                <div onClick={Notifications} className="notification-section"><NotificationsNoneIcon style={{color:"#858586"}}></NotificationsNoneIcon> 
-                {window.sessionStorage.getItem("NotificationsCount") > 0 ? <div className="notification-count">{window.sessionStorage.getItem("NotificationsCount")}</div>: <></>}
-                </div>   
-            {window.sessionStorage.getItem("login") === "true" ?
+                //   </Link>
+              ))}
+            <a activeClass="active" href={config.drupal_url + "/admin/content"}>
+              {" "}
+              <MenuLink>Dashboard</MenuLink>
+            </a>
+            <ActivityNotifications></ActivityNotifications>
+
+            <div onClick={Notifications} className="notification-section">
+              <NotificationsNoneIcon
+                style={{ color: "#858586" }}
+              ></NotificationsNoneIcon>
+              {window.sessionStorage.getItem("NotificationsCount") > 0 ? (
+                <div className="notification-count">
+                  {window.sessionStorage.getItem("NotificationsCount")}
+                </div>
+              ) : (
+                <></>
+              )}
+            </div>
+            {window.sessionStorage.getItem("login") === "true" ? (
               <>
                 <img
                   className="Profile_icons"
@@ -200,7 +233,15 @@ const FilterNav = ({ Logo }) => {
                   onClose={handleClose}
                   style={{ top: "40px", right: "5%" }}
                 >
-                  <MenuItem onClick={handleClose}><a href={`${config.drupal_url}/node/add/employee`} className="Profile-Nav" style={{ textDecoration: "none" }}>Profile</a></MenuItem>
+                  <MenuItem onClick={handleClose}>
+                    <a
+                      href={`${config.drupal_url}/node/add/employee`}
+                      className="Profile-Nav"
+                      style={{ textDecoration: "none" }}
+                    >
+                      Profile
+                    </a>
+                  </MenuItem>
                   {/* <MenuItem onClick={handleClose}>My account</MenuItem> */}
                   <MenuItem onClick={handleOpen}>Logout</MenuItem>
                 </Menu>
@@ -219,23 +260,44 @@ const FilterNav = ({ Logo }) => {
                 >
                   <Fade in={open}>
                     <div className={classes.paper}>
-                    Are you sure want to Logout the account!<br></br>
-                    <Button style={{ margin: '10px' }} variant="secondary" onClick={closeModal} onChange={handleLogOut}>
-                      No,Wait
-                    </Button>
-                    <Button style={{ margin: '10px', backgroundColor: '#ef6e25', border: "#ef6e25", borderRadius: "10%" }} variant="primary" onClick={handleLogOut}>
-                      Yes,Logout
-                    </Button>
+                      Are you sure want to Logout the account!<br></br>
+                      <Button
+                        style={{ margin: "10px" }}
+                        variant="secondary"
+                        onClick={closeModal}
+                        onChange={handleLogOut}
+                      >
+                        No,Wait
+                      </Button>
+                      <Button
+                        style={{
+                          margin: "10px",
+                          backgroundColor: "#ef6e25",
+                          border: "#ef6e25",
+                          borderRadius: "10%",
+                        }}
+                        variant="primary"
+                        onClick={handleLogOut}
+                      >
+                        Yes,Logout
+                      </Button>
                     </div>
                   </Fade>
                 </Modal>
-   
               </>
-              : <Button1><a href={`${config.drupal_url}/user/login`} style={{ color: 'white' }}>LOGIN</a></Button1>}
+            ) : (
+              <Button1>
+                <a
+                  href={`${config.drupal_url}/user/login`}
+                  style={{ color: "white" }}
+                >
+                  LOGIN
+                </a>
+              </Button1>
+            )}
           </LinkWrapper>
         </Menu1>
       </Container>
-     
     </Nav>
   );
 };
@@ -250,7 +312,7 @@ const Container = styled.div`
   max-width: 100%;
   margin: auto;
   padding: 0;
-  img{
+  img {
     cursor: Pointer;
   }
   a {
@@ -265,10 +327,8 @@ const Container = styled.div`
       color: #ef6e25;
       background: #e7e9fc;
     }
- 
   }
 `;
-
 
 const Nav = styled.div`
   height: 5%;
@@ -281,7 +341,7 @@ const Nav = styled.div`
   left: 0;
   right: 0;
   z-index: 3;
-  background-color: ${({ nav }) => (nav ? "black" : "white")};
+  background-color:#FFF;
 `;
 
 const Menu1 = styled.div`
@@ -317,18 +377,19 @@ const LinkWrapper = styled.div`
   }
 `;
 const MenuLink = styled.div`
- text-decoration: none;
- color: #858586;
- font-size: 1rem;
- padding: 0rem;
- transition: all 0.2s ease-in;
- border-radius: 0.5rem;
- font-weight: 500;
- cursor:pointer;
- &:hover {
- color:#ef6e25;
- background: #e7e9fc;
- }`;
+  text-decoration: none;
+  color: #858586;
+  font-size: 1rem;
+  padding: 0rem;
+  transition: all 0.2s ease-in;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  cursor: pointer;
+  &:hover {
+    color: #ef6e25;
+    background: #e7e9fc;
+  }
+`;
 const Button1 = styled.button`
   font-family: Montserrat;
   font-size: 1rem;

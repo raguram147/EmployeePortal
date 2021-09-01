@@ -7,6 +7,15 @@ import BannerHi from "../lottie/banner_hi_team.json";
 import Aos from "aos";
 import "aos/dist/aos.css";
 import { Grid } from "@material-ui/core";
+/*
+        Component       : HeroBanner is the component that concatenate and welcome the users and describe the sites.
+        Author          : Created by Lister Raguram Sundaravadivel
+        Child-Components: Navbar,HowItWorks,Project,Footer
+        Variables       : data[] (API JSON)     
+        Last Modified   :
+        (Format "Name Date `MM-DD-YYY`")
+        */
+/*Styling using styled-component*/
 const Container = styled.div`
   position: relative;
   z-index: 1;
@@ -26,7 +35,28 @@ const Container = styled.div`
     height: 100%;
   }
 `;
+const InnerWrapper = styled.div`
+  padding: 5%;
+  max-width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  @media (max-width: 400px) : {
+    height: 100vh;
+  }
+`;
+const Welcome = styled.div`
+  background-color: #e5e5e5;
+  overflow: hidden;
+  width: 100%;
+  display: block;
+  justify-content: space-between;
+  align-items: center;
+`;
 
+/*Lottie in the right-side*/
 const defaultOptions = {
   loop: true,
   autoplay: true,
@@ -35,6 +65,7 @@ const defaultOptions = {
     preserveAspectRatio: "xMidYMid slice",
   },
 };
+/*Lottie in the left-side*/
 const defaultHi = {
   loop: true,
   autoplay: true,
@@ -55,10 +86,7 @@ const Home = ({ data }) => {
       <div className="bubble x4"></div>
       <div className="bubble x5"></div>
       <div className="bubble x6"></div>
-
-      <Grid container direction="column" >
-
-     
+      <Grid container direction="column">
         <Welcome id="Home">
           <InnerWrapper>
             <Grid item xs={12} md={3} lg={3}>
@@ -106,7 +134,6 @@ const Home = ({ data }) => {
                 </div>
               </Container>
             </Grid>
-
             <Grid item xs={12} md={3} lg={3}>
               <div className="lottie-2">
                 <Lottie
@@ -121,39 +148,16 @@ const Home = ({ data }) => {
                     right: 0,
                     cursor: "default",
                     overflow: "hidden",
-                    margin: 0
+                    margin: 0,
                   }}
                 />
               </div>
             </Grid>
           </InnerWrapper>
         </Welcome>
-        {/* <HowItWorks></HowItWorks> */}
-        {/* <Project ></Project> */}
       </Grid>
     </>
   );
 };
 
 export default Home;
-
-const InnerWrapper = styled.div`
-  padding: 5%;
-  max-width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  @media (max-width: 400px) : {
-    height: 100vh;
-  }
-`;
-const Welcome = styled.div`
-  background-color: #e5e5e5;
-  overflow: hidden;
-  width: 100%;
-  display: block;
-  justify-content: space-between;
-  align-items: center;
-`;

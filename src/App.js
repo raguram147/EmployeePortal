@@ -7,6 +7,7 @@ import Home  from './Layouts/Home';
 import "./App.css";
 import EmployeeSearch from './Layouts/EmployeeSearch'
 import EmployeeDetails from "./components/EmployeeDetails"
+import OrgChart from './Layouts/OrgChart';
 
 const App = () => {
   return (
@@ -14,6 +15,8 @@ const App = () => {
       <Route component ={Home} path ='/' exact/>
       {/* <Route component ={Navbar} path ='/Acheivements' exact/> */}
       <Route component ={EmployeeSearch} path ='/EmployeeSearch' exact/>
+      {/* <Route component ={Chart} path ='/OrgChart' exact/> */}
+      <Route path="/OrgChart/:Emp" component={OrgChart}></Route>
       <Route path="/EmployeeDetails/:Emp_id" component={EmployeeDetails}></Route>
   
     </Router>

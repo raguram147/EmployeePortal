@@ -2,6 +2,17 @@ import { Button, makeStyles } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import Aos from "aos";
+/*
+        Component       : It is the scrolling component/button appers after 300-y-axis,that helps to scroll up.
+        Author          : Created by Lister Raguram Sundaravadivel
+        Child-Components: NIL
+        Material-UI     : Button
+        Libraries       : AOS(Animated on Scroll)
+
+      
+        Last Modified   :
+        (Format "Name Date `MM-DD-YYY`")
+      */
 const useStyles = makeStyles((theme) => ({
   scrollUp: {
     position: "fixed",

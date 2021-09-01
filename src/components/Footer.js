@@ -1,11 +1,5 @@
 import React from "react";
-// import { SocialIcon } from "react-social-icons";, { useEffect, useState }
 import styled from "styled-components";
-// import config from '../config';
-
-//  const Heading=styled.div`
-// font-weight:700;
-// `;
 
 const Container = styled.div`
   padding: 1%;

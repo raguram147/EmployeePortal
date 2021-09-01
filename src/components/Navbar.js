@@ -1,36 +1,36 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Link } from "react-scroll";
-import '../components/styles/style.css';
-import config from '../config';
+import "../components/styles/style.css";
+import config from "../config";
 import Profile_icons from "../assets/User_icons.png";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
-import { makeStyles,Button } from '@material-ui/core';
-import Modal from '@material-ui/core/Modal';
-import Backdrop from '@material-ui/core/Backdrop';
-import Fade from '@material-ui/core/Fade';
-import {UserApi} from '../utility'
-// import FilterScreen from '../FilterScreen'
-// import {ReactComponent as LogoIcon}from "../assets/Logo.svg"
+import { makeStyles, Button } from "@material-ui/core";
+import Modal from "@material-ui/core/Modal";
+import Backdrop from "@material-ui/core/Backdrop";
+import Fade from "@material-ui/core/Fade";
+import { UserApi } from "../utility";
+import useFetch from "../Hooks/use-fetch";
+
 const useStyles = makeStyles((theme) => ({
   modal: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
   },
   paper: {
     backgroundColor: theme.palette.background.paper,
-    border: '2px solid #000',
+    border: "2px solid #000",
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
   },
 }));
 
 const Navbar = ({ navdata }) => {
+  const [, fetchData] = useFetch();
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
-
   const handleOpen = () => {
     setOpen(true);
   };
@@ -39,46 +39,52 @@ const Navbar = ({ navdata }) => {
     setOpen(false);
     setAnchorEl(null);
   };
-  // console.log(navdata)
   const [isOpen, setIsOpen] = useState(false);
-  const fetchURL = config.drupal_url + '/HomeNav';
-
+  const fetchURL = navdata;
   const [HomeNav, setItems] = useState();
-
-  // const [show, setShow] = useState(false);
-  // const handleShow = () => setShow(true);
+  const [user, setUser] = useState(null);
   const [anchorEl, setAnchorEl] = React.useState(null);
-
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
-
   const handleClose = () => {
     setAnchorEl(null);
-   
+  };
+  const handleLogin = () => {
+    console.log("Called");
+    let url = "https://dev-employeeportal.pantheonsite.io/users";
+    fetchData(url, (data) => {
+      console.log(data);
+      if (data[0].name === "Admin") {
+        setUser(true);
+      }
+    });
   };
 
   const handleLogOut = () => {
     window.sessionStorage.setItem("login", "false");
     console.log("good day");
     setAnchorEl(null);
-    // setShow(false);
   };
 
   useEffect(() => {
-    const getItems = () => fetch(fetchURL).then(res => res.json());
-    getItems().then(data => setItems(data));
-  }, [ fetchURL, setItems]);
+    fetchData(fetchURL, (data) => {
+      setItems(data);
+    });
+  }, [fetchURL, fetchData]);
+  console.log(HomeNav);
 
-
-  let params = new URLSearchParams((window.location).search);
+  let params = new URLSearchParams(window.location.search);
   if (params.get("login") === "true") {
     window.sessionStorage.setItem("login", "true");
   }
   return (
     <Nav>
       <Container>
-        <img src={`${config.drupal_url}/${navdata.website_logo}`} alt="Skill Portal"></img>
+        <img
+          src={`${config.drupal_url}/${window.sessionStorage.getItem("Logo")}`}
+          alt="Skill Portal"
+        ></img>
 
         {/* <LogoIcon></LogoIcon> */}
         {console.log("login:" + window.sessionStorage.getItem("login"))}
@@ -88,23 +94,23 @@ const Navbar = ({ navdata }) => {
           <span></span>
         </Humburger>
         <Menu1 isOpen={isOpen}>
-
-          <LinkWrapper >
-            {/* <Link to="/FilterPage" component={FilterScreen}>FilterPage</Link> */}
-            {/* {console.log(HomeNav[0])}
-          {console.log(sampleData[0])} */}
-            {HomeNav && HomeNav.map((data, index) => (
-              <Link id="menu" key={index} activeClass="active" to={data.url}
-                spy={true}
-                smooth={true}
-                offset={-70}
-                duration={800}>
-                <MenuLink  >
-                  {data.name}
-                </MenuLink>
-              </Link>
-            ))}
-            {window.sessionStorage.getItem("login") === "true" ?
+          <LinkWrapper>
+            {HomeNav &&
+              HomeNav.map((data, index) => (
+                <Link
+                  id="menu"
+                  key={index}
+                  activeClass="active"
+                  to={data.url}
+                  spy={true}
+                  smooth={true}
+                  offset={-70}
+                  duration={800}
+                >
+                  <MenuLink>{data.name}</MenuLink>
+                </Link>
+              ))}
+            {window.sessionStorage.getItem("login") === "true" ? (
               <>
                 <img
                   className="Profile_icons"
@@ -112,6 +118,7 @@ const Navbar = ({ navdata }) => {
                   alt="Profile"
                   onClick={handleClick}
                 ></img>
+                <p>{user.name}</p>
                 {console.log(UserApi())}
                 <Menu
                   id="simple-menu"
@@ -121,8 +128,15 @@ const Navbar = ({ navdata }) => {
                   onClose={handleClose}
                   style={{ top: "40px", right: "5%" }}
                 >
-                  <MenuItem onClick={handleClose}><a href={`${config.drupal_url}/node/add/employee`} className="Profile-Nav" style={{ textDecoration: "none" }}>Profile</a></MenuItem>
-                  {/* <MenuItem onClick={handleClose}>My account</MenuItem> */}
+                  <MenuItem onClick={handleClose}>
+                    <a
+                      href={`${config.drupal_url}/node/add/employee`}
+                      className="Profile-Nav"
+                      style={{ textDecoration: "none" }}
+                    >
+                      Profile
+                    </a>
+                  </MenuItem>
                   <MenuItem onClick={handleOpen}>Logout</MenuItem>
                 </Menu>
 
@@ -140,19 +154,43 @@ const Navbar = ({ navdata }) => {
                 >
                   <Fade in={open}>
                     <div className={classes.paper}>
-                    Are you sure want to Logout the account!<br></br>
-                    <Button style={{ margin: '10px' }} variant="secondary" onClick={closeModal} onChange={handleLogOut}>
-                      No,Wait
-                    </Button>
-                    <Button style={{ margin: '10px', backgroundColor: '#ef6e25', border: "#ef6e25", borderRadius: "10%" }} variant="primary" onClick={handleLogOut}>
-                      Yes,Logout
-                    </Button>
+                      Are you sure want to Logout the account!<br></br>
+                      <Button
+                        style={{ margin: "10px" }}
+                        variant="secondary"
+                        onClick={closeModal}
+                        onChange={handleLogOut}
+                      >
+                        No,Wait
+                      </Button>
+                      <Button
+                        style={{
+                          margin: "10px",
+                          backgroundColor: "#ef6e25",
+                          border: "#ef6e25",
+                          borderRadius: "10%",
+                        }}
+                        variant="primary"
+                        onClick={handleLogOut}
+                      >
+                        Yes,Logout
+                      </Button>
                     </div>
                   </Fade>
                 </Modal>
-   
               </>
-              : <Button1><a href={`${config.drupal_url}/user/login`} style={{ color: '#f5f5f5' }}>LOGIN</a></Button1>}
+            ) : (
+              <>
+                <Button1 onClick={handleLogin}>
+                  <a
+                    href={`${config.drupal_url}/user/login`}
+                    style={{ color: "#f5f5f5" }}
+                  >
+                    LOGIN
+                  </a>
+                </Button1>
+              </>
+            )}
           </LinkWrapper>
         </Menu1>
       </Container>
@@ -170,7 +208,7 @@ const Container = styled.div`
   max-width: 100%;
   margin: auto;
   padding: 0.5%;
-  img{
+  img {
     cursor: Pointer;
   }
   a {
@@ -183,12 +221,9 @@ const Container = styled.div`
     font-wegiht: 500;
     &:hover {
       color: #ef6e25;
-      
     }
- 
   }
 `;
-
 
 const Nav = styled.div`
   height: 5%;
@@ -237,18 +272,18 @@ const LinkWrapper = styled.div`
   }
 `;
 const MenuLink = styled.div`
- text-decoration: none;
- color: #858586;
- font-size: 1rem;
- padding: 0rem;
- transition: all 0.2s ease-in;
- border-radius: 0.5rem;
- font-weight: 500;
- cursor:pointer;
- &:hover {
- color:#ef6e25;
-
- }`;
+  text-decoration: none;
+  color: #858586;
+  font-size: 1rem;
+  padding: 0rem;
+  transition: all 0.2s ease-in;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  cursor: pointer;
+  &:hover {
+    color: #ef6e25;
+  }
+`;
 const Button1 = styled.button`
   font-family: Montserrat;
   font-size: 1rem;

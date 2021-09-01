@@ -1,0 +1,135 @@
+[
+  {
+  "name": "Janani Lakshmanamurthy",
+  "reports_to": "Srinivasan Vaidyanathan",
+  "emp_id": "1134",
+  "DP": "/sites/default/files/2021-07/chris-gayle_0.png",
+  "role": "Technical Lead"
+  },
+  {
+  "name": "Brijendra Singh Yadav",
+  "reports_to": "Srinivasan Vaidyanathan",
+  "emp_id": "1138",
+  "DP": "/sites/default/files/2021-07/rishabh-rajendra-pant_0.png",
+  "role": "Associte Manager"
+  },
+  {
+  "name": "Sadeesh Gopalan",
+  "reports_to": "Beniston Jeyapaul",
+  "emp_id": "6464",
+  "DP": "/sites/default/files/2021-07/rohit-sharma.png",
+  "role": "Technical Lead"
+  },
+  {
+  "name": "VedaGuru",
+  "reports_to": "Manigandan Manickam",
+  "emp_id": "1256",
+  "DP": "/sites/default/files/2021-07/benjamin-andrew-stokes_0.png",
+  "role": "Associte Software Engineer"
+  },
+  {
+  "name": "Praveen Kumar R",
+  "reports_to": "Janani Lakshmanamurthy",
+  "emp_id": "2345",
+  "DP": "/sites/default/files/2021-07/warner.png",
+  "role": "Senior Software Engineer"
+  },
+  {
+  "name": "Arun Prasad Dharmaraj",
+  "reports_to": "Janani Lakshmanamurthy",
+  "emp_id": "2354",
+  "DP": "/sites/default/files/2021-07/rashidDp.png",
+  "role": "Senior Software Engineer"
+  },
+  {
+  "name": "Narendra Minjur",
+  "reports_to": "Janani Lakshmanamurthy",
+  "emp_id": "0007",
+  "DP": "/sites/default/files/2021-07/ms-dhoni_0.png",
+  "role": "Technical Lead"
+  },
+  {
+  "name": "Yaswanth",
+  "reports_to": "Praveen Kumar R",
+  "emp_id": "7777",
+  "DP": "/sites/default/files/default_images/DefaultDp_0.png",
+  "role": "Software Engineer"
+  },
+  {
+  "name": "Ragu",
+  "reports_to": "Praveen Kumar R",
+  "emp_id": "1407",
+  "DP": "/sites/default/files/default_images/DefaultDp_0.png",
+  "role": "Associate Software Engineer"
+  },
+  {
+  "name": "Mahesh Sukumar",
+  "reports_to": "Mukund Devarajan",
+  "emp_id": "1234",
+  "DP": "/sites/default/files/default_images/DefaultDp_0.png",
+  "role": "Senior Manager"
+  },
+  {
+  "name": "Beniston Jeyapaul",
+  "reports_to": "Mukund Devarajan",
+  "emp_id": "6666",
+  "DP": "/sites/default/files/2021-07/ab-de-villiers_0.png",
+  "role": "Technical Manager"
+  },
+  {
+  "name": "Manigandan Manickam",
+  "reports_to": "Mukund Devarajan",
+  "emp_id": "1111",
+  "DP": "/sites/default/files/2021-07/virat-kohli_0.png",
+  "role": "Manager"
+  },
+  {
+  "name": "Srinivasan Vaidyanathan",
+  "reports_to": "Mukund Devarajan",
+  "emp_id": "1212",
+  "DP": "/sites/default/files/2021-08/hardik.png",
+  "role": "Senior Technical Manager"
+  },
+  {
+  "name": "Manoj Kumar Tirumalika",
+  "reports_to": "Brijendra Singh Yadav",
+  "emp_id": "2346",
+  "DP": "/sites/default/files/2021-07/kane-williamson.png",
+  "role": "Lead Platform Consultant"
+  },
+  {
+  "name": "Srinivaulu Kotappa",
+  "reports_to": "Sadeesh Gopalan",
+  "emp_id": "0004",
+  "DP": "/sites/default/files/2021-07/bhuvneshwar-kumar.png",
+  "role": "Associte Software Engineer"
+  },
+  {
+  "name": "Ajay Shankar A G",
+  "reports_to": "Sadeesh Gopalan",
+  "emp_id": "0001",
+  "DP": "/sites/default/files/2021-08/sachin-ramesh-tendulkar-14.png",
+  "role": "Associte Software Engineer"
+  },
+  {
+  "name": "Vasan Sampath",
+  "reports_to": "Srinivasan Gopal",
+  "emp_id": "0011",
+  "DP": "/sites/default/files/2021-08/chris-gayle.png",
+  "role": "President"
+  },
+  {
+  "name": "Mukund Devarajan",
+  "reports_to": "Srinivasan Gopal",
+  "emp_id": "0012",
+  "DP": "/sites/default/files/2021-08/ms-dhoni.png",
+  "role": "Senior Vice President"
+  },
+  {
+  "name": "Vijay Ramanan",
+  "reports_to": "Srinivasan Gopal",
+  "emp_id": "0013",
+  "DP": "/sites/default/files/2021-08/ab-de-villiers.png",
+  "role": "Senior Vice President"
+  }
+  ]

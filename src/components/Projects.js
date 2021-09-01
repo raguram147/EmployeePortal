@@ -7,6 +7,18 @@ import { Carousel } from "react-bootstrap";
 import config from "../config";
 import "../components/styles/style.css";
 import { Grid, useMediaQuery, useTheme } from "@material-ui/core";
+/*
+        Component       : It is the component that repersent the project and skills section and achievements section in home page repersents the middle part.
+        Author          : Created by Lister Raguram Sundaravadivel
+        Child-Components: NIL
+        Variables       : project[] JSON, fetchURL, fetchSkill
+        Libraries       : styled-components,react-bootstrap,he
+        Material-UI     : Gird,useMediaquery
+
+      
+        Last Modified   :
+        (Format "Name Date `MM-DD-YYY`")
+      */
 const Container = styled.div`
    padding:5%;
     overflow:hidden;
@@ -16,7 +28,6 @@ const Container = styled.div`
     background-color: #282828;
     color: white;
 }`;
-// #ffebcc;
 const Left = styled.div`
   h1 {
     color: #939191;
@@ -76,12 +87,12 @@ const Row = styled.div`
 `;
 const fetchURL = config.drupal_url + "/Taxonomy/Projects";
 const fetchSkill = config.drupal_url + "/Taxonomy/Skills";
-
 const Projects = ({ project }) => {
   const theme = useTheme();
   let matches = useMediaQuery(theme.breakpoints.down("xs"));
   const [projectData, setProjectData] = useState([]);
   const [skillData, setSkillData] = useState([]);
+  /*URL fetch*/
   useEffect(() => {
     const fetchFuntion = async () => {
       let data, data1;

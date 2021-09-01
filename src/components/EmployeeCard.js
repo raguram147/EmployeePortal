@@ -1,8 +1,21 @@
 import React from 'react'
-import { SocialIcon } from "react-social-icons";
+// import { SocialIcon } from "react-social-icons";
 import '../components/styles/style.css';
 import emailIcon from "../assets/email-logo.png";
+import orgIcon from "../assets/org.png";
 import config from '../config';
+/*
+        Component       : It is the component of the Employee card that seen in the filter page.
+        Author          : Created by Lister Yashwant
+        Child-Components: NIL
+        Variables       : employee[] (API JSON)
+        Libraries       : react-social-icons 
+
+
+      
+        Last Modified   :
+        (Format "Name Date `MM-DD-YYY`")
+      */
 
 export const EmployeeCard = ({employee}) => {
     return (
@@ -41,7 +54,8 @@ export const EmployeeCard = ({employee}) => {
           <p style={{ textAlign: "left", fontSize: "0.7rem" }}>
             <span style={{fontWeight:"600" }}> Experience: </span>{employee.Experience === "0" ? "Fresher":employee.Experience+" years"} 
           </p>
-          <SocialIcon url={employee.linkedin_profile} bgColor="#282936" style={{borderRadius:"50%", textAlign: "right", fontSize: "0.7rem",height: "22px"  }} ></SocialIcon>
+          {/* <SocialIcon url={employee.linkedin_profile} bgColor="#282936" style={{borderRadius:"50%", textAlign: "right", fontSize: "0.7rem",height: "22px"  }} ></SocialIcon> */}
+          <a href={"/OrgChart/" +employee.name}><img style={{textAlign: "center",height: "35px" ,marginRight:"8px"}} alt= "email-icon" src={orgIcon}></img></a>
           </div>
           <button class="button">
             <span>

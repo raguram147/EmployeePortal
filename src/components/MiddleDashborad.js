@@ -23,7 +23,17 @@ const Content = [
       "We have working on the Employee portal that try to connect our Lister across the distance. Where we can know about ourself and our team members and their experience with Lister.",
   },
 ];
+/*
+        Component       : It is the inner component of the Employee detials page repersents the middle part.
+        Author          : Created by Lister Raguram Sundaravadivel
+        Child-Components: NIL
+        Variables       : data[] (API JSON) ,VALUES ,Content
+        Libarries       : react-horizontal-timeline
 
+      
+        Last Modified   :
+        (Format "Name Date `MM-DD-YYY`")
+      */
 const MiddleDashborad = ({ data }) => {
   const [state, setState] = useState({ value: 0, previous: -1 });
 

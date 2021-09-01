@@ -1,12 +1,19 @@
 import React, { Component } from "react";
-// import '../CSS/EmployeeDetails.css';
-import '../components/styles/style.css';
-
+import "../components/styles/style.css";
 import config from "../config";
 import MiddleDashborad from "./MiddleDashborad";
 import LeftDashborad from "./LeftDashboard";
 import RightDashboard from "./RightDashboard";
 import { Grid } from "@material-ui/core";
+/*
+        Component       : It is the employee details page,based on the id choosen.
+        Author          : Created by Lister Raguram Sundaravadivel
+        Child-Components: LeftDashborad,RightDashboard and MiddleDashboard
+        Variables       : id,Empolyee[]
+     
+        Last Modified   :
+        (Format "Name Date `MM-DD-YYY`")
+      */
 export default class EmployeeDetails extends Component {
   constructor(props) {
     super(props);

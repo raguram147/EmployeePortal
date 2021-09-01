@@ -1,39 +1,51 @@
 import React from "react";
-// import mySvg from "../assets/avatardesign.svg";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import RemoveCircleRoundedIcon from "@material-ui/icons/RemoveCircleRounded";
 import ContactMailSharpIcon from "@material-ui/icons/ContactMailSharp";
 import AccountTreeOutlinedIcon from "@material-ui/icons/AccountTreeOutlined";
 import AccessTimeIcon from "@material-ui/icons/AccessTime";
 import Grid from "@material-ui/core/Grid";
-import '../components/styles/style.css';
+import "../components/styles/style.css";
 import EditIcon from "@material-ui/icons/Edit";
-import FormatQuoteIcon from '@material-ui/icons/FormatQuote';
-import { Paper,makeStyles } from "@material-ui/core";
-import config from '../config';
+import FormatQuoteIcon from "@material-ui/icons/FormatQuote";
+import { Paper, makeStyles } from "@material-ui/core";
+import config from "../config";
+/*Dummy date for the status and description*/
 const dummy = [
   {
     status: "active",
-    summary:"If you don't make a step to change your own mind, there is no way to win the war against the world.",
+    summary:
+      "If you don't make a step to change your own mind, there is no way to win the war against the world.",
   },
 ];
-const useStyles = makeStyles((theme)=>({
+/*Customized styles of the material-ui components, like Paper,chip*/
+const useStyles = makeStyles((theme) => ({
   Grid_container: {
     margin: "0px",
     padding: "0px",
   },
-  paper:{
+  paper: {
     display: "block",
     backgroundColor: "#272727",
     padding: theme.spacing(1),
     maxHeight: "200px",
     height: "30%",
     color: "#fff",
-    opacity:"0.8",
-    fontSize:"0.8rem"
-  }
+    opacity: "0.8",
+    fontSize: "0.8rem",
+  },
 }));
-
+/*
+        Component       : It is the inner component of the Employee detials page,represent the left part.
+        Author          : Created by Lister Raguram Sundaravadivel
+        Child-Components: NIL
+        Variables       : data[] (API JSON) 
+        Material-UI     : ICONS - CheckCircleIcon, RemoveCircleRoundedIcon, ContactMailSharpIcon, AccountTreeOutlinedIcon, AccessTimeIcon, FormatQuoteIcon, EditIcon 
+                          COMP  - Grid,Paper
+      
+        Last Modified   :
+        (Format "Name Date `MM-DD-YYY`")
+      */
 const LeftDashborad = ({ data }) => {
   const classes = useStyles();
   return (
@@ -45,15 +57,7 @@ const LeftDashborad = ({ data }) => {
         <div className="LeftDashboard" key={index}>
           <div className="LeftDashboard-container">
             {/* Profile picture and its frame and status icons  */}
-            <div
-              className="Avatar"
-              style={
-                {
-                  // backgroundImage: `url(${mySvg})`,
-                  // backgroundSize: "cover",
-                }
-              }
-            >
+            <div className="Avatar">
               <img
                 src={`${config.drupal_url}/${x.Profile_photo}`}
                 alt="Profile"
@@ -63,10 +67,11 @@ const LeftDashborad = ({ data }) => {
               {dummy.map((x) =>
                 x.status === "active" ? (
                   <CheckCircleIcon
+                    className="status-icon"
                     style={{
                       color: "#3ECC27",
                       bottom: "75%",
-                      left: "380%",
+
                       position: "relative",
                     }}
                     title="Active"
@@ -90,9 +95,14 @@ const LeftDashborad = ({ data }) => {
                 {x.name + " (" + x.Emp_id + ")"}
               </h2>
               <h2 className="Designation">{x.role}</h2>
-              <Paper id="status" className={classes.paper}>{console.log(dummy[0].summary)}
-                    <FormatQuoteIcon style={{color:"#FFA500"}}></FormatQuoteIcon>
-                    {dummy[0].summary!==""? <p>{dummy[0].summary}</p>:<p>Hi I'm here in Lister</p>}
+              <Paper id="status" className={classes.paper}>
+                {console.log(dummy[0].summary)}
+                <FormatQuoteIcon style={{ color: "#FFA500" }}></FormatQuoteIcon>
+                {dummy[0].summary !== "" ? (
+                  <p>{dummy[0].summary}</p>
+                ) : (
+                  <p>Hi I'm here in Lister</p>
+                )}
               </Paper>
               <div className="Grid_align">
                 <Grid
@@ -162,7 +172,7 @@ const LeftDashborad = ({ data }) => {
               <button class="button1">
                 <span>
                   <a
-                    href={config.drupal_url+"/node/"+x.nid+"/edit"}
+                    href={config.drupal_url + "/node/" + x.nid + "/edit"}
                     style={{ fontWeight: "bold" }}
                     id="Edit-btn"
                   >

@@ -1,0 +1,38 @@
+import { useState, useCallback } from "react";
+/*
+        Component       : It is the functional component(Custom Hooks) that gets the parameter url, that returns the states of data, loading and error.
+        Author          : Created by Lister Raguram Sundaravadivel
+             
+        Last Modified   :
+        (Format "Name Date `MM-DD-YYY`")
+      */
+const useFetch = () => {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const fetchDetails = useCallback(async (url, resultData) => {
+    setLoading(true);
+    try {
+      const result = await fetch(url, {
+        method: "GET",
+      });
+      if (!result.ok) {
+        throw new Error("Request failed!");
+      }
+
+      let data = await result.json();
+      if (data != null) {
+        setLoading(false);
+        setError(null);
+      } else if (data.length === 0) {
+        throw new Error("Centers Not Available!");
+      }
+      resultData(data);
+    } catch (error) {
+      setError(error.message + "");
+      setLoading(false);
+    }
+  }, []);
+  return [loading, fetchDetails, error];
+};
+
+export default useFetch;
