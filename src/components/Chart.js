@@ -5,6 +5,7 @@ import "../components/styles/style.css";
 // import useFetch from '../utility'
 // import empData from "../EmpData.json";
 import PlayCircleOutlineIcon from "@material-ui/icons/PlayCircleOutline";
+import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import { ReactSearchAutocomplete } from "react-search-autocomplete";
 import SearchIcon from "@material-ui/icons/Search";
 import Breadcrumbs from "@material-ui/core/Breadcrumbs";
@@ -12,6 +13,7 @@ import Typography from "@material-ui/core/Typography";
 import Link from "@material-ui/core/Link";
 import Lottie from "react-lottie";
 import Orgtree from "../lottie/org-tree.json";
+
 const Chart = ({ empData }) => {
   // const levelColor = randomcolor();
   console.log(empData);
@@ -241,12 +243,12 @@ const Chart = ({ empData }) => {
               {item.name}
             </Link>
           ))}
-          <Typography color="textPrimary">{params.Emp}</Typography>
+          <Typography  style={{ color: "#2c5c6d", fontWeight:"700" }} >{params.Emp}</Typography>
         </Breadcrumbs>
       )}
       <div className="searchWidget">
         <SearchIcon className="searchIcon"></SearchIcon>
-        <div className="SearchAutocomplete" style={{ width: 300 }}>
+        <div className="SearchAutocomplete" >
           <ReactSearchAutocomplete
             items={empData}
             onSelect={handleOnSelect}
@@ -316,11 +318,22 @@ const Card = (props) => {
                   <div className="name-profile-container">
                     <h4 className="OrgCard-body-h4">{item.name}</h4>
                     <p className="empProfileNav">
-                      <a href={"/EmployeeDetails/" + item.emp_id}>
-                        <PlayCircleOutlineIcon className="playIcon"></PlayCircleOutlineIcon>
+                    <a href={"/EmployeeDetails/" + item.emp_id} class='playBut'>
+                        <PlayArrowIcon className="playIcon"></PlayArrowIcon>
                       </a>
                     </p>
                   </div>
+                         {/* <!-- Generator: Adobe Illustrator 19.0.0, SVG Export Plug-In  --> */}
+                        {/* <svg version="1.1"
+                          xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" xlinkHref="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/"
+                          x="0px" y="0px" width="24px" height="24px" viewBox="0 0 213.7 213.7" enable-background="new 0 0 213.7 213.7"
+                          xmlSpace="preserve">
+
+                          <polygon class='triangle' id="XMLID_18_" fill="none" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
+      73.5,62.5 148.5,105.8 73.5,149.1 "/>
+
+                          <circle class='circle' id="XMLID_17_" fill="none" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" cx="106.8" cy="106.8" r="103.3" />
+                        </svg> */}
                   <p className="OrgCard-body-p">{item.role}</p>
                 </div>
               </div>
@@ -345,15 +358,15 @@ const Card = (props) => {
                           <div className="name-profile-container">
                             <h4 className="OrgCard-body-h4">{item.name}</h4>
                             <p className="empProfileNav">
-                              <a href={"/EmployeeDetails/" + item.emp_id}>
-                                <PlayCircleOutlineIcon className="playIcon"></PlayCircleOutlineIcon>
+                              <a href={"/EmployeeDetails/" + item.emp_id} class='playBut'>
+                                <PlayArrowIcon className="playIcon"></PlayArrowIcon>
                               </a>
                             </p>
                           </div>
                           <p className="OrgCard-body-p">{item.role}</p>
                         </div>
                       </div>
-
+                    {/* more than 1 childsin 3 rd level flat top border */}
                       {JSON.parse(window.sessionStorage.getItem("Reporting"))
                         .length > 0 ? (
                         JSON.parse(window.sessionStorage.getItem("Reporting"))
@@ -387,12 +400,8 @@ const Card = (props) => {
                                           {item.name}
                                         </h4>
                                         <p className="empProfileNav">
-                                          <a
-                                            href={
-                                              "/EmployeeDetails/" + item.emp_id
-                                            }
-                                          >
-                                            <PlayCircleOutlineIcon className="playIcon"></PlayCircleOutlineIcon>
+                                          <a href={"/EmployeeDetails/" + item.emp_id} class='playBut'>
+                                            <PlayArrowIcon className="playIcon"></PlayArrowIcon>
                                           </a>
                                         </p>
                                       </div>
@@ -436,14 +445,9 @@ const Card = (props) => {
                                             {item.name}
                                           </h4>
                                           <p className="empProfileNav">
-                                            <a
-                                              href={
-                                                "/EmployeeDetails/" +
-                                                item.emp_id
-                                              }
-                                            >
-                                              <PlayCircleOutlineIcon className="playIcon"></PlayCircleOutlineIcon>
-                                            </a>
+                                          <a href={"/EmployeeDetails/" + item.emp_id} class='playBut'>
+                        <PlayArrowIcon className="playIcon"></PlayArrowIcon>
+                      </a>
                                           </p>
                                         </div>
                                         <p className="OrgCard-body-p">
