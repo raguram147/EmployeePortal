@@ -38,15 +38,14 @@ export const EmployeeCard = ({employee}) => {
           {/* <p>{ employee.Emp_id }</p> */}
           <p style={{textTransform: "capitalize"}}>{employee.role}</p>
           <div className="Manager-email">
-          <p
-            style={{
-              textAlign: "left",
-              fontSize: "0.7rem",
-              marginBottom: "5px",
-            }}
-          >
+          {employee.Manager ? 
+          <p style={{ textAlign: "left", fontSize: "0.7rem", marginBottom: "5px",  }} >
             <span style={{fontWeight:"600" }}>Manager: </span>{employee.Manager}
           </p>
+          : 
+           <p style={{ textAlign: "left", fontSize: "0.7rem", marginBottom: "5px",  }} >
+          <span style={{fontWeight:"600" }}>Reports: </span>{employee.reports_to}
+        </p>} 
            <a href={"mailto:" + employee.email}><img style={{borderRadius:"50%", textAlign: "right",height: "22px", marginRight:"14px" }} alt= "email-icon" src={emailIcon}></img></a>
          
           </div>
