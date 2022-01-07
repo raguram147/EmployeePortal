@@ -169,7 +169,7 @@ const FilterNav = ({ navdata, color }) => {
       <Container>
         <img
           src={`${config.drupal_url}/${window.sessionStorage.getItem("Logo")}`}
-          alt="Skill Portal"
+          alt="Employee Portal"
           style={{ height: "60px" }}
         ></img>
 

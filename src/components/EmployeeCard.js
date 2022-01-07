@@ -32,8 +32,9 @@ export const EmployeeCard = ({employee}) => {
         </header>
         {/* {employee.name} */}
         <div className="Employee-description">
-          <p className="Name" style={{ marginBottom: "1rem" }}>
-            {employee.name}
+          <p className="Name" style={{ marginBottom: "1rem",textTransform: "capitalize" }}>
+          {/* {employee.name.length>30?employee.name.split(" ")[0]:employee.name} */}
+          {employee.name}
           </p>
           {/* <p>{ employee.Emp_id }</p> */}
           <p style={{textTransform: "capitalize"}}>{employee.role}</p>

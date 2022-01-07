@@ -87,7 +87,7 @@ const RightDashboard = ({ data }) => {
               <Paper className={classes.paper}>
                 <h1 className="heading">Skills</h1>
 
-                {x.primary_skills.split(", ").map((value) => (
+                {x.primary_skills && x.primary_skills.split(", ").map((value) => (
                   <Chip
                     className={classes.chip}
                     classname={classes.chip}
@@ -95,7 +95,7 @@ const RightDashboard = ({ data }) => {
                     label={value}
                   />
                 ))}
-                {x.secndary_skills.split(", ").map((value) => (
+                {x.secndary_skills && x.secndary_skills.split(", ").map((value) => (
                   <Chip
                     variant="outlined"
                     classname={classes.chip}
@@ -107,14 +107,21 @@ const RightDashboard = ({ data }) => {
             </Grid>
             <Grid item xs={12} sm={12} lg={12}>
               <Paper className={classes.paper}>
-                <h1 className="heading">Tools</h1>
+                <h1 className="heading">Platforms/Technology</h1>
 
-                {x.tools_familiar.split(", ").map((value) => (
+                {x.platform&&x.platform.split(", ").map((value) => (
                   <Chip
                     className={classes.chip}
                     style={{ backgroundColor: "#E16428", color: "#f1f1f1" }}
                     label={value}
                   ></Chip>
+                ))}{x.technology && x.technology.split(", ").map((value) => (
+                  <Chip
+                    variant="outlined"
+                    classname={classes.chip}
+                    style={{ border: "#E16428 solid 2px", color: "#E16428" }}
+                    label={value.replace('&amp;', '&')}
+                  />
                 ))}
               </Paper>
             </Grid>
@@ -122,7 +129,7 @@ const RightDashboard = ({ data }) => {
               <Paper className={classes.paper1}>
                 <h1 className="heading">Certificates</h1>
 
-                {x.certifications.map((value) => (
+                {x.certifications&&x.certifications.map((value) => (
                   <Chip
                     className={classes.chip}
                     style={{ backgroundColor: "#E16428", color: "#f1f1f1" }}
@@ -130,6 +137,7 @@ const RightDashboard = ({ data }) => {
                     icon={icons}
                   ></Chip>
                 ))}
+                
               </Paper>
             </Grid>
           </Grid>

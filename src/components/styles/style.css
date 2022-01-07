@@ -913,6 +913,8 @@ a {
 .Name {
   font-size: 1.3rem;
   font-weight: 600;
+  text-transform: capitalize;
+  text-overflow: ellipsis;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
@@ -1019,6 +1021,7 @@ a {
   /* border: 1px solid #6c6e73; */
   /* border-color: #adb1b8 #a2a6ac #8d9096; */
   border-radius: 50%;
+  margin-right: 4px;
 }
 
 .nextBackBttn:hover {
@@ -1403,7 +1406,8 @@ label {
 .Employee_name {
   font-size: 1.3rem;
   font-weight: 600;
-
+  text-transform: capitalize;
+  text-overflow: ellipsis;
   /* padding-left: 25px; */
   align-items: center;
 }

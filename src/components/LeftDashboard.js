@@ -91,11 +91,12 @@ const LeftDashborad = ({ data }) => {
               {/*Avatar ends here */}
             </div>
             <div className="Leftdashborad_details">
-              <h2 className="Employee_name">
+              <h2 className="Employee_name" style={{textTransform:"capitalize", textOverflow:"ellipsis",overflowX:"hidden"}}>
                 {x.name + " (" + x.Emp_id + ")"}
               </h2>
-              <h2 className="Designation">{x.role}</h2>
-              <Paper id="status" className={classes.paper}>
+              <h2 className="Designation" style={{textTransform:"capitalize", textOverflow:"ellipsis",overflowX:"hidden"}}>{x.role}</h2>
+              {/* <h2 className="Employee_name" style={{ color: "#282936"}}>{ x.employment_type}</h2> */}
+              <Paper id="status" className={classes.paper} style={{textTransform:"capitalize", textOverflow:"ellipsis",overflowX:"hidden"}}>
                 {console.log(dummy[0].summary)}
                 <FormatQuoteIcon style={{ color: "#FFA500" }}></FormatQuoteIcon>
                 {dummy[0].summary !== "" ? (
@@ -110,7 +111,7 @@ const LeftDashborad = ({ data }) => {
                   xs={12}
                   spacing={1}
                   className={classes.Grid_container}
-                  style={{ textAlign: "start", marginTop: "10%" }}
+                  style={{ textAlign: "start", marginTop: "10%"  ,textOverflow:"ellipsis",overflowX:"hidden"}}
                 >
                   <Grid item xs={3}>
                     <ContactMailSharpIcon
@@ -125,11 +126,11 @@ const LeftDashborad = ({ data }) => {
                   </Grid>
                   <Grid item xs={9}>
                     <a
-                      title="Mail to"
+                      title={x.email}
                       href="/"
                       className="left-details"
                       id="MailTo"
-                      style={{ color: "#282936", wordBreak: "break-all" }}
+                      style={{ color: "#282936", wordBreak: "keep-all" }}
                     >
                       {" " + x.email}
                     </a>
@@ -163,8 +164,18 @@ const LeftDashborad = ({ data }) => {
                     ></AccessTimeIcon>
                   </Grid>
                   <Grid item xs={9}>
-                    <p title="Experience" className="left-details">
-                      {x.Experience} years
+                    <p title="Lister Experience" className="left-details">
+                      {x.lister_experience} Years
+                    </p>
+                  </Grid>
+                  <Grid item xs={3}>
+                    <p title="Employment type" className="left-details"style={{ color: "#282936"}}>
+                      Type
+                    </p>
+                  </Grid>
+                  <Grid item xs={9}>
+                    <p className="left-details" >
+                      {x.employment_type}
                     </p>
                   </Grid>
                 </Grid>

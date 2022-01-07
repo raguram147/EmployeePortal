@@ -83,7 +83,7 @@ const Navbar = ({ navdata }) => {
       <Container>
         <img
           src={`${config.drupal_url}/${window.sessionStorage.getItem("Logo")}`}
-          alt="Skill Portal"
+          alt="Employee Portal"
         ></img>
 
         {/* <LogoIcon></LogoIcon> */}

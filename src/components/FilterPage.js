@@ -35,6 +35,7 @@ export default class EmployeeView extends Component {
       PodsApi: [],
       projectsApi: [],
       hobbiesApi: [],
+      employeeStatusApi: [],
       skills: [],
       name: '',
       skillsFilterShow:10,   //number of skill filters to be shown
@@ -52,7 +53,8 @@ export default class EmployeeView extends Component {
       checkedItemsPod: new Map(),
       checkedItemsProjects: new Map(),
       checkedItemsHobbies: new Map(),
-      ExperienceMinMax: [0, 25],
+      checkedItemsEmpStatus: new Map(),
+      ExperienceMinMax: [0, 35],
       filteredEmployee: [],
       currentPage :1,
       maxItemsPerPage:12,
@@ -76,14 +78,16 @@ export default class EmployeeView extends Component {
       fetch(config.drupal_url + '/TaxonomyOrder/pod').then(res => res.json()),
       fetch(config.drupal_url + '/TaxonomyOrder/projects').then(res => res.json()),
       fetch(config.drupal_url + '/TaxonomyOrder/hobbies').then(res => res.json()),
-    ]).then(([urlOneData, urlTwoData, urlThreeData, urlFourData, urlFiveData, urlSixData]) => {
+      fetch(config.drupal_url + '/Taxonomy/employee_status').then(res => res.json())
+    ]).then(([urlOneData, urlTwoData, urlThreeData, urlFourData, urlFiveData, urlSixData, urlSevenData]) => {
       this.setState({
         Employees: urlOneData,
         skillsApi: urlTwoData,
         MangersApi: urlThreeData,
         PodsApi: urlFourData,
         projectsApi: urlFiveData,
-        hobbiesApi: urlSixData
+        hobbiesApi: urlSixData,
+        employeeStatusApi:urlSevenData
       });
     })
   }
@@ -105,7 +109,7 @@ export default class EmployeeView extends Component {
   }
 
 
-  CheckBoxhandleChange(event) {   //skills,project,pod,manager checkeditems change 
+  CheckBoxhandleChange(event) {   //skills,project,pod,manager checkeditems change (to check uncheck)
     let nam = event.target.name;
     var isChecked = event.target.checked;
     var item = event.target.value;
@@ -123,11 +127,13 @@ export default class EmployeeView extends Component {
       this.setState(prevState => ({ checkedItemsProjects: prevState.checkedItemsProjects.set(item, isChecked) }));
     else if(nam === 'checkedItemsHobbies')
       this.setState(prevState => ({ checkedItemsHobbies: prevState.checkedItemsHobbies.set(item, isChecked) }));
+    else if(nam === 'checkedItemsEmpStatus')
+      this.setState(prevState => ({ checkedItemsEmpStatus: prevState.checkedItemsEmpStatus.set(item, isChecked) }));
   }
 
 
 
-  //show more skill filter option 
+  //show more skill filter option
   showMoreSkills(){
     this.state.skillsFilterShow === 10 ? (
       this.setState({ skillsFilterShow: this.state.skillsApi.length, skillsExpanded: true })
@@ -136,7 +142,7 @@ export default class EmployeeView extends Component {
     )
   }
 
-  //show more filter filter option 
+  //show more filter filter option
   showMoreProjects(){
     this.state.projectsFilterShow === 10 ? (
       this.setState({ projectsFilterShow: this.state.projectsApi.length, projectsExpanded: true })
@@ -192,9 +198,10 @@ export default class EmployeeView extends Component {
     let podsChecked = this.state.checkedItemsPod;
     let projectsChecked = this.state.checkedItemsProjects;
     let HobbiesChecked = this.state.checkedItemsHobbies;
+    let EmpStatuschecked = this.state.checkedItemsEmpStatus;
     let checkedItemsTagList=[];
     //storing all the checked items in array to display as tags
-    if(skillsChecked.size >0 || ManagersChecked.size >0  ||  podsChecked.size >0  || projectsChecked.size>0 || HobbiesChecked.size>0){
+    if(skillsChecked.size >0 || ManagersChecked.size >0  ||  podsChecked.size >0  || projectsChecked.size>0 || HobbiesChecked.size>0 || EmpStatuschecked.size>0){
       const iteratorS1 = skillsChecked.keys();
       const iteratorS2 = skillsChecked.values();
      
@@ -246,6 +253,17 @@ export default class EmployeeView extends Component {
           checkedItemsTagList.push(tagsCheckedObj);
         }
       }
+
+      const iteratorES1 = EmpStatuschecked.keys();
+      const iteratorES2 = EmpStatuschecked.values();
+      for (let i = 0; i < EmpStatuschecked.size; i++) {
+        let ps = iteratorES1.next().value;
+        if (iteratorES2.next().value) {
+          let tagsCheckedObj = { value: ps, filterField: "EmpStatus" };
+          checkedItemsTagList.push(tagsCheckedObj);
+        }
+      }
+      console.log(EmpStatuschecked);
       console.log(checkedItemsTagList.length);
       console.log(checkedItemsTagList);
   }
@@ -283,9 +301,13 @@ export default class EmployeeView extends Component {
       this.setState(prevState => ({ checkedItemsHobbies: prevState.checkedItemsHobbies.set(item, isChecked) }));
       document.getElementById(item).checked = false;
     }
+    else if(nam === 'EmpStatus'){
+      this.setState(prevState => ({ checkedItemsEmpStatus: prevState.checkedItemsEmpStatus.set(item, isChecked) }));
+      document.getElementById(item).checked = false;
+    }
   };
 
-  //checking the empdetails matches 
+  //checking the empdetails matches
   //experience match employee's
   CheckExperience(employeeExperience,expMinReq, expMaxReq){
      //experience checking: whether the emp has meet the req experience of customer
@@ -329,6 +351,7 @@ export default class EmployeeView extends Component {
       return true;
     }
   }
+
 
   //managers Match checking
   checkManagerMatch(ManagersChecked,EmpManager){
@@ -418,8 +441,8 @@ export default class EmployeeView extends Component {
           }
 
         } else if ((!oneProjectAtleastChecked) && (i === projectsChecked.size - 1)) { //if all the previous checked projects are unchecked
-          projectsMatch = true;   
-        } 
+          projectsMatch = true;  
+        }
       }
       if (projectsMatch){
         return true;
@@ -453,6 +476,35 @@ export default class EmployeeView extends Component {
     }
   }
 
+    //checking emp status match
+
+    checkEmpStatusMatch(EmployeeStatusChecked,EmpStatus){
+     
+      if (EmployeeStatusChecked.size > 0) {  //atleast one hobby is checked
+        console.log(EmployeeStatusChecked);
+        console.log(EmpStatus);
+        const iterator1 = EmployeeStatusChecked.keys();
+        const iterator2 = EmployeeStatusChecked.values();
+        for (let i = 0; i < EmployeeStatusChecked.size; i++) {  //checking all the checked hobby the emp has or not
+          let selectedES = iterator2.next().value;
+          let ESName = iterator1.next().value;
+          if (selectedES) {
+            if(((EmpStatus.toLowerCase()).includes("left"))){
+              EmpStatus = "Alumni";
+            }
+            if ( !(((EmpStatus.toLowerCase()).includes(ESName))) ) {
+              return false;  //if one is not in the profile then return false
+            }
+          }
+        }
+        return true;
+      } else {
+        return true;
+      }
+     
+    }
+
+
   filteringTheEmp(){
     let Employees = this.state.Employees;
     let expMinReq = this.state.ExperienceMinMax[0];
@@ -463,16 +515,18 @@ export default class EmployeeView extends Component {
     let podsChecked = this.state.checkedItemsPod;
     let projectsChecked = this.state.checkedItemsProjects;
     let HobbbiesChecked = this.state.checkedItemsHobbies;
+    let EmpStatusChecked = this.state.checkedItemsEmpStatus;
     let filteredEmployee= [];
     Employees.map(x => (
       <>{((() => {
-        if (this.CheckExperience(x.Experience, expMinReq, expMaxReq) 
+        if (this.CheckExperience(x.Experience, expMinReq, expMaxReq)
           && this.checkNameId(x.name, x.Emp_id, nameReq)
           && this.checkPodsMatch(podsChecked, x.Pod)
-          && this.checkProjectMatch(projectsChecked, x.current_working_project) 
-          && this.checkSkillsMatch(skillsChecked, x.primary_skills, x.secndary_skills) 
-          && this.checkManagerMatch(ManagersChecked, x.Manager) 
-          && this.checkHobbiesMatch(HobbbiesChecked, x.hobbies) 
+          && this.checkProjectMatch(projectsChecked, x.current_working_project)
+          && this.checkSkillsMatch(skillsChecked, x.primary_skills, x.secndary_skills)
+          && this.checkManagerMatch(ManagersChecked, x.Manager)
+          && this.checkHobbiesMatch(HobbbiesChecked, x.hobbies)
+          && this.checkEmpStatusMatch(EmpStatusChecked, x.employment_status)
           ) {
           filteredEmployee.push(x);
         }
@@ -489,8 +543,8 @@ export default class EmployeeView extends Component {
     console.log(x.className);
     if (x.className === "reqForm") {
       x.className = "filtersContainer";
-      y.className = "filter-containerMobile";   
-      z.style.display = 'none'; 
+      y.className = "filter-containerMobile";  
+      z.style.display = 'none';
     } else {
       x.className = "reqForm";
       y.className = "filter-container";
@@ -500,7 +554,7 @@ export default class EmployeeView extends Component {
 
 
   render() {
-    //initialisig the state variables for manipulations 
+    //initialisig the state variables for manipulations
     let skillsFilterShowCust =this.state.skillsFilterShow;
     let podsFilterShowCust =this.state.podsFilterShow;
     let managersFilterShowCust =this.state.managersFilterShow;
@@ -513,13 +567,13 @@ export default class EmployeeView extends Component {
 
     return (
       <>
-      
+     
       <div className="filter-container" id="filterPage">
         {/* different types of filters  */}
         <div class="filter-icon"  onClick={() => this.FiltersHover()} >
         <BsFillFunnelFill id="filter-icon"></BsFillFunnelFill>
         </div>
-        <Scrollbars  
+        <Scrollbars 
         style={{ height: "100%" }}
           onScroll={this.handleScroll}
           autoHide     // Hide delay in ms
@@ -628,7 +682,7 @@ export default class EmployeeView extends Component {
                     </tr>
                   ))
                 }
-                  {(this.state.MangersApi.length > 10)? 
+                  {(this.state.MangersApi.length > 10)?
                   <p className="showMore"
                     onClick={this.showMoreManagers}>
                     {this.state.managersExpanded ? (
@@ -697,7 +751,7 @@ export default class EmployeeView extends Component {
                     </tr>
                   ))
                 }
-                {(this.state.projectsApi.length > 10)? 
+                {(this.state.projectsApi.length > 10)?
                   <p className="showMore"
                     onClick={this.showMoreProjects}>
                     {this.state.projectsExpanded ? (
@@ -746,12 +800,39 @@ export default class EmployeeView extends Component {
               </table>
             </form>
 
+
+            {/* emp status checkbox selection */}
+            <p className="filterName">Employee Status :</p>
+            <form >
+              <table className="CheckboxesTable">
+                {
+                  this.state.employeeStatusApi.slice(0, HobbiesFilterShowCust).map(item => (
+                    <tr>
+                      <td>
+                        <label>
+                          <input
+                            name = 'checkedItemsEmpStatus'
+                            type="checkbox"
+                            value={item.name.toLowerCase()}
+                            onChange={this.CheckBoxhandleChange}
+                            id={item.name.toLowerCase()}
+                          /> {item.name} 
+                        </label>
+                      </td>
+                    </tr>
+                  ))
+                  }
+                 
+              </table>
+            </form>
+
+
           </form>
          
         </div>
         </Scrollbars>
         {/* //displaying */}
-        <Scrollbars  
+        <Scrollbars 
         style={{ height: 600 }}
           onScroll={this.handleScroll}
           autoHide     // Hide delay in ms

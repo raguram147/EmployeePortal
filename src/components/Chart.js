@@ -316,8 +316,10 @@ const Card = (props) => {
                 </div>
                 <div className="OrgCard-body"  onClick={() => newChart(JSON.stringify(item))}>
                   <div className="name-profile-container">
-                    <h4 className="OrgCard-body-h4">{item.name}</h4>
+                    <h4 className="OrgCard-body-h4">{item.name.length>22?item.name.split(" ")[0]:item.name}</h4>
                     <p className="empProfileNav">
+                      {console.log(item.name.length)}
+                      {console.log(item.name.split(" ")[0])}
                     <a href={"/EmployeeDetails/" + item.emp_id} class='playBut'>
                         <PlayArrowIcon className="playIcon"></PlayArrowIcon>
                       </a>
@@ -356,7 +358,7 @@ const Card = (props) => {
                         </div>
                         <div className="OrgCard-body" id="selected-node"   onClick={() => newChart(JSON.stringify(item))}>
                           <div className="name-profile-container">
-                            <h4 className="OrgCard-body-h4">{item.name}</h4>
+                            <h4 className="OrgCard-body-h4">{item.name.length>22?item.name.split(" ")[0]:item.name}</h4>
                             <p className="empProfileNav">
                               <a href={"/EmployeeDetails/" + item.emp_id} class='playBut'>
                                 <PlayArrowIcon className="playIcon"></PlayArrowIcon>
@@ -397,7 +399,7 @@ const Card = (props) => {
                                     }>
                                       <div className="name-profile-container">
                                         <h4 className="OrgCard-body-h4">
-                                          {item.name}
+                                        {item.name.length>22?item.name.split(" ")[0]:item.name}
                                         </h4>
                                         <p className="empProfileNav">
                                           <a href={"/EmployeeDetails/" + item.emp_id} class='playBut'>
@@ -442,7 +444,7 @@ const Card = (props) => {
                                       <div className="OrgCard-body">
                                         <div className="name-profile-container">
                                           <h4 className="OrgCard-body-h4">
-                                            {item.name}
+                                          {item.name.length>22?item.name.split(" ")[0]:item.name}
                                           </h4>
                                           <p className="empProfileNav">
                                           <a href={"/EmployeeDetails/" + item.emp_id} class='playBut'>
