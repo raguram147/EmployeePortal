@@ -91,9 +91,9 @@ const LeftDashborad = ({ data }) => {
               {/*Avatar ends here */}
             </div>
             <div className="Leftdashborad_details">
-              <h2 className="Employee_name" style={{textTransform:"capitalize", textOverflow:"ellipsis",overflowX:"hidden"}}>
+              <a className="Employee_name" style={{textTransform:"capitalize", textOverflow:"ellipsis",overflowX:"hidden"}} href={"/OrgChart/" +x.name}>
                 {x.name + " (" + x.Emp_id + ")"}
-              </h2>
+              </a>
               <h2 className="Designation" style={{textTransform:"capitalize", textOverflow:"ellipsis",overflowX:"hidden"}}>{x.role}</h2>
               {/* <h2 className="Employee_name" style={{ color: "#282936"}}>{ x.employment_type}</h2> */}
               <Paper id="status" className={classes.paper} style={{textTransform:"capitalize", textOverflow:"ellipsis",overflowX:"hidden"}}>
@@ -176,6 +176,16 @@ const LeftDashborad = ({ data }) => {
                   <Grid item xs={9}>
                     <p className="left-details" >
                       {x.employment_type}
+                    </p>
+                  </Grid>
+                  <Grid item xs={3}>
+                    <p title="Current Project"className="left-details" style={{ color: "#282936"}} >
+                      Project
+                    </p>
+                  </Grid>
+                  <Grid item xs={9}>
+                    <p className="left-details" >
+                      {x.current_working_project}
                     </p>
                   </Grid>
                 </Grid>

@@ -1410,6 +1410,10 @@ label {
   text-overflow: ellipsis;
   /* padding-left: 25px; */
   align-items: center;
+  
+}
+.Employee_name:hover{
+  color: #000;
 }
 .Designation {
   color: #e16428;
