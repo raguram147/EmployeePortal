@@ -32,7 +32,7 @@ export const EmployeeCard = ({employee}) => {
         </header>
         {/* {employee.name} */}
         <div className="Employee-description">
-          <p className="Name" style={{ marginBottom: "1rem",textTransform: "capitalize" }}>
+          <p title={employee.name}className="Name" style={{ marginBottom: "1rem",textTransform: "capitalize" }}>
           {/* {employee.name.length>30?employee.name.split(" ")[0]:employee.name} */}
           {/* {employee.name.split(" ").length===2?employee.name:employee.name.length>30? employee.name.split(" ")[0]+" "+employee.name.split(" ")[1].substirng(0,1):employee.name.split(" ")[0]+" "+employee.name.split(" ")[1]} */}
           {(employee.name.length<23)?employee.name:employee.name.split(" ")[0]+" "+employee.name.split(" ")[1].charAt(0)}
@@ -55,10 +55,11 @@ export const EmployeeCard = ({employee}) => {
           </div>
           <div className="exp-linkedin">
           <p style={{ textAlign: "left", fontSize: "0.7rem" }}>
-            <span style={{fontWeight:"600" }}> Experience: </span>{employee.Experience === "0" ? "Fresher":employee.Experience+" years"} 
+            <span style={{fontWeight:"600" }}>Lister Experience: </span>{employee.lister_experience < 1 ? "NA":employee.lister_experience+" years"} 
+ 
           </p>
           {/* <SocialIcon url={employee.linkedin_profile} bgColor="#282936" style={{borderRadius:"50%", textAlign: "right", fontSize: "0.7rem",height: "22px"  }} ></SocialIcon> */}
-          <a href={"/OrgChart/" +employee.name}><img style={{textAlign: "center",height: "35px" ,marginRight:"8px"}} alt= "email-icon" src={orgIcon}></img></a>
+         {employee.employment_status==="Active"&& <a href={"/OrgChart/" +employee.name}><img style={{textAlign: "center",height: "35px" ,marginRight:"8px"}} alt="Organization"  src={orgIcon}></img></a>}
           </div>
           <button class="button">
             <span>

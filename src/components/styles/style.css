@@ -1349,7 +1349,7 @@ label {
   border-radius: 50%;
   position: relative;
   width: 95px;
-  bottom: 10%;
+  bottom: 1%;
   margin-left: auto;
   margin-right: auto;
   display: block;
@@ -1578,10 +1578,11 @@ label {
 
 .text-center {
   position: relative;
+  height: 100%;
   width: 75%;
   text-align: left !important;
   position: relative;
-  bottom: 55%;
+  bottom: 75%;
   left: 10%;
   color: #fff;
 }
@@ -1602,6 +1603,16 @@ label {
 .text-center p {
   margin-top: 20px;
   font-size: 1rem;
+}
+.text-algin{
+  width: 100%;
+  position: relative;
+  height: 100%;
+  text-align: left;
+  left: 10%;
+  top: 5%;
+  font-size: large;
+  font-weight: 550;
 }
 .past.dot-label {
   padding-bottom: 5px !important;

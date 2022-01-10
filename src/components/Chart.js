@@ -206,8 +206,8 @@ const Chart = ({ empData }) => {
       window.sessionStorage.setItem("ReportsTo", JSON.stringify(Ceo));
     }
   }
-  console.log(window.sessionStorage.getItem("ReportsTo"));
-  console.log(window.sessionStorage.getItem("Reporting"));
+  // console.log(window.sessionStorage.getItem("ReportsTo"));
+  // console.log(window.sessionStorage.getItem("Reporting"));
 
   const handleOnSelect = (Emp) => {
     // the item selected
@@ -316,7 +316,7 @@ const Card = (props) => {
                 </div>
                 <div className="OrgCard-body"  onClick={() => newChart(JSON.stringify(item))}>
                   <div className="name-profile-container">
-                    <h4 className="OrgCard-body-h4">{item.name.length>22?item.name.split(" ")[0]:item.name}</h4>
+                    <h4 title={item.name} className="OrgCard-body-h4">{item.name.length>22?item.name.split(" ")[0]:item.name}</h4>
                     <p className="empProfileNav">
                       {console.log(item.name.length)}
                       {console.log(item.name.split(" ")[0])}
@@ -336,7 +336,7 @@ const Card = (props) => {
 
                           <circle class='circle' id="XMLID_17_" fill="none" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" cx="106.8" cy="106.8" r="103.3" />
                         </svg> */}
-                  <p title={item.role} className="OrgCard-body-p">{item.role.length>20?(item.role.split(" ").length===2?item.role.split(" ")[0].substring(0,1)+item.role.split(" ")[1].substring(0,1):item.role.split(" ")[0].substring(0,1)+item.role.split(" ")[1].substring(0,1)+item.role.split(" ")[2].substring(0,1)):item.role}</p>
+                  <p title={item.role} className="OrgCard-body-p">{item.role.length>28?(item.role.split(" ").length===2?item.role.split(" ")[0].substring(0,1)+item.role.split(" ")[1].substring(0,1):item.role.split(" ")[0].substring(0,1)+item.role.split(" ")[1].substring(0,1)+item.role.split(" ")[2].substring(0,1)):item.role}</p>
                 </div>
               </div>
               <ul>
@@ -358,14 +358,14 @@ const Card = (props) => {
                         </div>
                         <div className="OrgCard-body" id="selected-node"   onClick={() => newChart(JSON.stringify(item))}>
                           <div className="name-profile-container">
-                            <h4 className="OrgCard-body-h4">{item.name.length>22?item.name.split(" ")[0]:item.name}</h4>
+                            <h4 title={item.name} className="OrgCard-body-h4">{item.name.length>22?item.name.split(" ")[0]:item.name}</h4>
                             <p className="empProfileNav">
                               <a href={"/EmployeeDetails/" + item.emp_id} class='playBut'>
                                 <PlayArrowIcon className="playIcon"></PlayArrowIcon>
                               </a>
                             </p>
                           </div>
-                          <p title={item.role} className="OrgCard-body-p">{item.role.length>20?(item.role.split(" ").length===2?item.role.split(" ")[0].substring(0,1)+item.role.split(" ")[1].substring(0,1):item.role.split(" ")[0].substring(0,1)+item.role.split(" ")[1].substring(0,1)+item.role.split(" ")[2].substring(0,1)):item.role}</p>
+                          <p title={item.role} className="OrgCard-body-p">{item.role.length>28?(item.role.split(" ").length===2?item.role.split(" ")[0].substring(0,1)+item.role.split(" ")[1].substring(0,1):item.role.split(" ")[0].substring(0,1)+item.role.split(" ")[1].substring(0,1)+item.role.split(" ")[2].substring(0,1)):item.role}</p>
                         </div>
                       </div>
                     {/* more than 1 childsin 3 rd level flat top border */}
@@ -398,7 +398,7 @@ const Card = (props) => {
                                       newChart(JSON.stringify(item))
                                     }>
                                       <div className="name-profile-container">
-                                        <h4 className="OrgCard-body-h4">
+                                        <h4 title={item.name} className="OrgCard-body-h4">
                                         {item.name.length>22?item.name.split(" ")[0]:item.name}
                                         </h4>
                                         <p className="empProfileNav">
@@ -408,7 +408,7 @@ const Card = (props) => {
                                         </p>
                                       </div>
                                       <p title={item.role} className="OrgCard-body-p">
-                                        {item.role.length>20?(item.role.split(" ").length===2?item.role.split(" ")[0].substring(0)+item.role.split(" ")[1].substring(0):item.role.split(" ")[0].substring(0)+item.role.split(" ")[1].substring(0)+item.role.split(" ")[2].substring(0)):item.role}
+                                        {item.role.length>28?(item.role.split(" ").length===2?item.role.split(" ")[0].substring(0)+item.role.split(" ")[1].substring(0):item.role.split(" ")[0].substring(0)+item.role.split(" ")[1].substring(0)+item.role.split(" ")[2].substring(0)):item.role}
                                       </p>
                                     </div>
                                   </div>
@@ -443,7 +443,7 @@ const Card = (props) => {
                                       </div>
                                       <div className="OrgCard-body">
                                         <div className="name-profile-container">
-                                          <h4 className="OrgCard-body-h4">
+                                          <h4 title={item.name} className="OrgCard-body-h4">
                                           {item.name.length>22?item.name.split(" ")[0]:item.name}
                                           </h4>
                                           <p className="empProfileNav">
@@ -453,7 +453,7 @@ const Card = (props) => {
                                           </p>
                                         </div>
                                         <p title={item.role} className="OrgCard-body-p">
-                                          {item.role.length>20?(item.role.split(" ").length===2?item.role.split(" ")[0].substring(0,1)+item.role.split(" ")[1].substring(0,1):item.role.split(" ")[0].substring(0,1)+item.role.split(" ")[1].substring(0,1)+item.role.split(" ")[2].substring(0,1)):item.role}
+                                          {item.role.length>28?(item.role.split(" ").length===2?item.role.split(" ")[0].substring(0,1)+item.role.split(" ")[1].substring(0,1):item.role.split(" ")[0].substring(0,1)+item.role.split(" ")[1].substring(0,1)+item.role.split(" ")[2].substring(0,1)):item.role}
                                         </p>
                                       </div>
                                     </div>

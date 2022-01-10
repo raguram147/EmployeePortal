@@ -64,14 +64,13 @@ const LeftDashborad = ({ data }) => {
                 className="EmpProfilephoto"
                 key={index}
               ></img>
-              {dummy.map((x) =>
-                x.status === "active" ? (
+              {data.map((x) =>
+                x.employment_status === "Active" ? (
                   <CheckCircleIcon
                     className="status-icon"
                     style={{
                       color: "#3ECC27",
-                      bottom: "75%",
-
+                      bottom: "65%",
                       position: "relative",
                     }}
                     title="Active"
@@ -81,8 +80,8 @@ const LeftDashborad = ({ data }) => {
                     title="Inactive"
                     style={{
                       color: "red",
-                      bottom: "75%",
-                      left: "380%",
+                      bottom: "65%",
+                      left: "80%",
                       position: "relative",
                     }}
                   ></RemoveCircleRoundedIcon>
@@ -132,7 +131,7 @@ const LeftDashborad = ({ data }) => {
                       id="MailTo"
                       style={{ color: "#282936", wordBreak: "keep-all" }}
                     >
-                      {" " + x.email}
+                      {" " + x.email  }
                     </a>
                   </Grid>
 
@@ -186,6 +185,16 @@ const LeftDashborad = ({ data }) => {
                   <Grid item xs={9}>
                     <p className="left-details" >
                       {x.current_working_project}
+                    </p>
+                  </Grid>
+                  <Grid item xs={3}>
+                    <p title="Lister Level"className="left-details" style={{ color: "#282936"}} >
+                      Level
+                    </p>
+                  </Grid>
+                  <Grid item xs={9}>
+                    <p className="left-details" >
+                      {x.lister_level}
                     </p>
                   </Grid>
                 </Grid>

@@ -36,6 +36,8 @@ export default class EmployeeView extends Component {
       projectsApi: [],
       hobbiesApi: [],
       employeeStatusApi: [],
+      billableApi: [],
+      engagementTypeApi: [],
       skills: [],
       name: '',
       skillsFilterShow:10,   //number of skill filters to be shown
@@ -54,6 +56,8 @@ export default class EmployeeView extends Component {
       checkedItemsProjects: new Map(),
       checkedItemsHobbies: new Map(),
       checkedItemsEmpStatus: new Map(),
+      checkedItemsEngagementType: new Map(),
+      checkedItemsBillable: new Map(),
       ExperienceMinMax: [0, 35],
       filteredEmployee: [],
       currentPage :1,
@@ -78,8 +82,10 @@ export default class EmployeeView extends Component {
       fetch(config.drupal_url + '/TaxonomyOrder/pod').then(res => res.json()),
       fetch(config.drupal_url + '/TaxonomyOrder/projects').then(res => res.json()),
       fetch(config.drupal_url + '/TaxonomyOrder/hobbies').then(res => res.json()),
-      fetch(config.drupal_url + '/Taxonomy/employee_status').then(res => res.json())
-    ]).then(([urlOneData, urlTwoData, urlThreeData, urlFourData, urlFiveData, urlSixData, urlSevenData]) => {
+      fetch(config.drupal_url + '/Taxonomy/employee_status').then(res => res.json()),
+      fetch(config.drupal_url + '/Taxonomy/engagement_model').then(res => res.json()),
+      fetch(config.drupal_url + '/Taxonomy/billable').then(res => res.json())
+    ]).then(([urlOneData, urlTwoData, urlThreeData, urlFourData, urlFiveData, urlSixData, urlSevenData, urlEightData, urlNineData]) => {
       this.setState({
         Employees: urlOneData,
         skillsApi: urlTwoData,
@@ -87,7 +93,9 @@ export default class EmployeeView extends Component {
         PodsApi: urlFourData,
         projectsApi: urlFiveData,
         hobbiesApi: urlSixData,
-        employeeStatusApi:urlSevenData
+        employeeStatusApi:urlSevenData,
+        engagementTypeApi: urlEightData,
+        billableApi: urlNineData
       });
     })
   }
@@ -129,6 +137,10 @@ export default class EmployeeView extends Component {
       this.setState(prevState => ({ checkedItemsHobbies: prevState.checkedItemsHobbies.set(item, isChecked) }));
     else if(nam === 'checkedItemsEmpStatus')
       this.setState(prevState => ({ checkedItemsEmpStatus: prevState.checkedItemsEmpStatus.set(item, isChecked) }));
+    else if (nam === 'checkedItemsEngagementType')
+      this.setState(prevState => ({ checkedItemsEngagementType: prevState.checkedItemsEngagementType.set(item, isChecked) }));
+    else if (nam === 'checkedItemsBillable')
+      this.setState(prevState => ({ checkedItemsBillable: prevState.checkedItemsBillable.set(item, isChecked) }));
   }
 
 
@@ -199,9 +211,11 @@ export default class EmployeeView extends Component {
     let projectsChecked = this.state.checkedItemsProjects;
     let HobbiesChecked = this.state.checkedItemsHobbies;
     let EmpStatuschecked = this.state.checkedItemsEmpStatus;
+    let EngagementTypeChecked = this.state.checkedItemsEngagementType;
+    let billableChecked = this.state.checkedItemsBillable;
     let checkedItemsTagList=[];
     //storing all the checked items in array to display as tags
-    if(skillsChecked.size >0 || ManagersChecked.size >0  ||  podsChecked.size >0  || projectsChecked.size>0 || HobbiesChecked.size>0 || EmpStatuschecked.size>0){
+    if(skillsChecked.size >0 || ManagersChecked.size >0  ||  podsChecked.size >0  || projectsChecked.size>0 || HobbiesChecked.size>0 || EmpStatuschecked.size>0 || EngagementTypeChecked.size>0 || billableChecked.size>0 ){
       const iteratorS1 = skillsChecked.keys();
       const iteratorS2 = skillsChecked.values();
      
@@ -263,7 +277,29 @@ export default class EmployeeView extends Component {
           checkedItemsTagList.push(tagsCheckedObj);
         }
       }
-      console.log(EmpStatuschecked);
+
+      const iteratorET1 = EngagementTypeChecked.keys();
+      const iteratorET2 = EngagementTypeChecked.values();
+      for (let i = 0; i < EngagementTypeChecked.size; i++) {
+        let ps = iteratorET1.next().value;
+        if (iteratorET2.next().value) {
+          let tagsCheckedObj = { value: ps, filterField: "EngagementType" };
+          checkedItemsTagList.push(tagsCheckedObj);
+        }
+      }
+
+      const iteratorB1 = billableChecked.keys();
+      const iteratorB2 = billableChecked.values();
+      for (let i = 0; i < billableChecked.size; i++) {
+        let ps = iteratorB1.next().value;
+        if (iteratorB2.next().value) {
+          let tagsCheckedObj = { value: ps, filterField: "billable" };
+          checkedItemsTagList.push(tagsCheckedObj);
+        }
+      }
+
+      console.log(billableChecked);
+      console.log(EngagementTypeChecked);
       console.log(checkedItemsTagList.length);
       console.log(checkedItemsTagList);
   }
@@ -303,6 +339,14 @@ export default class EmployeeView extends Component {
     }
     else if(nam === 'EmpStatus'){
       this.setState(prevState => ({ checkedItemsEmpStatus: prevState.checkedItemsEmpStatus.set(item, isChecked) }));
+      document.getElementById(item).checked = false;
+    }
+    else if(nam === 'EngagementType'){
+      this.setState(prevState => ({ checkedItemsEngagementType: prevState.checkedItemsEngagementType.set(item, isChecked) }));
+      document.getElementById(item).checked = false;
+    }
+    else if(nam === 'billable'){
+      this.setState(prevState => ({ checkedItemsBillable: prevState.checkedItemsBillable.set(item, isChecked) }));
       document.getElementById(item).checked = false;
     }
   };
@@ -456,51 +500,149 @@ export default class EmployeeView extends Component {
   }
 
   //Hobbies match
-  checkHobbiesMatch(hobbiesChecked,empHobbies){
+  // checkHobbiesMatch(hobbiesChecked,empHobbies){
 
-    if (hobbiesChecked.size > 0) {  //atleast one hobby is checked
-      const iterator1 = hobbiesChecked.keys();
-      const iterator2 = hobbiesChecked.values();
-      for (let i = 0; i < hobbiesChecked.size; i++) {  //checking all the checked hobby the emp has or not
-        let selectedHobby = iterator2.next().value;
-        let hobbyName = iterator1.next().value;
-        if (selectedHobby) {
-          if ( !(((empHobbies.toLowerCase()).includes(hobbyName))) ) {
-            return false;  //if one is not in the profile then return false
-          }
-        }
-      }
-      return true;
-    } else {
-      return true;
-    }
-  }
+  //   if (hobbiesChecked.size > 0) {  //atleast one hobby is checked
+  //     const iterator1 = hobbiesChecked.keys();
+  //     const iterator2 = hobbiesChecked.values();
+  //     for (let i = 0; i < hobbiesChecked.size; i++) {  //checking all the checked hobby the emp has or not
+  //       let selectedHobby = iterator2.next().value;
+  //       let hobbyName = iterator1.next().value;
+  //       if (selectedHobby) {
+  //         if ( !(((empHobbies.toLowerCase()).includes(hobbyName))) ) {
+  //           return false;  //if one is not in the profile then return false
+  //         }
+  //       }
+  //     }
+  //     return true;
+  //   } else {
+  //     return true;
+  //   }
+  // }
 
     //checking emp status match
 
     checkEmpStatusMatch(EmployeeStatusChecked,EmpStatus){
-     
-      if (EmployeeStatusChecked.size > 0) {  //atleast one hobby is checked
-        console.log(EmployeeStatusChecked);
-        console.log(EmpStatus);
-        const iterator1 = EmployeeStatusChecked.keys();
-        const iterator2 = EmployeeStatusChecked.values();
-        for (let i = 0; i < EmployeeStatusChecked.size; i++) {  //checking all the checked hobby the emp has or not
-          let selectedES = iterator2.next().value;
-          let ESName = iterator1.next().value;
-          if (selectedES) {
+
+      let ESMatch = false;
+     if (EmployeeStatusChecked.size > 0) {
+      const iterator1 = EmployeeStatusChecked.keys();
+      const iterator2 = EmployeeStatusChecked.values();
+      let oneESAtleastChecked = false;
+      for (let i = 0; i < EmployeeStatusChecked.size; i++) {
+          let selectedES = iterator2.next().value; //true or false
+        let selectedESName = iterator1.next().value;
+
+        if (selectedES && !ESMatch) { //check whether the checkbox is still selected and pod is matched in previous loop
+          oneESAtleastChecked = true;
             if(((EmpStatus.toLowerCase()).includes("left"))){
               EmpStatus = "Alumni";
             }
-            if ( !(((EmpStatus.toLowerCase()).includes(ESName))) ) {
-              return false;  //if one is not in the profile then return false
-            }
+          if (((EmpStatus.toLowerCase()).includes(selectedESName))) {
+
+            ESMatch = true;
+            console.log("true inside loop");
+          } else {
+            ESMatch = false;
           }
+
+        } else if ((!oneESAtleastChecked) && (i === EmployeeStatusChecked.size - 1)) { //if all the previous checked pods are unchecked
+          ESMatch = true;
         }
-        return true;
-      } else {
-        return true;
       }
+       if (ESMatch){
+        return true;
+       }  
+       else{
+        return false;
+       }  
+    } else {
+      return true;
+    }
+     
+    }
+
+
+    // checking Engagement Type match
+
+    checkEngagementTypeMatch(EngagementTypeChecked,EngagementType){
+
+      let ETMatch = false;
+      if (EngagementTypeChecked.size > 0) {
+       const iterator1 = EngagementTypeChecked.keys();
+       const iterator2 = EngagementTypeChecked.values();
+       let oneETAtleastChecked = false;
+       for (let i = 0; i < EngagementTypeChecked.size; i++) {
+           let selectedET = iterator2.next().value; //true or false
+         let selectedETName = iterator1.next().value;
+ 
+         if (selectedET && !ETMatch) { //check whether the checkbox is still selected and pod is matched in previous loop
+          oneETAtleastChecked = true;
+          if(((EngagementType).includes("T&amp;M"))){
+            EngagementType = "t&m";
+          }
+          console.log(EngagementType);
+          console.log(selectedETName);
+           if (((EngagementType.toLowerCase()).includes(selectedETName))) {
+ 
+            ETMatch = true;
+             console.log("true inside loop");
+           } else {
+            ETMatch = false;
+           }
+ 
+         } else if ((!oneETAtleastChecked) && (i === EngagementTypeChecked.size - 1)) { //if all the previous checked pods are unchecked
+          ETMatch = true;
+         }
+       }
+        if (ETMatch){
+         return true;
+        }  
+        else{
+         return false;
+        }  
+     } else {
+       return true;
+     }
+     
+    }
+
+    //checking billability match
+
+    checkBillableMatch(billableChecked,billable){
+
+      let billableMatch = false;
+      if (billableChecked.size > 0) {
+       const iterator1 = billableChecked.keys();
+       const iterator2 = billableChecked.values();
+       let oneBillableAtleastChecked = false;
+       for (let i = 0; i < billableChecked.size; i++) {
+           let selectedBillable = iterator2.next().value; //true or false
+         let selectedBillableName = iterator1.next().value;
+ 
+         if (selectedBillable && !billableMatch) { //check whether the checkbox is still selected and pod is matched in previous loop
+          oneBillableAtleastChecked = true;
+           if (((billable.toLowerCase()).includes(selectedBillableName))) {
+ 
+            billableMatch = true;
+             console.log("true inside loop");
+           } else {
+            billableMatch = false;
+           }
+ 
+         } else if ((!oneBillableAtleastChecked) && (i === billableChecked.size - 1)) { //if all the previous checked pods are unchecked
+          billableMatch = true;
+         }
+       }
+        if (billableMatch){
+         return true;
+        }  
+        else{
+         return false;
+        }  
+     } else {
+       return true;
+     }
      
     }
 
@@ -514,8 +656,11 @@ export default class EmployeeView extends Component {
     let ManagersChecked = this.state.checkedItemsManager;
     let podsChecked = this.state.checkedItemsPod;
     let projectsChecked = this.state.checkedItemsProjects;
-    let HobbbiesChecked = this.state.checkedItemsHobbies;
+    // let HobbbiesChecked = this.state.checkedItemsHobbies;
     let EmpStatusChecked = this.state.checkedItemsEmpStatus;
+    let EngagementTypeChecked = this.state.checkedItemsEngagementType;
+    let billableChecked = this.state.checkedItemsBillable;
+
     let filteredEmployee= [];
     Employees.map(x => (
       <>{((() => {
@@ -525,8 +670,10 @@ export default class EmployeeView extends Component {
           && this.checkProjectMatch(projectsChecked, x.current_working_project)
           && this.checkSkillsMatch(skillsChecked, x.primary_skills, x.secndary_skills)
           && this.checkManagerMatch(ManagersChecked, x.Manager)
-          && this.checkHobbiesMatch(HobbbiesChecked, x.hobbies)
+          // && this.checkHobbiesMatch(HobbbiesChecked, x.hobbies)
           && this.checkEmpStatusMatch(EmpStatusChecked, x.employment_status)
+          && this.checkEngagementTypeMatch(EngagementTypeChecked,x.engagement_model)
+          && this.checkBillableMatch(billableChecked,x.billable)
           ) {
           filteredEmployee.push(x);
         }
@@ -766,7 +913,7 @@ export default class EmployeeView extends Component {
             </form>
 
              {/* Hobbbies checkbox selection */}
-             <p className="filterName">Hobbies :</p>
+             {/* <p className="filterName">Hobbies :</p>
             <form >
               <table className="CheckboxesTable">
                 {
@@ -798,7 +945,7 @@ export default class EmployeeView extends Component {
                     : console.log("less hobbies")
                   }
               </table>
-            </form>
+            </form> */}
 
 
             {/* emp status checkbox selection */}
@@ -812,6 +959,57 @@ export default class EmployeeView extends Component {
                         <label>
                           <input
                             name = 'checkedItemsEmpStatus'
+                            type="checkbox"
+                            value={item.name.toLowerCase()}
+                            onChange={this.CheckBoxhandleChange}
+                            id={item.name.toLowerCase()}
+                          /> {item.name} 
+                        </label>
+                      </td>
+                    </tr>
+                  ))
+                  }
+                 
+              </table>
+            </form>
+
+       
+             {/* engagement model type checkbox selection */}
+             <p className="filterName">Engagement Model :</p>
+            <form >
+              <table className="CheckboxesTable">
+                {
+                  this.state.engagementTypeApi.map(item => (
+                    <tr>
+                      <td>
+                        <label>
+                          <input
+                            name = 'checkedItemsEngagementType'
+                            type="checkbox"
+                            value={item.name.toLowerCase()}
+                            onChange={this.CheckBoxhandleChange}
+                            id={item.name.toLowerCase()}
+                          /> {item.name} 
+                        </label>
+                      </td>
+                    </tr>
+                  ))
+                  }
+                 
+              </table>
+            </form>
+
+             {/* Billable checkbox selection */}
+             <p className="filterName">Billable :</p>
+            <form >
+              <table className="CheckboxesTable">
+                {
+                  this.state.billableApi.map(item => (
+                    <tr>
+                      <td>
+                        <label>
+                          <input
+                            name = 'checkedItemsBillable'
                             type="checkbox"
                             value={item.name.toLowerCase()}
                             onChange={this.CheckBoxhandleChange}
