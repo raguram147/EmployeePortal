@@ -745,7 +745,7 @@ export default class EmployeeView extends Component {
                             value={item.name.toLowerCase()}
                             onChange={this.CheckBoxhandleChange}
                             id={item.name.toLowerCase()}
-                          /> {item.name} ({item.count })
+                          /> {item.name.replace("&amp;","&")} ({item.count })
                         </label>
                       </td>
                     </tr>

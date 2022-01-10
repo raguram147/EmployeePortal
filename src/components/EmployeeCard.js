@@ -34,7 +34,10 @@ export const EmployeeCard = ({employee}) => {
         <div className="Employee-description">
           <p className="Name" style={{ marginBottom: "1rem",textTransform: "capitalize" }}>
           {/* {employee.name.length>30?employee.name.split(" ")[0]:employee.name} */}
-          {employee.name}
+          {/* {employee.name.split(" ").length===2?employee.name:employee.name.length>30? employee.name.split(" ")[0]+" "+employee.name.split(" ")[1].substirng(0,1):employee.name.split(" ")[0]+" "+employee.name.split(" ")[1]} */}
+          {(employee.name.length<23)?employee.name:employee.name.split(" ")[0]+" "+employee.name.split(" ")[1].charAt(0)}
+          {console.log(employee.name)}
+          {console.log(employee.name.length>20)}
           </p>
           {/* <p>{ employee.Emp_id }</p> */}
           <p style={{textTransform: "capitalize"}}>{employee.role}</p>
