@@ -86,7 +86,7 @@ const MiddleDashborad = ({ data }) => {
            {(x.engament_model!==""& x.reports_to!=="")&&"• I work on "+x.engagement_model.replace("&amp;","&")+" Engagement Model with guidance of " +x.reports_to}
            
             <p></p>
-            {(x.current_working_project!=="")&&"• Now I am currently working in "+x.current_working_project+" Project under Project manager "+x.Manager}
+            {x.current_working_project==="Proj Manager"?"• I'm currently working as a project Manager":(x.current_working_project!=="")&&"• Now I am currently working in "+x.current_working_project+" Project under Project manager "+x.Manager}
             {/* {x.date_of_joining} */}
             <p></p>
             {/* ...</>):(x.current_working_project==="")?"• Now I'm an Alumni of Lister":"• Now I'm an Alumni of Lister and had a privilege working for the "+x.current_working_project+" project under "+x.Manager} */}
