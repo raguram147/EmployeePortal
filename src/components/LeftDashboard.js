@@ -90,9 +90,9 @@ const LeftDashborad = ({ data }) => {
               {/*Avatar ends here */}
             </div>
             <div className="Leftdashborad_details">
-              <a className="Employee_name" style={{textTransform:"capitalize", textOverflow:"ellipsis",overflowX:"hidden"}} href={"/OrgChart/" +x.name}>
+              {x.employment_status==="Active"?<a className="Employee_name" style={{textTransform:"capitalize", textOverflow:"ellipsis",overflowX:"hidden"}} href={"/OrgChart/" +x.name}>
                 {x.name + " (" + x.Emp_id + ")"}
-              </a>
+              </a>:<h1 className="Employee_name" style={{textTransform:"capitalize", textOverflow:"ellipsis",overflowX:"hidden"}}>{x.name + " (" + x.Emp_id + ")"}</h1>}
               <h2 className="Designation" style={{textTransform:"capitalize", textOverflow:"ellipsis",overflowX:"hidden"}}>{x.role}</h2>
               {/* <h2 className="Employee_name" style={{ color: "#282936"}}>{ x.employment_type}</h2> */}
               <Paper id="status" className={classes.paper} style={{textTransform:"capitalize", textOverflow:"ellipsis",overflowX:"hidden"}}>
