@@ -79,14 +79,14 @@ const MiddleDashborad = ({ data }) => {
             
             {/* {x.employment_status==="Active"?(<> */}
             <p></p>
-          {(x.billable==="Yes")&& "• I became a billable asset with "+x.propotional_billability+ " propotional billability"}
+          {(x.billable==="Yes"&x.employment_status==="Active")&& "• I became a billable asset with "+x.propotional_billability+ " propotional billability"}
             
             <p></p>
             <Typist.Delay ms={500} />
            {(x.engament_model!==""& x.reports_to!=="")&&"• I work on "+x.engagement_model.replace("&amp;","&")+" Engagement Model with guidance of " +x.reports_to}
            
             <p></p>
-            {x.current_working_project==="Proj Manager"?"• I'm currently working as a project Manager":(x.current_working_project!=="")&&"• Now I am currently working in "+x.current_working_project+" Project under Project manager "+x.Manager}
+            {(x.current_working_project==="Proj Manager")?"• I'm currently working as a project Manager":(x.employment_status==="Active"&x.current_working_project!=="")?"• Now I am currently working in "+x.current_working_project+" Project under Project manager "+x.Manager:(x.employment_status==="Left"&x.current_working_project!=="")&&"• Now I'm an Alumni of Lister and had a privilege working for the "+x.current_working_project+" project under "+x.Manager}
             {/* {x.date_of_joining} */}
             <p></p>
             {/* ...</>):(x.current_working_project==="")?"• Now I'm an Alumni of Lister":"• Now I'm an Alumni of Lister and had a privilege working for the "+x.current_working_project+" project under "+x.Manager} */}
