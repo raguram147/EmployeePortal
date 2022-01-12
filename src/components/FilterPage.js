@@ -58,7 +58,7 @@ export default class EmployeeView extends Component {
       checkedItemsEmpStatus: new Map(),
       checkedItemsEngagementType: new Map(),
       checkedItemsBillable: new Map(),
-      ExperienceMinMax: [0, 35],
+      ExperienceMinMax: [0, 25],
       filteredEmployee: [],
       currentPage :1,
       maxItemsPerPage:12,
