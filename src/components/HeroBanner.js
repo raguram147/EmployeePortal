@@ -126,7 +126,7 @@ const Home = ({ data }) => {
                           href="/EmployeeSearch"
                           style={{ fontWeight: "bold" }}
                         >
-                          Get Touch
+                          Get Started
                         </a>{" "}
                       </span>
                     </button>
