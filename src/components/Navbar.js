@@ -118,7 +118,7 @@ const Navbar = ({ navdata }) => {
                   alt="Profile"
                   onClick={handleClick}
                 ></img>
-                <p>{user.name}</p>
+                {/* <p>{user.name}</p> */}
                 {console.log(UserApi())}
                 <Menu
                   id="simple-menu"
