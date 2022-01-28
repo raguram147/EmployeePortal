@@ -82,7 +82,7 @@ export const EmployeeCard = ({employee}) => {
           </div>
           <div className="exp-linkedin">
           <p style={{ textAlign: "left", fontSize: "0.7rem" }}>
-            <span style={{fontWeight:"600" }}>Lister Experience: </span>{experienceCalci(employee.date_of_joining)+" years"} 
+            <span style={{fontWeight:"600" }}>Lister Experience: </span> {experienceCalci(employee.date_of_joining)>0.1? experienceCalci(employee.date_of_joining) +" years" :"NA"}
  
           </p>
           {/* <SocialIcon url={employee.linkedin_profile} bgColor="#282936" style={{borderRadius:"50%", textAlign: "right", fontSize: "0.7rem",height: "22px"  }} ></SocialIcon> */}

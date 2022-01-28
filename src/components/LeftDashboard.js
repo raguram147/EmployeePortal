@@ -192,7 +192,7 @@ const LeftDashborad = ({ data }) => {
                   </Grid>
                   <Grid item xs={9}>
                     <p title="Lister Experience" className="left-details">
-                      {experienceCalci(x.date_of_joining)} Years
+                      {experienceCalci(x.date_of_joining)>0.1? experienceCalci(x.date_of_joining) +" years" :"NA"} 
                     </p>
                   </Grid>
                   <Grid item xs={3}>
