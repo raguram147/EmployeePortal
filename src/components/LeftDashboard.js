@@ -46,6 +46,34 @@ const useStyles = makeStyles((theme) => ({
         Last Modified   :
         (Format "Name Date `MM-DD-YYY`")
       */
+
+const experienceCalci = (doj) => {   //calculating experience from date of joining date
+  var date = new Date().getDate();
+  if (date < 10) {
+    date = "0" + date;
+  }
+  var month = new Date().getMonth() + 1;
+  if (month < 10) {
+    month = "0" + month;
+  }
+  var year = new Date().getFullYear();
+  var todayDate = month + "-" + date;
+  let JoiningYear = doj.slice(0, 4);
+  let JoiningMonth = doj.slice(5, 7);
+  // let Joiningday = doj.slice(8);
+  let exp = 0;
+  if (doj.includes(todayDate)) {
+    exp = year - JoiningYear;
+  } else {
+    if (JoiningMonth < month) {
+      exp = year - JoiningYear + (((month - JoiningMonth)) / 12);
+    } else {
+      exp = year - JoiningYear - 1 + ((12 - (JoiningMonth - month)) / 12);
+    }
+  }
+
+  return exp.toFixed(2);
+};
 const LeftDashborad = ({ data }) => {
   const classes = useStyles();
   return (
@@ -90,7 +118,7 @@ const LeftDashborad = ({ data }) => {
               {/*Avatar ends here */}
             </div>
             <div className="Leftdashborad_details">
-              {x.employment_status==="Active"?<a className="Employee_name" style={{textTransform:"capitalize", textOverflow:"ellipsis",overflowX:"hidden"}} href={"/OrgChart/" +x.name}>
+              {x.employment_status==="Active"?<a className="Employee_name" style={{textTransform:"capitalize", textOverflow:"ellipsis",overflowX:"hidden"}} href={"/org-chart/" +x.name}>
                 {x.name + " (" + x.Emp_id + ")"}
               </a>:<h1 className="Employee_name" style={{textTransform:"capitalize", textOverflow:"ellipsis",overflowX:"hidden"}}>{x.name + " (" + x.Emp_id + ")"}</h1>}
               <h2 className="Designation" style={{textTransform:"capitalize", textOverflow:"ellipsis",overflowX:"hidden"}}>{x.role}</h2>
@@ -164,7 +192,7 @@ const LeftDashborad = ({ data }) => {
                   </Grid>
                   <Grid item xs={9}>
                     <p title="Lister Experience" className="left-details">
-                      {x.lister_experience} Years
+                      {experienceCalci(x.date_of_joining)} Years
                     </p>
                   </Grid>
                   <Grid item xs={3}>

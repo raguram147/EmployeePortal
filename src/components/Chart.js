@@ -216,7 +216,7 @@ const Chart = ({ empData }) => {
     window.sessionStorage.removeItem("ReportsTo");
     let name = Emp.name;
     window.sessionStorage.setItem(name, JSON.stringify(EmpArr));
-    window.location.href = "/OrgChart/" + name;
+    window.location.href = "/org-chart/" + name;
     console.log(Emp);
   };
 
@@ -239,7 +239,7 @@ const Chart = ({ empData }) => {
       ) : (
         <Breadcrumbs maxItems={2} aria-label="breadcrumb">
           {BreadcrumbsArr.map((item) => (
-            <Link color="inherit" href={`/OrgChart/${item.name}`}>
+            <Link color="inherit" href={`/org-chart/${item.name}`}>
               {item.name}
             </Link>
           ))}
@@ -292,7 +292,7 @@ const Card = (props) => {
     window.sessionStorage.removeItem("ReportsTo");
     let name = JSON.parse(Emp).name;
     window.sessionStorage.setItem(name, JSON.stringify(EmpArr));
-    window.location.href = "/OrgChart/" + name;
+    window.location.href = "/org-chart/" + name;
   };
 
   return (
@@ -320,7 +320,7 @@ const Card = (props) => {
                     <p className="empProfileNav">
                       {console.log(item.name.length)}
                       {console.log(item.name.split(" ")[0])}
-                    <a href={"/EmployeeDetails/" + item.emp_id} class='playBut'>
+                    <a href={"/employee-details/" + item.emp_id} class='playBut'>
                         <PlayArrowIcon className="playIcon"></PlayArrowIcon>
                       </a>
                     </p>
@@ -360,7 +360,7 @@ const Card = (props) => {
                           <div className="name-profile-container">
                             <h4 title={item.name} className="OrgCard-body-h4">{item.name.length>22?item.name.split(" ")[0]:item.name}</h4>
                             <p className="empProfileNav">
-                              <a href={"/EmployeeDetails/" + item.emp_id} class='playBut'>
+                              <a href={"/employee-details/" + item.emp_id} class='playBut'>
                                 <PlayArrowIcon className="playIcon"></PlayArrowIcon>
                               </a>
                             </p>
@@ -402,7 +402,7 @@ const Card = (props) => {
                                         {item.name.length>22?item.name.split(" ")[0]:item.name}
                                         </h4>
                                         <p className="empProfileNav">
-                                          <a href={"/EmployeeDetails/" + item.emp_id} class='playBut'>
+                                          <a href={"/employee-details/" + item.emp_id} class='playBut'>
                                             <PlayArrowIcon className="playIcon"></PlayArrowIcon>
                                           </a>
                                         </p>
@@ -447,7 +447,7 @@ const Card = (props) => {
                                           {item.name.length>22?item.name.split(" ")[0]:item.name}
                                           </h4>
                                           <p className="empProfileNav">
-                                          <a href={"/EmployeeDetails/" + item.emp_id} class='playBut'>
+                                          <a href={"/employee-details/" + item.emp_id} class='playBut'>
                         <PlayArrowIcon className="playIcon"></PlayArrowIcon>
                       </a>
                                           </p>

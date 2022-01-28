@@ -79,7 +79,7 @@ const Skills = ({ skill }) => {
   return (
     <>
       <div className="wheels" id="skills"></div>
-      <a href="/EmployeeSearch" className="btn_s">
+      <a href="/employee-search" className="btn_s">
         Skills
       </a>
       {dummy[0] && (

@@ -14,10 +14,10 @@ const App = () => {
     <Router>
       <Route component ={Home} path ='/' exact/>
       {/* <Route component ={Navbar} path ='/Acheivements' exact/> */}
-      <Route component ={EmployeeSearch} path ='/EmployeeSearch' exact/>
+      <Route component ={EmployeeSearch} path ='/employee-search' exact/>
       {/* <Route component ={Chart} path ='/OrgChart' exact/> */}
-      <Route path="/OrgChart/:Emp" component={OrgChart}></Route>
-      <Route path="/EmployeeDetails/:Emp_id" component={EmployeeDetails}></Route>
+      <Route path="/org-chart/:Emp" component={OrgChart}></Route>
+      <Route path="/employee-details/:Emp_id" component={EmployeeDetails}></Route>
   
     </Router>
   );

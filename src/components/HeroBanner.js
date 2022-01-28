@@ -123,7 +123,7 @@ const Home = ({ data }) => {
                     <button class="button">
                       <span>
                         <a
-                          href="/EmployeeSearch"
+                          href="/employee-search"
                           style={{ fontWeight: "bold" }}
                         >
                           Get Started

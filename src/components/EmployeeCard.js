@@ -6,7 +6,7 @@ import orgIcon from "../assets/org.png";
 import config from '../config';
 /*
         Component       : It is the component of the Employee card that seen in the filter page.
-        Author          : Created by Lister Yashwant
+        Author          : Created by Lister Yaswanth
         Child-Components: NIL
         Variables       : employee[] (API JSON)
         Libraries       : react-social-icons 
@@ -16,6 +16,33 @@ import config from '../config';
         Last Modified   :
         (Format "Name Date `MM-DD-YYY`")
       */
+const experienceCalci = (doj) => {   //calculating experience from date of joining date
+  var date = new Date().getDate();
+  if (date < 10) {
+    date = "0" + date;
+  }
+  var month = new Date().getMonth() + 1;
+  if (month < 10) {
+    month = "0" + month;
+  }
+  var year = new Date().getFullYear();
+  var todayDate = month + "-" + date;
+  let JoiningYear = doj.slice(0, 4);
+  let JoiningMonth = doj.slice(5, 7);
+  // let Joiningday = doj.slice(8);
+  let exp =0;
+  if (doj.includes(todayDate)){
+    exp = year - JoiningYear;
+  }else{
+    if(JoiningMonth < month){
+      exp = year - JoiningYear +(((month-JoiningMonth))/12);
+    }else{
+      exp = year - JoiningYear -1 +((12-(JoiningMonth-month))/12);
+    }
+  }
+
+  return exp.toFixed(2);
+};
 
 export const EmployeeCard = ({employee}) => {
     return (
@@ -55,15 +82,15 @@ export const EmployeeCard = ({employee}) => {
           </div>
           <div className="exp-linkedin">
           <p style={{ textAlign: "left", fontSize: "0.7rem" }}>
-            <span style={{fontWeight:"600" }}>Lister Experience: </span>{employee.lister_experience < 1 ? "NA":employee.lister_experience+" years"} 
+            <span style={{fontWeight:"600" }}>Lister Experience: </span>{experienceCalci(employee.date_of_joining)+" years"} 
  
           </p>
           {/* <SocialIcon url={employee.linkedin_profile} bgColor="#282936" style={{borderRadius:"50%", textAlign: "right", fontSize: "0.7rem",height: "22px"  }} ></SocialIcon> */}
-         {employee.employment_status==="Active"&& <a href={"/OrgChart/" +employee.name}><img style={{textAlign: "center",height: "35px" ,marginRight:"8px"}} alt="Organization"  src={orgIcon}></img></a>}
+         {employee.employment_status==="Active"&& <a href={"/org-chart/" +employee.name}><img style={{textAlign: "center",height: "35px" ,marginRight:"8px"}} alt="Organization"  src={orgIcon}></img></a>}
           </div>
           <button class="button">
             <span>
-              <a href={"/EmployeeDetails/" + employee.Emp_id}>View Profile</a>{" "}
+              <a href={"/employee-details/" + employee.Emp_id}>View Profile</a>{" "}
             </span>
           </button>
         </div>

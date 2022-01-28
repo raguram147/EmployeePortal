@@ -62,6 +62,7 @@ const FilterNav = ({ navdata, color }) => {
     window.sessionStorage.setItem("login", "false");
     console.log("good day");
     setAnchorEl(null);
+    window.location.replace(config.react_url);
     // setShow(false);
   };
 
@@ -93,7 +94,7 @@ const FilterNav = ({ navdata, color }) => {
             employees[i].name + "'s Birthday",
             8000,
             () => {
-              window.location.href = "/EmployeeDetails/" + employees[i].Emp_id;
+              window.location.href = "/employee-details/" + employees[i].Emp_id;
             }
           );
         }
@@ -129,7 +130,7 @@ const FilterNav = ({ navdata, color }) => {
               8000,
               () => {
                 window.location.href =
-                  "/EmployeeDetails/" + employees[i].Emp_id;
+                  "/employee-details/" + employees[i].Emp_id;
               }
             );
           } else {
@@ -139,7 +140,7 @@ const FilterNav = ({ navdata, color }) => {
               8000,
               () => {
                 window.location.href =
-                  "/EmployeeDetails/" + employees[i].Emp_id;
+                  "/employee-details/" + employees[i].Emp_id;
               }
             );
           }

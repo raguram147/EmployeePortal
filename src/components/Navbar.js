@@ -65,6 +65,7 @@ const Navbar = ({ navdata }) => {
     window.sessionStorage.setItem("login", "false");
     console.log("good day");
     setAnchorEl(null);
+    window.location.replace(config.react_url);
   };
 
   useEffect(() => {

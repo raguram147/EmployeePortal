@@ -69,7 +69,7 @@ const Wheel = ({ card }) => {
   return (
     <>
       <div className="wheels" id="project"></div>
-      <a href="/EmployeeSearch" className="btn">
+      <a href="/employee-search" className="btn">
         Projects
       </a>
       {dummy[0] && (
