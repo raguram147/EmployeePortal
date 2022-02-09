@@ -385,7 +385,9 @@ export default class EmployeeView extends Component {
         let selectedSkill = iterator2.next().value;
         let skillName = iterator1.next().value;
         if (selectedSkill) {
-          if ( !(((empPrimarySkills.toLowerCase()).includes(skillName)) || ((empSecondarySkills.toLowerCase()).includes(skillName))) ) {
+          let empPrimarySkillsArray = empPrimarySkills.toLowerCase().split(",,");
+          let empSecondarySkillsArray = empSecondarySkills.toLowerCase().split(",,");
+          if ( !(((empPrimarySkillsArray).includes(skillName)) || ((empSecondarySkillsArray).includes(skillName))) ) {
             return false;  //if one is not in the profile then return false
           }
         }
@@ -1108,7 +1110,7 @@ export default class EmployeeView extends Component {
         <div className="nextBack">
           {this.state.currentPage > 1 ?
             <button className="nextBackBttn" onClick={() => this.changePage('back')}>&laquo; </button>
-            : null}
+            : null}{<button className="nextBackBttn">{this.state.currentPage}</button>}
           {filteredEmployee.length > this.state.currentPage * this.state.maxItemsPerPage ?
             <button className="nextBackBttn" onClick={() => this.changePage('next')}> &raquo;</button>
             : null}

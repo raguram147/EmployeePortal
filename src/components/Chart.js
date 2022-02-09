@@ -13,6 +13,7 @@ import Typography from "@material-ui/core/Typography";
 import Link from "@material-ui/core/Link";
 import Lottie from "react-lottie";
 import Orgtree from "../lottie/org-tree.json";
+import config from '../config';
 
 const Chart = ({ empData }) => {
   // const levelColor = randomcolor();
@@ -309,7 +310,7 @@ const Card = (props) => {
                   {console.log(item)}
                   {console.log(props.data.length)}
                   <img
-                    src={`https://dev-employeeportal.pantheonsite.io/${item.DP}`}
+                    src={`${config.drupal_url}/${item.DP}`}
                     alt="Profile"
                     style={{ borderColor: levelColor }}
                   ></img>
@@ -351,7 +352,7 @@ const Card = (props) => {
                           {console.log(item)}
                           {console.log(props.data.length)}
                           <img
-                            src={`https://dev-employeeportal.pantheonsite.io/${item.DP}`}
+                            src={`${config.drupal_url}/${item.DP}`}
                             alt="Profile"
                             style={{ borderColor: levelColor }}
                           ></img>
@@ -389,7 +390,7 @@ const Card = (props) => {
                                       {console.log(item)}
                                       {console.log(props.data.length)}
                                       <img
-                                        src={`https://dev-employeeportal.pantheonsite.io/${item.DP}`}
+                                        src={`${config.drupal_url}/${item.DP}`}
                                         alt="Profile"
                                         style={{ borderColor: levelColor }}
                                       ></img>
@@ -436,7 +437,7 @@ const Card = (props) => {
                                         {console.log(item)}
                                         {console.log(props.data.length)}
                                         <img
-                                          src={`https://dev-employeeportal.pantheonsite.io/${item.DP}`}
+                                          src={`${config.drupal_url}/${item.DP}`}
                                           alt="Profile"
                                           style={{ borderColor: levelColor }}
                                         ></img>

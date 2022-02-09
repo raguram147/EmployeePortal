@@ -52,7 +52,7 @@ const Navbar = ({ navdata }) => {
   };
   const handleLogin = () => {
     console.log("Called");
-    let url = "https://dev-employeeportal.pantheonsite.io/users";
+    let url = config.drupal_url+"/users";
     fetchData(url, (data) => {
       console.log(data);
       if (data[0].name === "Admin") {
