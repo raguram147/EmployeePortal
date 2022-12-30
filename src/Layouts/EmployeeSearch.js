@@ -13,12 +13,6 @@ const FilterScreen = () => {
   const fetchLogo = config.drupal_url + "/Home";
   // const [items, setItems] = useState();
   const [, fetchData] = useFetch();
-
-  // useEffect(() => {
-  //   fetchData(fetchURL, (data) => {
-  //     setItems(data);
-  //   });
-  // }, [fetchURL,fetchData]);
   const [logo,setLogo]=useState();
   useEffect(() => {
     if(!window.sessionStorage.getItem("Logo")){
@@ -28,7 +22,7 @@ const FilterScreen = () => {
     }
     
   }, [ fetchData,fetchLogo]);
-  console.log(logo)
+  // console.log(logo)
   if (logo) {
     window.sessionStorage.setItem("Logo", logo[0].website_logo);
   }

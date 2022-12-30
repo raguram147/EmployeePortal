@@ -4,6 +4,7 @@ import Wheel from "./Wheel";
 import Skills from "./Skills";
 import he from "he";
 import { Carousel } from "react-bootstrap";
+import 'bootstrap/dist/css/bootstrap.min.css';
 import config from "../config";
 import "../components/styles/style.css";
 import { Grid, useMediaQuery, useTheme } from "@material-ui/core";
@@ -108,14 +109,14 @@ const Projects = ({ project }) => {
 
   return (
     <>
-      <Grid container direction="column">
+      <Grid container direction="column" item={true}>
         <Grid item xs={12} sm={12} md={12} lg={12} >
           <Container id="Categories">
             <Heading>Projects and Skills</Heading>
-            <Grid container xs={12} sm={12} md={12} lg={12}>
+            <Grid container xs={12} sm={12} md={12} lg={12} item={true}>
               <Grid item xs={12} sm={12} md={12} lg={12}>
                 <Row>
-                  <Grid container xs={12} sm={12} md={12} lg={12}>
+                  <Grid container xs={12} sm={12} md={12} lg={12} item={true}>
                     <Grid item xs={12} sm={12} md={6} lg={6}>
                       <Left id="top_left">
                         {project &&
@@ -127,7 +128,7 @@ const Projects = ({ project }) => {
                                 )
                                 .split("....,")
                                 .map((projectDesc, index) => (
-                                  <p>{projectDesc}</p>
+                                  <p key={index}>{projectDesc}</p>
                                 ))}
                             </div>
                           ))}
@@ -149,7 +150,7 @@ const Projects = ({ project }) => {
               </Grid>
               <Grid item xs={12} sm={12} md={12} lg={12}>
                 <Row>
-                  <Grid container xs={12} sm={12} md={12} lg={12}>
+                  <Grid container xs={12} sm={12} md={12} lg={12} item={true}>
                     <Grid item xs={12} sm={12} md={6} lg={6}>
                       <Left
                         id="bottom_left"
@@ -167,7 +168,7 @@ const Projects = ({ project }) => {
                               {x.skills_description
                                 .split("....,")
                                 .map((skillsDesc, index) => (
-                                  <p>{skillsDesc}</p>
+                                  <p key={index}>{skillsDesc}</p>
                                 ))}
                             </div>
                           ))}
@@ -180,19 +181,18 @@ const Projects = ({ project }) => {
           </Container>
         </Grid>
         <Grid item xs={12} sm={12} md={12} lg={12}>
-          {" "}
+
           <div id="Acheivements" className="Achievments-container">
             <Heading>Achievements</Heading>
 
-            <Carousel variant="dark" className="Achievements">
+            <Carousel variant="dark" className="Achievements" nextLabel="" prevLabel="">
               {project &&
                 project[1].Achievements.split("....,").map((x, index) => (
-                  <Carousel.Item>
-                    <div className="Achievement_text">
+                  <Carousel.Item key={index}>
+                    <div  className="Achievement_text">
                       {x.split("---")[0]}
                     </div>
                     <Carousel.Caption style={{ zIndex: "0" }}>
-                      {/* <h3>Achievement {count++}</h3> */}
                       <p style={{ color: "#e16428", zIndex: "0" }}>
                         {x.split("---")[1]}
                       </p>

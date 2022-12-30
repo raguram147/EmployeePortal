@@ -120,7 +120,7 @@ const Home = ({ data }) => {
                     <h1 id="banner_sub">
                       {data[1].banner_content_sub_description}
                     </h1>{" "}
-                    <button class="button">
+                    <button className="button">
                       <span>
                         <a
                           href="/employee-search"

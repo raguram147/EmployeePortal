@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
 const FilterNav = ({ navdata, color }) => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
-  console.log(color);
+  // console.log(color);
   const handleOpen = () => {
     setOpen(true);
   };
@@ -55,12 +55,12 @@ const FilterNav = ({ navdata, color }) => {
   const handleClose = () => {
     setAnchorEl(null);
     // setShow(false);
-    console.log("good");
+    // console.log("good");
   };
 
   const handleLogOut = () => {
     window.sessionStorage.setItem("login", "false");
-    console.log("good day");
+    // console.log("good day");
     setAnchorEl(null);
     window.location.replace(config.react_url);
     // setShow(false);
@@ -88,7 +88,7 @@ const FilterNav = ({ navdata, color }) => {
 
         //employee's birthday
         if (DOB.includes(todayDate)) {
-          console.log(todayDate + " " + DOB + " " + i);
+          // console.log(todayDate + " " + DOB + " " + i);
           NotificationManager.success(
             "wish him",
             employees[i].name + "'s Birthday",
@@ -112,14 +112,14 @@ const FilterNav = ({ navdata, color }) => {
             }
           );
 
-          console.log("profile changed");
+          // console.log("profile changed");
         }
 
         //completon years in lister
         // console.log(employees[i].date_of_joining + ' ' + todayDate +' '+ year);
         if (employees[i].date_of_joining.includes(todayDate)) {
           let JoiningYear = employees[i].date_of_joining.slice(0, 4);
-          console.log(todayDate + " " + JoiningYear + " " + year);
+          // console.log(todayDate + " " + JoiningYear + " " + year);
           if (year - JoiningYear > 0) {
             NotificationManager.warning(
               "congratulate him",
@@ -173,9 +173,7 @@ const FilterNav = ({ navdata, color }) => {
           alt="Employee Portal"
           style={{ height: "60px" }}
         ></img>
-
-        {/* <LogoIcon></LogoIcon> */}
-        {console.log("login:" + window.sessionStorage.getItem("login"))}
+        {/* {console.log("login:" + window.sessionStorage.getItem("login"))} */}
         <Humburger onClick={() => setIsOpen(!isOpen)}>
           <span></span>
           <span></span>
@@ -183,24 +181,16 @@ const FilterNav = ({ navdata, color }) => {
         </Humburger>
         <Menu1 isOpen={isOpen}>
           <LinkWrapper>
-            {/* <ReactNotification></ReactNotification> */}
+            
             {HomeNav &&
               HomeNav.map((data, index) => (
-                //  <Link  id="menu" key={index} to={data.field_navigation_link}> <MenuLink>{data.title} </MenuLink></Link>
-                <a href={data.url} activeClass="active">
+                
+                <a href={data.url} activeclass="active" key={index}>
                   <MenuLink>{data.name} </MenuLink>
                 </a>
-                //   <Link id="menu" key={index} activeClass="active" to={data.field_navigation_link}
-                //     spy={true}
-                //     smooth={true}
-                //     offset={-70}
-                //     duration={800}>
-                // <MenuLink  >
-                //   {data.title}
-                // </MenuLink>
-                //   </Link>
+               
               ))}
-            <a activeClass="active" href={config.drupal_url + "/admin/content"}>
+            <a activeclass="active" href={config.drupal_url + "/admin/content"}>
               {" "}
               <MenuLink>Dashboard</MenuLink>
             </a>
@@ -243,7 +233,6 @@ const FilterNav = ({ navdata, color }) => {
                       Profile
                     </a>
                   </MenuItem>
-                  {/* <MenuItem onClick={handleClose}>My account</MenuItem> */}
                   <MenuItem onClick={handleOpen}>Logout</MenuItem>
                 </Menu>
 

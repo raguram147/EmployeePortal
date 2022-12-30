@@ -10,7 +10,6 @@ import { makeStyles, Button } from "@material-ui/core";
 import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
-import { UserApi } from "../utility";
 import useFetch from "../Hooks/use-fetch";
 
 const useStyles = makeStyles((theme) => ({
@@ -42,7 +41,7 @@ const Navbar = ({ navdata }) => {
   const [isOpen, setIsOpen] = useState(false);
   const fetchURL = navdata;
   const [HomeNav, setItems] = useState();
-  const [user, setUser] = useState(null);
+  // const [user, setUser] = useState(null);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -51,19 +50,19 @@ const Navbar = ({ navdata }) => {
     setAnchorEl(null);
   };
   const handleLogin = () => {
-    console.log("Called");
-    let url = config.drupal_url+"/users";
-    fetchData(url, (data) => {
-      console.log(data);
-      if (data[0].name === "Admin") {
-        setUser(true);
-      }
-    });
+    // console.log("Called");
+    // let url = config.drupal_url+"/users";
+    // fetchData(url, (data) => {
+    //   // console.log(data);
+    //   if (data[0].name === "Admin") {
+    //     setUser(true);
+    //   }
+    // });
   };
 
   const handleLogOut = () => {
     window.sessionStorage.setItem("login", "false");
-    console.log("good day");
+    // console.log("good day");
     setAnchorEl(null);
     window.location.replace(config.react_url);
   };
@@ -73,7 +72,7 @@ const Navbar = ({ navdata }) => {
       setItems(data);
     });
   }, [fetchURL, fetchData]);
-  console.log(HomeNav);
+  // console.log(HomeNav);
 
   let params = new URLSearchParams(window.location.search);
   if (params.get("login") === "true") {
@@ -86,9 +85,7 @@ const Navbar = ({ navdata }) => {
           src={`${config.drupal_url}/${window.sessionStorage.getItem("Logo")}`}
           alt="Employee Portal"
         ></img>
-
-        {/* <LogoIcon></LogoIcon> */}
-        {console.log("login:" + window.sessionStorage.getItem("login"))}
+        {/* {console.log("login:" + window.sessionStorage.getItem("login"))} */}
         <Humburger onClick={() => setIsOpen(!isOpen)}>
           <span></span>
           <span></span>
@@ -120,7 +117,7 @@ const Navbar = ({ navdata }) => {
                   onClick={handleClick}
                 ></img>
                 {/* <p>{user.name}</p> */}
-                {console.log(UserApi())}
+                {/* {console.log(UserApi())} */}
                 <Menu
                   id="simple-menu"
                   anchorEl={anchorEl}

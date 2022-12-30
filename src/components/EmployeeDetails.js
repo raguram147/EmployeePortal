@@ -31,7 +31,7 @@ export default class EmployeeDetails extends Component {
   }
   render() {
     let Employees = this.state.Employee;
-    console.log(Employees);
+    // console.log(Employees);
     return (
       <div className="Employee">
         <div className="wave"></div>
@@ -42,16 +42,16 @@ export default class EmployeeDetails extends Component {
           lg={12}
           container
           direction="row"
-          spacing={0.5}
+          spacing={0}
           style={{ color: "#272727" }}
+          item={true}
         >
           <Grid item xs={12} sm={12} md={3} lg={3}>
             <LeftDashborad data={Employees}></LeftDashborad>
           </Grid>
 
           <Grid item xs={12} sm={12} md={9} lg={9}>
-            {/* <div className="right-container" > */}
-            <Grid container spacing={0} xs={12} sm={12} md={12} lg={12}>
+            <Grid container spacing={0} xs={12} sm={12} md={12} lg={12} item={true}>
               <Grid item xs={12} sm={12} md={9} lg={9}>
                 <MiddleDashborad data={Employees}></MiddleDashborad>
               </Grid>
@@ -59,7 +59,6 @@ export default class EmployeeDetails extends Component {
                 <RightDashboard data={Employees}></RightDashboard>
               </Grid>
             </Grid>
-            {/* </div> */}
           </Grid>
         </Grid>
       </div>

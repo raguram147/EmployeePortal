@@ -39,7 +39,6 @@ const TargetIconMovement = () => {
     if (targetIconTag1.getAttribute("src") === Target_icon) {
       targetIconTag1.setAttribute("src", invisble);
       targetIconTag2.setAttribute("src", Target_icon);
-      //  targetIconTag2.style.transitionDelay = '8s';
       //  console.timeLog(targetIconTag1);
       return "done";
     } else if (targetIconTag2.getAttribute("src") === Target_icon) {
@@ -60,8 +59,6 @@ const TargetIconMovement = () => {
 
 const Skills = ({ skill }) => {
   const [state, setState] = useState(false);
-  // const [skillData, setskillData] = useState([]);
-  // console.log(state)
   if (state) {
   }
   const dummy = skill;
@@ -111,7 +108,7 @@ const Skills = ({ skill }) => {
             ></img>
             {dummy[1].skill_image ? (
               <img
-                src={`${config.drupal_url}/${dummy[6].skill_image}`}
+                src={`${config.drupal_url}/${dummy[1].skill_image}`}
                 className="skillImage"
                 id="Skill2Img"
                 alt={dummy[1].name}

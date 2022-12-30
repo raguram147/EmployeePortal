@@ -1,13 +1,10 @@
 import React, { Component } from 'react';
 import '../components/styles/style.css';
 import config from '../config';
-// import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/core/Slider';
 import NoResult from '../assets/noResult.gif'
 import Chip from '@material-ui/core/Chip';
-// import empGroup from '../assets/group-orange.png'
 import {  TextField } from "@material-ui/core";
-import { event } from 'jquery';
 import { EmployeeCard } from './EmployeeCard';
 import { Scrollbars } from 'react-custom-scrollbars';
 import ClearIcon from '@material-ui/icons/Clear';
@@ -105,7 +102,7 @@ export default class EmployeeView extends Component {
     return `${value}`;
   };
   handleChange = (e, newValue) => {
-    console.log(newValue);
+    // console.log(newValue);
     this.setState({ ExperienceMinMax: newValue });
   };
 
@@ -121,8 +118,8 @@ export default class EmployeeView extends Component {
     let nam = event.target.name;
     var isChecked = event.target.checked;
     var item = event.target.value;
-    console.log(nam);
-    console.log(isChecked);
+    // console.log(nam);
+    // console.log(isChecked);
     if(nam === 'checkedItemsSkills'){
       this.setState(prevState => ({ checkedItemsSkills: prevState.checkedItemsSkills.set(item, isChecked) }));
       // document.getElementById(item).checked = true;
@@ -192,7 +189,7 @@ export default class EmployeeView extends Component {
 
   //next or back to view other emp cards if exists
   changePage(direction) {
-    console.log(direction);
+    // console.log(direction);
     if (direction === 'back') {
      this.setState({
       currentPage: this.state.currentPage - 1
@@ -298,10 +295,10 @@ export default class EmployeeView extends Component {
         }
       }
 
-      console.log(billableChecked);
-      console.log(EngagementTypeChecked);
-      console.log(checkedItemsTagList.length);
-      console.log(checkedItemsTagList);
+      // console.log(billableChecked);
+      // console.log(EngagementTypeChecked);
+      // console.log(checkedItemsTagList.length);
+      // console.log(checkedItemsTagList);
   }
   return checkedItemsTagList;
 
@@ -309,17 +306,17 @@ export default class EmployeeView extends Component {
 
   //if u click cancel on the selected tags the checkboxes should be unchecked auto
   handleDelete = (chipToDelete) => () => {
-    console.log(chipToDelete);
+    // console.log(chipToDelete);
 
     let nam = chipToDelete.filterField;
     var isChecked = false;
     var item = chipToDelete.value;;
-    console.log(nam);
-    console.log(isChecked);
+    // console.log(nam);
+    // console.log(isChecked);
     if(nam === 'skill'){
       this.setState(prevState => ({ checkedItemsSkills: prevState.checkedItemsSkills.set(item, isChecked) }));
       document.getElementById(item).checked = false;
-      console.log(event.target);
+      // console.log(event.target);
     }
     else if(nam === 'manager'){
       this.setState(prevState => ({ checkedItemsManager: prevState.checkedItemsManager.set(item, isChecked) }));
@@ -413,7 +410,7 @@ export default class EmployeeView extends Component {
           oneManagerAtleastChecked = true;
           if (((EmpManager.toLowerCase()).includes(selectedMangerName))) {
             managerMatch = true;
-            console.log("true inside loop");
+            // console.log("true inside loop");
           } else {
             managerMatch = false;
           }
@@ -447,7 +444,7 @@ export default class EmployeeView extends Component {
           if (((empPod.toLowerCase()).includes(selectedPodName))) {
 
             podsMatch = true;
-            console.log("true inside loop");
+            // console.log("true inside loop");
           } else {
             podsMatch = false;
           }
@@ -543,7 +540,7 @@ export default class EmployeeView extends Component {
           if (((EmpStatus.toLowerCase()).includes(selectedESName))) {
 
             ESMatch = true;
-            console.log("true inside loop");
+            // console.log("true inside loop");
           } else {
             ESMatch = false;
           }
@@ -583,12 +580,12 @@ export default class EmployeeView extends Component {
           if(((EngagementType).includes("T&amp;M"))){
             EngagementType = "t&m";
           }
-          console.log(EngagementType);
-          console.log(selectedETName);
+          // console.log(EngagementType);
+          // console.log(selectedETName);
            if (((EngagementType.toLowerCase()).includes(selectedETName))) {
  
             ETMatch = true;
-             console.log("true inside loop");
+            //  console.log("true inside loop");
            } else {
             ETMatch = false;
            }
@@ -627,7 +624,7 @@ export default class EmployeeView extends Component {
            if (((billable.toLowerCase()).includes(selectedBillableName))) {
  
             billableMatch = true;
-             console.log("true inside loop");
+            //  console.log("true inside loop");
            } else {
             billableMatch = false;
            }
@@ -664,8 +661,8 @@ export default class EmployeeView extends Component {
     let billableChecked = this.state.checkedItemsBillable;
 
     let filteredEmployee= [];
-    Employees.map(x => (
-      <>{((() => {
+    Employees.map((x,index) => (
+      <div key={index}>{((() => {
         if (this.CheckExperience(x.Experience, expMinReq, expMaxReq)
           && this.checkNameId(x.name, x.Emp_id, nameReq)
           && this.checkPodsMatch(podsChecked, x.Pod)
@@ -680,7 +677,7 @@ export default class EmployeeView extends Component {
           filteredEmployee.push(x);
         }
       })())}
-      </>
+      </div>
     ))
     return filteredEmployee;
   }
@@ -689,7 +686,7 @@ export default class EmployeeView extends Component {
     var x =  document.getElementById("filtersContainer");
     var y = document.getElementById("filterPage");
     var z = document.getElementById("filter-icon");
-    console.log(x.className);
+    // console.log(x.className);
     if (x.className === "reqForm") {
       x.className = "filtersContainer";
       y.className = "filter-containerMobile";  
@@ -711,7 +708,7 @@ export default class EmployeeView extends Component {
     let HobbiesFilterShowCust = this.state.HobbiesFilterShow;
     let filteredEmployee = this.filteringTheEmp();
     let checkedItemsTagList = this.AllCheckedItems();  //getting all the checked items and storing to make tags
-    console.log(filteredEmployee);
+    // console.log(filteredEmployee);
 
 
     return (
@@ -719,7 +716,7 @@ export default class EmployeeView extends Component {
      
       <div className="filter-container" id="filterPage">
         {/* different types of filters  */}
-        <div class="filter-icon"  onClick={() => this.FiltersHover()} >
+        <div className="filter-icon"  onClick={() => this.FiltersHover()} >
         <BsFillFunnelFill id="filter-icon"></BsFillFunnelFill>
         </div>
         <Scrollbars 
@@ -730,13 +727,12 @@ export default class EmployeeView extends Component {
           autoHideDuration={200}
         >
         <div className="reqForm" id="filtersContainer">
-        <div class="filter-icon" id="clear-icon" onClick={() => this.FiltersHover()} >
+        <div className="filter-icon" id="clear-icon" onClick={() => this.FiltersHover()} >
             <ClearIcon ></ClearIcon>
         </div>
-          <form >
+          <>
           <div className="filtered-emp-count">
                 <span className="filterName">Employees: </span>
-                {/* <img alt="no of emp" src={empGroup} style={{ height: "20px",  paddingLeft: "10%" }}></img> */}
                 <p className="empCount">{filteredEmployee.length}</p>
               </div>
             {/* name or id input filed*/}
@@ -755,14 +751,13 @@ export default class EmployeeView extends Component {
             {/* Experience slider*/}
             <div className="Experience-overview">
               <p className="filterName">Experience: </p>
-              <p className="exp-display">
+              <div className="exp-display">
               <p> {this.state.ExperienceMinMax[0]} - </p>
               <p>  {this.state.ExperienceMinMax[1]} years</p>
-              </p>
+              </div>
             </div>
             <div  className="experienceSlider" >
-              {/* <Typography id="range-slider" gutterBottom>
-                </Typography> style={{ width: 180 }} */}
+            
               <Slider
                 defaultValue={[0, 25]}
                 value={this.ExperienceMinMax}
@@ -782,8 +777,8 @@ export default class EmployeeView extends Component {
             <form >
               <table className="CheckboxesTable">
                 {
-                  this.state.skillsApi.slice(0, skillsFilterShowCust).map(item => (
-                    <tr>
+                  this.state.skillsApi.slice(0, skillsFilterShowCust).map((item,index) => (
+                    <tbody><tr>
                       <td>
                         <label>
                           <input
@@ -791,21 +786,22 @@ export default class EmployeeView extends Component {
                             name='checkedItemsSkills'
                             value={item.name.toLowerCase()}
                             onChange={this.CheckBoxhandleChange}
-                            id={item.name.toLowerCase()}
-                          /> {item.name} ({item.count })
+                            id={item.name.toLowerCase()} 
+                            key={index}
+                          /><>{item.name} ({item.count })</>
                         </label>
                       </td>
-                    </tr>
+                    </tr></tbody>
                   ))
                 }
-                <p className="showMore"
+                <tbody className="showMore"
                  onClick={this.showMoreSkills}>
                   {this.state.skillsExpanded ? (
-                    <span>show less</span>
+                    <tr><td>show less</td></tr>
                   ) : (
-                    <span>show more</span>
+                    <tr><td>show more</td></tr>
                   )}
-                </p>
+                </tbody>
               </table>
             </form>
 
@@ -814,8 +810,8 @@ export default class EmployeeView extends Component {
             <form >
               <table className="CheckboxesTable">
                 {
-                  this.state.MangersApi.slice(0, managersFilterShowCust).map(item => (
-                    <tr>
+                  this.state.MangersApi.slice(0, managersFilterShowCust).map((item,index) => (
+                    <tbody><tr>
                       <td>
                         <label>
                           <input
@@ -825,22 +821,23 @@ export default class EmployeeView extends Component {
                             onChange={this.CheckBoxhandleChange}
                             id={item.name.toLowerCase()}
                             className="checkboxes"
-                          /> {item.name } ({item.count })
+                            key={index}
+                          /><>{item.name } ({item.count })</>
                         </label>
                       </td>
-                    </tr>
+                    </tr></tbody>
                   ))
                 }
                   {(this.state.MangersApi.length > 10)?
-                  <p className="showMore"
+                  <tbody className="showMore"
                     onClick={this.showMoreManagers}>
                     {this.state.managersExpanded ? (
-                      <span>show less</span>
+                      <tr><td>show less</td></tr>
                     ) : (
-                      <span>show more</span>
+                      <tr><td>show more</td></tr>
                     )}
-                  </p> 
-                :console.log("less managers")}
+                  </tbody> 
+                :<></>}
               </table>
             </form>
 
@@ -849,8 +846,8 @@ export default class EmployeeView extends Component {
             <form >
               <table className="CheckboxesTable">
                 {
-                  this.state.PodsApi.slice(0, podsFilterShowCust).map(item => (
-                    <tr>
+                  this.state.PodsApi.slice(0, podsFilterShowCust).map((item,index) => (
+                   <tbody> <tr>
                       <td>
                         <label>
                           <input
@@ -859,22 +856,23 @@ export default class EmployeeView extends Component {
                             value={item.name.toLowerCase()}
                             onChange={this.CheckBoxhandleChange}
                             id={item.name.toLowerCase()}
-                          /> {item.name} ({item.count })
+                            key={index}
+                          /><>{item.name} ({item.count })</>
                         </label>
                       </td>
-                    </tr>
+                    </tr></tbody>
                   ))
                   }
                   {(this.state.PodsApi.length > 10) ?
-                    <p className="showMore"
+                    <tbody className="showMore"
                       onClick={this.showMorePods}>
                       {this.state.podsExpanded ? (
-                        <span>show less</span>
+                        <tr><td>show less</td></tr>
                       ) : (
-                        <span>show more</span>
+                        <tr><td>show more</td></tr>
                       )}
-                    </p>
-                    : console.log("less pods")
+                    </tbody>
+                    : <></>
                   }
               </table>
             </form>
@@ -884,8 +882,8 @@ export default class EmployeeView extends Component {
             <form >
               <table className="CheckboxesTable">
                 {
-                  this.state.projectsApi.slice(0, projectsFilterShowCust).map(item => (
-                    <tr>
+                  this.state.projectsApi.slice(0, projectsFilterShowCust).map((item,index) => (
+                    <tbody><tr>
                       <td>
                         <label>
                           <input
@@ -894,22 +892,23 @@ export default class EmployeeView extends Component {
                             value={item.name.toLowerCase()}
                             onChange={this.CheckBoxhandleChange}
                             id={item.name.toLowerCase()}
-                          /> {item.name.replace("&amp;","&")} ({item.count })
+                            key={index}
+                          /><>{item.name.replace("&amp;","&")} ({item.count })</>
                         </label>
                       </td>
-                    </tr>
+                    </tr></tbody>
                   ))
                 }
                 {(this.state.projectsApi.length > 10)?
-                  <p className="showMore"
+                  <tbody className="showMore"
                     onClick={this.showMoreProjects}>
                     {this.state.projectsExpanded ? (
-                      <span>show less</span>
+                      <tr><td>show less</td></tr>
                     ) : (
-                      <span>show more</span>
+                      <tr><td>show more</td></tr>
                     )}
-                  </p> 
-                :console.log("less products")}
+                  </tbody> 
+                :<></>}
  
               </table>
             </form>
@@ -955,8 +954,8 @@ export default class EmployeeView extends Component {
             <form >
               <table className="CheckboxesTable">
                 {
-                  this.state.employeeStatusApi.slice(0, HobbiesFilterShowCust).map(item => (
-                    <tr>
+                  this.state.employeeStatusApi.slice(0, HobbiesFilterShowCust).map((item,index) => (
+                   <tbody> <tr>
                       <td>
                         <label>
                           <input
@@ -965,10 +964,11 @@ export default class EmployeeView extends Component {
                             value={item.name.toLowerCase()}
                             onChange={this.CheckBoxhandleChange}
                             id={item.name.toLowerCase()}
-                          /> {item.name} 
+                            key={index}
+                          /><>{item.name} </>
                         </label>
                       </td>
-                    </tr>
+                    </tr></tbody>
                   ))
                   }
                  
@@ -981,8 +981,8 @@ export default class EmployeeView extends Component {
             <form >
               <table className="CheckboxesTable">
                 {
-                  this.state.engagementTypeApi.map(item => (
-                    <tr>
+                  this.state.engagementTypeApi.map((item,index) => (
+                   <tbody> <tr>
                       <td>
                         <label>
                           <input
@@ -991,10 +991,11 @@ export default class EmployeeView extends Component {
                             value={item.name.toLowerCase()}
                             onChange={this.CheckBoxhandleChange}
                             id={item.name.toLowerCase()}
-                          /> {item.name} 
+                            key={index}
+                          /><>{item.name}</>
                         </label>
                       </td>
-                    </tr>
+                    </tr></tbody>
                   ))
                   }
                  
@@ -1006,8 +1007,8 @@ export default class EmployeeView extends Component {
             <form >
               <table className="CheckboxesTable">
                 {
-                  this.state.billableApi.map(item => (
-                    <tr>
+                  this.state.billableApi.map((item,index) => (
+                   <tbody> <tr>
                       <td>
                         <label>
                           <input
@@ -1016,10 +1017,11 @@ export default class EmployeeView extends Component {
                             value={item.name.toLowerCase()}
                             onChange={this.CheckBoxhandleChange}
                             id={item.name.toLowerCase()}
-                          /> {item.name} 
+                            key={index}
+                          /><>{item.name}</>
                         </label>
                       </td>
-                    </tr>
+                    </tr></tbody>
                   ))
                   }
                  
@@ -1027,7 +1029,7 @@ export default class EmployeeView extends Component {
             </form>
 
 
-          </form>
+          </>
          
         </div>
         </Scrollbars>
@@ -1043,9 +1045,9 @@ export default class EmployeeView extends Component {
 
             {/* selected filters as tags */}
             {/* {console.log(this.state.checkedItemsTag)} */}
-            {/* <div className="tagsAndEmpCountContainer"> */}
+            
               <div className="selectedTags">
-                {checkedItemsTagList.map(x => (
+                {checkedItemsTagList.map((x,index) => (
                   <>
                     {(
                       (() => {
@@ -1057,6 +1059,7 @@ export default class EmployeeView extends Component {
                                 // icon={icon}
                                 onDelete={this.handleDelete(x)}
                                 className="tags"
+                                key={index}
                               />
                             </>
                           )
@@ -1067,13 +1070,9 @@ export default class EmployeeView extends Component {
                 ))
                 }
               </div>
-              {/* <div className="filtered-emp-count">
-                <img alt="no of emp" src={empGroup} style={{ height: "25%" }}></img>
-                <p className="empCount">{filteredEmployee.length}</p>
-              </div> */}
-            {/* </div> */}
+              
          
-              {filteredEmployee.length > 0 ? console.log(filteredEmployee.length) :
+              {filteredEmployee.length > 0 ? <></> :
                 <>
                   {(
                     (() => {
@@ -1088,8 +1087,8 @@ export default class EmployeeView extends Component {
               }
 
               {/* Filtered Employees displaying */}
-              {filteredEmployee.slice((this.state.currentPage * this.state.maxItemsPerPage) - this.state.maxItemsPerPage, this.state.currentPage * this.state.maxItemsPerPage).map(employee => (
-                <>
+              {filteredEmployee.slice((this.state.currentPage * this.state.maxItemsPerPage) - this.state.maxItemsPerPage, this.state.currentPage * this.state.maxItemsPerPage).map((employee,index) => (
+                < >
                   {(
                     (() => {
                       return (

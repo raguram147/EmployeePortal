@@ -57,16 +57,12 @@ export const EmployeeCard = ({employee}) => {
             ></img>
           </div>
         </header>
-        {/* {employee.name} */}
+      
         <div className="Employee-description">
           <p title={employee.name}className="Name" style={{ marginBottom: "1rem",textTransform: "capitalize" }}>
-          {/* {employee.name.length>30?employee.name.split(" ")[0]:employee.name} */}
-          {/* {employee.name.split(" ").length===2?employee.name:employee.name.length>30? employee.name.split(" ")[0]+" "+employee.name.split(" ")[1].substirng(0,1):employee.name.split(" ")[0]+" "+employee.name.split(" ")[1]} */}
           {(employee.name.length<23)?employee.name:employee.name.split(" ")[0]+" "+employee.name.split(" ")[1].charAt(0)}
-          {console.log(employee.name)}
-          {console.log(employee.name.length>20)}
+          {/* {console.log(employee.name)} */}
           </p>
-          {/* <p>{ employee.Emp_id }</p> */}
           <p style={{textTransform: "capitalize"}}>{employee.role}</p>
           <div className="Manager-email">
           {employee.Manager ? 
@@ -88,7 +84,7 @@ export const EmployeeCard = ({employee}) => {
           {/* <SocialIcon url={employee.linkedin_profile} bgColor="#282936" style={{borderRadius:"50%", textAlign: "right", fontSize: "0.7rem",height: "22px"  }} ></SocialIcon> */}
          {employee.employment_status==="Active"&& <a href={"/org-chart/" +employee.name}><img style={{textAlign: "center",height: "35px" ,marginRight:"8px"}} alt="Organization"  src={orgIcon}></img></a>}
           </div>
-          <button class="button">
+          <button className="button">
             <span>
               <a href={"/employee-details/" + employee.Emp_id}>View Profile</a>{" "}
             </span>

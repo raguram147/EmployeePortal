@@ -2,9 +2,6 @@ import React, { Fragment } from "react";
 import randomcolor from "randomcolor";
 import { useParams } from "react-router-dom";
 import "../components/styles/style.css";
-// import useFetch from '../utility'
-// import empData from "../EmpData.json";
-// import PlayCircleOutlineIcon from "@material-ui/icons/PlayCircleOutline";
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import { ReactSearchAutocomplete } from "react-search-autocomplete";
 import SearchIcon from "@material-ui/icons/Search";
@@ -16,8 +13,6 @@ import Orgtree from "../lottie/org-tree.json";
 import config from '../config';
 
 const Chart = ({ empData }) => {
-  // const levelColor = randomcolor();
-  console.log(empData);
   let params = useParams();
   let BreadcrumbsArr = [];
 
@@ -26,8 +21,6 @@ const Chart = ({ empData }) => {
 
   const ReportingPeople = (EmpName) => {
     if (JSON.parse(window.sessionStorage.getItem(EmpName + " Reporting"))) {
-      // let ReportingArray = window.sessionStorage.getItem(EmpName);
-      // console.log(ReportingArray);
       return JSON.parse(window.sessionStorage.getItem(EmpName + " Reporting"));
     }
 
@@ -52,7 +45,6 @@ const Chart = ({ empData }) => {
           EmpName + " Reporting",
           JSON.stringify(ReportingPeopleArr)
         );
-        console.log(ReportingPeopleArr);
         return ReportingPeopleArr;
       }
     }
@@ -60,9 +52,6 @@ const Chart = ({ empData }) => {
   };
 
   const ReportsTo = (Emp) => {
-    console.log(Emp[0].role);
-    // let designation = Emp[0].role;
-    // let name = Emp[0].name; !Emp[0].role.includes("Chief Executive Officer") ||
     let reportsTo = Emp[0].reports_to;
 
     let AllReportsToArr = [];
@@ -89,8 +78,6 @@ const Chart = ({ empData }) => {
             }
           }
         }
-        console.log(ReportsToArr[0]);
-        //  designation = ReportsToArr[0].role;
         reportsTo = ReportsToArr[0].reports_to;
       }
     }
@@ -104,7 +91,7 @@ const Chart = ({ empData }) => {
     ];
     AllReportsToArr.push(CEO[0]);
     AllReportsToArr.reverse();
-    console.log(AllReportsToArr);
+    // console.log(AllReportsToArr);
     return AllReportsToArr;
   };
   const EmpDetails = (EmpName) => {
@@ -112,7 +99,7 @@ const Chart = ({ empData }) => {
     for (let i = 0; i < empData.length; i++) {
       if (empData[i].name.includes(EmpName)) {
         ReportsToArr.push(empData[i]);
-        console.log(ReportsToArr);
+        // console.log(ReportsToArr);
         return ReportsToArr;
       }
     }
@@ -155,20 +142,16 @@ const Chart = ({ empData }) => {
     // 3 levels for non ceo
     if (JSON.parse(window.sessionStorage.getItem(params.Emp))) {
       head = JSON.parse(window.sessionStorage.getItem(params.Emp));
-      console.log(head);
+      // console.log(head);
     } else {
       head = EmpDetails(params.Emp);
       window.sessionStorage.setItem(params.Emp, JSON.stringify(head));
-      console.log(head);
+      // console.log(head);
     }
-
-    // head.push(JSON.parse(params.Emp));
-    // let arr = [];
-    // arr.push(params.Emp);
-    console.log(params.Emp);
-    console.log(head);
+    // console.log(params.Emp);
+    // console.log(head);
     let EmpReportsTo = head[0].reports_to;
-    console.log(EmpReportsTo);
+    // console.log(EmpReportsTo);
     window.sessionStorage.setItem(
       "Reporting",
       JSON.stringify(ReportingPeople(params.Emp))
@@ -218,7 +201,7 @@ const Chart = ({ empData }) => {
     let name = Emp.name;
     window.sessionStorage.setItem(name, JSON.stringify(EmpArr));
     window.location.href = "/org-chart/" + name;
-    console.log(Emp);
+    // console.log(Emp);
   };
 
   const defaultOptions = {
@@ -239,8 +222,8 @@ const Chart = ({ empData }) => {
         <></>
       ) : (
         <Breadcrumbs maxItems={2} aria-label="breadcrumb">
-          {BreadcrumbsArr.map((item) => (
-            <Link color="inherit" href={`/org-chart/${item.name}`}>
+          {BreadcrumbsArr.map((item,index) => (
+            <Link color="inherit" href={`/org-chart/${item.name}`} key={index}>
               {item.name}
             </Link>
           ))}
@@ -284,7 +267,7 @@ export default Chart;
 
 const Card = (props) => {
   const levelColor = randomcolor();
-  console.log(props);
+  // console.log(props);
   
   //get the new emp details of desired emp (clicked) and show his org chart
   const newChart = (Emp) => {
@@ -299,16 +282,15 @@ const Card = (props) => {
   return (
     <>
       <ul>
-        {JSON.parse(window.sessionStorage.getItem("ReportsTo")).map((item) => (
+        {JSON.parse(window.sessionStorage.getItem("ReportsTo")).map((item,index) => (
           <Fragment key={item.name}>
-            <li>
+            <li key={index}>
               <div
                 className="OrgCard"
                
               >
                 <div className="image"  onClick={() => newChart(JSON.stringify(item))}>
-                  {console.log(item)}
-                  {console.log(props.data.length)}
+                  {/* {console.log(item)} */}
                   <img
                     src={`${config.drupal_url}/${item.DP}`}
                     alt="Profile"
@@ -319,38 +301,25 @@ const Card = (props) => {
                   <div className="name-profile-container">
                     <h4 title={item.name} className="OrgCard-body-h4">{item.name.length>22?item.name.split(" ")[0]:item.name}</h4>
                     <p className="empProfileNav">
-                      {console.log(item.name.length)}
-                      {console.log(item.name.split(" ")[0])}
-                    <a href={"/employee-details/" + item.emp_id} class='playBut'>
+                      {/* {console.log(item.name.split(" ")[0])} */}
+                    <a href={"/employee-details/" + item.emp_id} className='playBut'>
                         <PlayArrowIcon className="playIcon"></PlayArrowIcon>
                       </a>
                     </p>
                   </div>
-                         {/* <!-- Generator: Adobe Illustrator 19.0.0, SVG Export Plug-In  --> */}
-                        {/* <svg version="1.1"
-                          xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" xlinkHref="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/"
-                          x="0px" y="0px" width="24px" height="24px" viewBox="0 0 213.7 213.7" enable-background="new 0 0 213.7 213.7"
-                          xmlSpace="preserve">
-
-                          <polygon class='triangle' id="XMLID_18_" fill="none" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
-      73.5,62.5 148.5,105.8 73.5,149.1 "/>
-
-                          <circle class='circle' id="XMLID_17_" fill="none" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" cx="106.8" cy="106.8" r="103.3" />
-                        </svg> */}
                   <p title={item.role} className="OrgCard-body-p">{item.role.length>28?(item.role.split(" ").length===2?item.role.split(" ")[0].substring(0,1)+item.role.split(" ")[1].substring(0,1):item.role.split(" ")[0].substring(0,1)+item.role.split(" ")[1].substring(0,1)+item.role.split(" ")[2].substring(0,1)):item.role}</p>
                 </div>
               </div>
               <ul>
-                {props.data.map((item) => (
+                {props.data.map((item,index) => (
                   <Fragment key={item.name}>
-                    <li>
+                    <li key={index}>
                       <div
                         className="OrgCard"
                       
                       >
                         <div className="image"   onClick={() => newChart(JSON.stringify(item))}>
-                          {console.log(item)}
-                          {console.log(props.data.length)}
+                          {/* {console.log(item)} */}
                           <img
                             src={`${config.drupal_url}/${item.DP}`}
                             alt="Profile"
@@ -361,7 +330,7 @@ const Card = (props) => {
                           <div className="name-profile-container">
                             <h4 title={item.name} className="OrgCard-body-h4">{item.name.length>22?item.name.split(" ")[0]:item.name}</h4>
                             <p className="empProfileNav">
-                              <a href={"/employee-details/" + item.emp_id} class='playBut'>
+                              <a href={"/employee-details/" + item.emp_id} className='playBut'>
                                 <PlayArrowIcon className="playIcon"></PlayArrowIcon>
                               </a>
                             </p>
@@ -377,9 +346,9 @@ const Card = (props) => {
                           <ul>
                             {JSON.parse(
                               window.sessionStorage.getItem("Reporting")
-                            ).map((item) => (
+                            ).map((item,index) => (
                               <Fragment key={item.name}>
-                                <li>
+                                <li key={index}>
                                   <div
                                     className="OrgCard"
                                   
@@ -387,8 +356,7 @@ const Card = (props) => {
                                     <div className="image"   onClick={() =>
                                       newChart(JSON.stringify(item))
                                     }>
-                                      {console.log(item)}
-                                      {console.log(props.data.length)}
+                                      {/* {console.log(item)} */}
                                       <img
                                         src={`${config.drupal_url}/${item.DP}`}
                                         alt="Profile"
@@ -403,7 +371,7 @@ const Card = (props) => {
                                         {item.name.length>22?item.name.split(" ")[0]:item.name}
                                         </h4>
                                         <p className="empProfileNav">
-                                          <a href={"/employee-details/" + item.emp_id} class='playBut'>
+                                          <a href={"/employee-details/" + item.emp_id} className='playBut'>
                                             <PlayArrowIcon className="playIcon"></PlayArrowIcon>
                                           </a>
                                         </p>
@@ -419,14 +387,14 @@ const Card = (props) => {
                           </ul>
                         ) : (
                           <ul>
-                            {/* <div className="level-separater"> */}
+                         
                             <div className="selected-team">
                               {JSON.parse(
                                 window.sessionStorage.getItem("Reporting")
-                              ).map((item) => (
+                              ).map((item,index) => (
                                 <Fragment key={item.name}>
-                                  {/* <li> */}
-                                  <div className="" id="team-card">
+                                 
+                                  <div className="" id="team-card" key={index}>
                                     <div
                                       className="OrgCard"
                                       onClick={() =>
@@ -434,8 +402,8 @@ const Card = (props) => {
                                       }
                                     >
                                       <div className="image">
-                                        {console.log(item)}
-                                        {console.log(props.data.length)}
+                                        {/* {console.log(item)} */}
+                                        
                                         <img
                                           src={`${config.drupal_url}/${item.DP}`}
                                           alt="Profile"
@@ -448,7 +416,7 @@ const Card = (props) => {
                                           {item.name.length>22?item.name.split(" ")[0]:item.name}
                                           </h4>
                                           <p className="empProfileNav">
-                                          <a href={"/employee-details/" + item.emp_id} class='playBut'>
+                                          <a href={"/employee-details/" + item.emp_id} className='playBut'>
                         <PlayArrowIcon className="playIcon"></PlayArrowIcon>
                       </a>
                                           </p>
@@ -462,7 +430,7 @@ const Card = (props) => {
                                 </Fragment>
                               ))}
                             </div>
-                            {/* </div> */}
+                           
                           </ul>
                         )
                       ) : (

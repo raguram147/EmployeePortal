@@ -23,7 +23,7 @@ const OrgChart = () => {
       setItems(data);
     });
   }, [fetchURL, fetchData,fetchLogo]);
-  console.log(logo)
+  // console.log(logo)
   if (logo) {
     window.sessionStorage.setItem("Logo", logo[0].website_logo);
   }

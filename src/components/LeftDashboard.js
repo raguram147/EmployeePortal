@@ -78,7 +78,7 @@ const LeftDashborad = ({ data }) => {
   const classes = useStyles();
   return (
     <>
-      {console.log(data)}
+      {/* {console.log(data)} */}
       {data.map((x, index) => (
         //Left side of the profile dashboard
 
@@ -92,18 +92,22 @@ const LeftDashborad = ({ data }) => {
                 className="EmpProfilephoto"
                 key={index}
               ></img>
-              {data.map((x) =>
+              {data.map((x,index) =>
                 x.employment_status === "Active" ? (
+                  <div key={index}>
                   <CheckCircleIcon
                     className="status-icon"
                     style={{
                       color: "#3ECC27",
                       bottom: "65%",
                       position: "relative",
+                      
                     }}
                     title="Active"
                   ></CheckCircleIcon>
+                  </div>
                 ) : (
+                  <div key={index}>
                   <RemoveCircleRoundedIcon
                     title="Inactive"
                     style={{
@@ -113,6 +117,7 @@ const LeftDashborad = ({ data }) => {
                       position: "relative",
                     }}
                   ></RemoveCircleRoundedIcon>
+                  </div>
                 )
               )}
               {/*Avatar ends here */}
@@ -124,7 +129,7 @@ const LeftDashborad = ({ data }) => {
               <h2 className="Designation" style={{textTransform:"capitalize", textOverflow:"ellipsis",overflowX:"hidden"}}>{x.role}</h2>
               {/* <h2 className="Employee_name" style={{ color: "#282936"}}>{ x.employment_type}</h2> */}
               <Paper id="status" className={classes.paper} style={{textTransform:"capitalize", textOverflow:"ellipsis",overflowX:"hidden"}}>
-                {console.log(dummy[0].summary)}
+                {/* {console.log(dummy[0].summary)} */}
                 <FormatQuoteIcon style={{ color: "#FFA500" }}></FormatQuoteIcon>
                 {dummy[0].summary !== "" ? (
                   <p>{dummy[0].summary}</p>
@@ -136,11 +141,15 @@ const LeftDashborad = ({ data }) => {
                 <Grid
                   container
                   xs={12}
+                  sm={12}
+                  md={12}
+                  lg={12}
                   spacing={1}
+                  item={true}
                   className={classes.Grid_container}
                   style={{ textAlign: "start", marginTop: "10%"  ,textOverflow:"ellipsis",overflowX:"hidden"}}
                 >
-                  <Grid item xs={3}>
+                  <Grid item xs={3} sm={3} md={3} lg={3}>
                     <ContactMailSharpIcon
                       className="LeftDashboard_icon"
                       style={{
@@ -151,7 +160,7 @@ const LeftDashborad = ({ data }) => {
                       }}
                     ></ContactMailSharpIcon>
                   </Grid>
-                  <Grid item xs={9}>
+                  <Grid item xs={9} sm={9} md={9} lg={9}>
                     <a
                       title={x.email}
                       href="/"
@@ -163,7 +172,7 @@ const LeftDashborad = ({ data }) => {
                     </a>
                   </Grid>
 
-                  <Grid item xs={3}>
+                  <Grid item xs={3} sm={3} md={3} lg={3}>
                     <AccountTreeOutlinedIcon
                       className="LeftDashboard_icon"
                       style={{
@@ -174,12 +183,12 @@ const LeftDashborad = ({ data }) => {
                       }}
                     ></AccountTreeOutlinedIcon>
                   </Grid>
-                  <Grid item xs={9}>
+                  <Grid item xs={9} sm={9} md={9} lg={9}>
                     <p title="Organization" className="left-details">
                       {x.Pod}
                     </p>
                   </Grid>
-                  <Grid item xs={3}>
+                  <Grid item xs={3} sm={3} md={3} lg={3}>
                     <AccessTimeIcon
                       className="LeftDashboard_icon"
                       style={{
@@ -190,44 +199,44 @@ const LeftDashborad = ({ data }) => {
                       }}
                     ></AccessTimeIcon>
                   </Grid>
-                  <Grid item xs={9}>
+                  <Grid item xs={9} sm={9} md={9} lg={9}>
                     <p title="Lister Experience" className="left-details">
                       {experienceCalci(x.date_of_joining)>0.1? experienceCalci(x.date_of_joining) +" years" :"NA"} 
                     </p>
                   </Grid>
-                  <Grid item xs={3}>
+                  <Grid item xs={3} sm={3} md={3} lg={3}>
                     <p title="Employment type" className="left-details"style={{ color: "#282936"}}>
                       Type
                     </p>
                   </Grid>
-                  <Grid item xs={9}>
+                  <Grid item xs={9} sm={9} md={9} lg={9}>
                     <p className="left-details" >
                       {x.employment_type}
                     </p>
                   </Grid>
-                  <Grid item xs={3}>
+                  <Grid item xs={3} sm={3} md={3} lg={3}>
                     <p title="Current Project"className="left-details" style={{ color: "#282936"}} >
                       Project
                     </p>
                   </Grid>
-                  <Grid item xs={9}>
+                  <Grid item xs={9} sm={9} md={9} lg={9}>
                     <p className="left-details" >
                       {x.current_working_project}
                     </p>
                   </Grid>
-                  <Grid item xs={3}>
+                  <Grid item xs={3} sm={3} md={3} lg={3}>
                     <p title="Lister Level"className="left-details" style={{ color: "#282936"}} >
                       Level
                     </p>
                   </Grid>
-                  <Grid item xs={9}>
+                  <Grid item xs={9} sm={9} md={9} lg={9}>
                     <p className="left-details" >
                       {x.lister_level}
                     </p>
                   </Grid>
                 </Grid>
               </div>
-              <button class="button1">
+              <button className="button1">
                 <span>
                   <a
                     href={config.drupal_url + "/node/" + x.nid + "/edit"}

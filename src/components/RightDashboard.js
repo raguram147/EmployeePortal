@@ -80,61 +80,65 @@ const RightDashboard = ({ data }) => {
   );
   return (
     <>
-      {data.map((x) => (
-        <div className="RightDashboard">
-          <Grid container xs={12} sm={12} lg={12}>
-            <Grid item xs={12} sm={12} lg={12}>
+      {data.map((x,index) => (
+        <div className="RightDashboard" key={index}>
+          <Grid container xs={12} sm={12} md={12} lg={12} item={true}>
+            <Grid item xs={12} sm={12} md={12} lg={12}>
               <Paper className={classes.paper}>
                 <h1 className="heading">Skills</h1>
 
-                {x.primary_skills && x.primary_skills.split(", ").map((value) => (
+                {x.primary_skills && x.primary_skills.split(", ").map((value,index) => (
                   <Chip
                     className={classes.chip}
-                    classname={classes.chip}
                     style={{ backgroundColor: "#E16428", color: "#f1f1f1" }}
                     label={value}
+                    key={index}
                   />
                 ))}
-                {x.secndary_skills && x.secndary_skills.split(", ").map((value) => (
+                {x.secndary_skills && x.secndary_skills.split(", ").map((value,index) => (
                   <Chip
                     variant="outlined"
-                    classname={classes.chip}
+                    className={classes.chip}
                     style={{ border: "#E16428 solid 2px", color: "#E16428" }}
                     label={value}
+                    key={index}
                   />
                 ))}
               </Paper>
             </Grid>
-            <Grid item xs={12} sm={12} lg={12}>
+            <Grid item xs={12} sm={12} md={12} lg={12}>
               <Paper className={classes.paper}>
                 <h1 className="heading">Platforms/Technology</h1>
 
-                {x.platform&&x.platform.split(", ").map((value) => (
+                {x.platform&&x.platform.split(", ").map((value,index) => (
                   <Chip
                     className={classes.chip}
                     style={{ backgroundColor: "#E16428", color: "#f1f1f1" }}
                     label={value}
+                    key={index}
                   ></Chip>
-                ))}{x.technology && x.technology.split(", ").map((value) => (
+                ))}{x.technology && x.technology.split(", ").map((value,index) => (
                   <Chip
                     variant="outlined"
-                    classname={classes.chip}
+                    className={classes.chip}
                     style={{ border: "#E16428 solid 2px", color: "#E16428" }}
                     label={value.replace('&amp;', '&')}
+                    key={index}
                   />
                 ))}
               </Paper>
             </Grid>
-            <Grid item xs={12} sm={12} lg={12}>
+            <Grid item xs={12} sm={12} md={12} lg={12}>
               <Paper className={classes.paper1}>
                 <h1 className="heading">Certificates</h1>
 
-                {x.certifications&&x.certifications.map((value) => (
+                {x.certifications&&x.certifications.map((value,index) => (
                   <Chip
                     className={classes.chip}
                     style={{ backgroundColor: "#E16428", color: "#f1f1f1" }}
                     label={value}
                     icon={icons}
+                    key={index}
                   ></Chip>
                 ))}
                 

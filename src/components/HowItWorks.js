@@ -136,6 +136,7 @@ export const HowItWorks = () => {
         md={12}
         lg={12}
         spacing={0}
+        item={true}
         direction="column"
       >
         <Grid item xs={12} sm={12} md={12} lg={12}>
@@ -143,8 +144,8 @@ export const HowItWorks = () => {
             {HowItWorks &&
               HowItWorks.map((x, index) =>
                 index % 2 === 0 && HowItWorks[index] ? (
-                  <>
-                    <Grid container direction="row">
+                  <div key={index}>
+                    <Grid container xs={12} sm={12} md={12} lg={12} spacing={0} direction="row" item={true}>
                       <Grid item xs={12} sm={12} md={6} lg={6}>
                         <div data-aos="fade-right" className="Left">
                           <LeftHowItworks>
@@ -164,12 +165,12 @@ export const HowItWorks = () => {
                         </div>
                       </Grid>
                     </Grid>
-                  </>
+                  </div>
                 ) : (
-                  <>
+                  <div key={index}>
                     <Grid
                       container
-                      direction={matches ? "column-reverse" : "row"}
+                      direction={matches ? "column-reverse" : "row"} spacing={0} item={true}
                     >
                       <Grid item xs={12} sm={12} md={6} lg={6}>
                         <div
@@ -196,7 +197,7 @@ export const HowItWorks = () => {
                         </div>
                       </Grid>
                     </Grid>
-                  </>
+                  </div>
                 )
               )}
           </Row>
